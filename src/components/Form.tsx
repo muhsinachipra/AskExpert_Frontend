@@ -1,33 +1,32 @@
-
 export default function Form() {
     return (
-        <div className="md:w-8/12 bg-gray-100 px-10 py-10 rounded-xl border-2 border-black-500">
-            <h1 className="text-5xl font-semibold text-center">Welcome</h1>
-            {/* <p className="font-medium text-lg text-gray-500 mt-4">please enter your details</p> */}
+        <div className="border-2 bg-gray-100 dark:bg-gray-800 px-10 py-10 border-black-500 rounded-xl md:w-8/12">
+            <h1 className="font-semibold text-5xl text-center dark:text-white">Welcome</h1>
+            {/* <p className="mt-4 font-medium text-gray-500 text-lg dark:text-gray-400">please enter your details</p> */}
             <div className="mt-8">
                 <div>
                     <input
-                        className="w-full border-2 border-slate-200 rounded p-4 mt-1 bg-white placeholder:text-slate-600"
+                        className="border-2 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 mt-1 p-4 rounded w-full placeholder:text-slate-600"
                         placeholder="Your Email"
                     />
                 </div>
                 <div className="mt-3">
                     <input
-                        className="w-full border-2 border-slate-200 rounded p-4 mt-1 bg-white placeholder:text-slate-600"
+                        className="border-2 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 mt-1 p-4 rounded w-full placeholder:text-slate-600"
                         placeholder="Your Password"
                         type="password"
                     />
                 </div>
-                <div className="mt-4 flex justify-between items-center">
+                <div className="flex justify-between items-center mt-4">
                     <div>
                         {/* <input id="rememberMe" type="checkbox" />
-                        <label htmlFor="rememberMe" className="ml-2 font-medium text-base">Remeber me</label> */}
+                        <label htmlFor="rememberMe" className="ml-2 font-medium text-base text-gray-500 dark:text-gray-400">Remember me</label> */}
                     </div>
-                    <button type="button" className="font-medium text-base text-blue-500 ">Forget Password</button>
+                    <button type="button" className="font-medium text-base text-blue-500 dark:text-blue-400">Forget Password</button>
                 </div>
-                <div className="mt-5 flex flex-col gap-y-4">
-                    <button type="button" className="active:scale-[0.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out bg-blue-500 text-white text-lg font-bold rounded py-3">Sign in</button>
-                    <button type="button" className="flex items-center justify-center gap-2 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-3  rounded text-gray-700 font-semibold text-lg border-2 border-slate-200 bg-white">
+                <div className="flex flex-col gap-y-4 mt-5">
+                    <button type="button" className="active:scale-[0.98] bg-blue-500 dark:bg-blue-600 py-3 rounded font-bold text-lg text-white dark:text-gray-900 transition-all active:duration-75 hover:scale-[1.01] ease-in-out">Sign in</button>
+                    <button type="button" className="flex justify-center items-center gap-2 active:scale-[.98] border-2 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 py-3 font-semibold text-gray-700 dark:text-gray-200 transition-all active:duration-75 hover:scale-[1.01] rounded text-lg transform ease-in-out">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.26644 9.76453C6.19903 6.93863 8.85469 4.90909 12.0002 4.90909C13.6912 4.90909 15.2184 5.50909 16.4184 6.49091L19.9093 3C17.7821 1.14545 15.0548 0 12.0002 0C7.27031 0 3.19799 2.6983 1.24023 6.65002L5.26644 9.76453Z" fill="#EA4335" />
                             <path d="M16.0406 18.0142C14.9508 18.718 13.5659 19.0926 11.9998 19.0926C8.86633 19.0926 6.21896 17.0785 5.27682 14.2695L1.2373 17.3366C3.19263 21.2953 7.26484 24.0017 11.9998 24.0017C14.9327 24.0017 17.7352 22.959 19.834 21.0012L16.0406 18.0142Z" fill="#34A853" />
@@ -37,9 +36,9 @@ export default function Form() {
                         Sign in with Google
                     </button>
                 </div>
-                <div className='mt-8 flex justify-center items-center'>
-                    <p className='font-medium text-base'>Don't have an account?</p>
-                    <button type='button' className='ml-2 font-medium text-base text-blue-500'>Sign up</button>
+                <div className='flex justify-center items-center mt-8'>
+                    <p className='font-medium text-base dark:text-gray-400'>Don't have an account?</p>
+                    <button type='button' className='ml-2 font-medium text-base text-blue-500 dark:text-blue-400'>Sign up</button>
                 </div>
             </div>
         </div>
