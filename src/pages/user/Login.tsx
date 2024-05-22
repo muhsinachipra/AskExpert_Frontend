@@ -35,6 +35,7 @@ export default function Login() {
                 console.log(values);
                 setIsLoading(true);
                 const res = await login(values).unwrap();
+                console.log('sfsadfs', res);
                 dispatch(setCredential({ ...res.data }));
                 navigate('/')
                 toast.success(res.message);
