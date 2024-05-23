@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { clearRegister, setRegister } from "../../slices/authSlice";
 import { useState } from "react";
 import Spinner from "../../components/Spinner";
-import { useSendOtpToEmailMutation } from "../../slices/userApiSlice";
+import { useSendOtpToEmailMutation } from "../../slices/api/userApiSlice";
 import { toast } from "react-toastify";
 
 export default function SignUp() {

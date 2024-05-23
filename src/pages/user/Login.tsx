@@ -2,7 +2,7 @@
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useGoogleAuthMutation, useLoginMutation } from "../../slices/userApiSlice";
+import { useGoogleAuthMutation, useLoginMutation } from "../../slices/api/userApiSlice";
 import { useState } from "react";
 import { Logins, MyError } from "../../validation/validationTypes";
 import { loginValidation } from "../../validation/yupValidation";
@@ -129,9 +129,14 @@ export default function Login() {
                                     </svg>
                                     Sign in with Google
                                 </button> */}
-                                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Don't have an account? <Link to={'/register'} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Register here</Link>
-                                </p>
+                                <div className="flex items-center justify-between">
+                                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                                        Don't have an account? <Link to={'/register'} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Register here</Link>
+                                    </p>
+                                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                                        <Link to={'/forgot'} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</Link>
+                                    </p>
+                                </div>
                             </form>
                         </div>
                     </div>

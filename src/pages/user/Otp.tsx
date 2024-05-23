@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useEffect, useState } from "react";
-import { useOtpVerificationMutation, useRegisterMutation, useSendOtpToEmailMutation } from "../../slices/userApiSlice";
+import { useOtpVerificationMutation, useRegisterMutation, useSendOtpToEmailMutation } from "../../slices/api/userApiSlice";
 import { MyError } from "../../validation/validationTypes";
 import { clearRegister } from "../../slices/authSlice";
 import { toast } from "react-toastify";

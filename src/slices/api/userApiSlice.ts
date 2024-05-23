@@ -1,4 +1,4 @@
-import { apiSlice } from "./api/apiSlice";
+import { apiSlice } from "./apiSlice";
 
 const USER_URL = "/api/user";
 
@@ -44,6 +44,22 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
+        sendOTPforgotPassword: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/sendOTPforgotPassword`,
+                method: "POST",
+                body: data,
+            }),
+        }),
+
+        // user forgot password
+        forgotPassword: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/forgotPassword`,
+                method: "POST",
+                body: data,
+            }),
+        }),
 
     }),
 });
@@ -54,4 +70,6 @@ export const {
     useOtpVerificationMutation,
     useSendOtpToEmailMutation,
     useGoogleAuthMutation,
+    useSendOTPforgotPasswordMutation,
+    useForgotPasswordMutation,
 } = userApiSlice;
