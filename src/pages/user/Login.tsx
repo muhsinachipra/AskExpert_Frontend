@@ -1,11 +1,12 @@
+// frontend\src\pages\user\Login.tsx
 // import Header from "../../components/Header";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useGoogleAuthMutation, useLoginMutation } from "../../slices/api/userApiSlice";
 import { useState } from "react";
-import { Logins, MyError } from "../../validation/validationTypes";
-import { loginValidation } from "../../validation/yupValidation";
+import { MyError } from "../../validation/validationTypes";
+import { loginSchema } from "../../validation/yupValidation";
 import { setCredential } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Spinner";
@@ -21,7 +22,7 @@ export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    const initialValues: Logins = {
+    const initialValues = {
         email: "",
         password: ""
     };
@@ -29,7 +30,7 @@ export default function Login() {
 
     const { values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: initialValues,
-        validationSchema: loginValidation,
+        validationSchema: loginSchema,
         onSubmit: async (values) => {
             try {
                 console.log(values);

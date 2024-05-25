@@ -1,7 +1,8 @@
+// frontend\src\pages\user\ForgotPassword.tsx
 // import Header from "../../components/Header";
 
 import { useState } from "react";
-import { useSendOTPforgotPasswordMutation } from "../../slices/api/userApiSlice";
+import { useForgotPasswordMutation } from "../../slices/api/userApiSlice";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { useDispatch } from "react-redux";
@@ -13,7 +14,7 @@ import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
 
-    const [sendOTPforgotPassword] = useSendOTPforgotPasswordMutation();
+    const [forgotPassword] = useForgotPasswordMutation();
     const [isSumbit, setSubmit] = useState(false)
     const dispatch = useDispatch();
 
@@ -34,7 +35,7 @@ export default function ForgotPassword() {
                 const { email } = values;
                 const name = email.split("@")[0]; // Extract the part before the @ symbol as the name
                 dispatch(setForgotEmail(email))
-                const res = await sendOTPforgotPassword({ name, email }).unwrap();
+                const res = await forgotPassword({ name, email }).unwrap();
                 setSubmit(false)
                 toast.success(res.message)
             } catch (err) {

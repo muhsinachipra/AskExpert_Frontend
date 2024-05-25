@@ -1,4 +1,4 @@
-// LandingPage.tsx 
+// frontend\src\pages\user\LandingPage.tsx
 
 import CategoryCard from "../../components/CategoryCard";
 import Header from "../../components/Header";

@@ -1,7 +1,7 @@
 // frontend\src\pages\user\SignUp.tsx
 
 import { Link, useNavigate } from "react-router-dom";
-import { FormValues } from "../../validation/validationTypes";
+// import { FormValues } from "../../validation/validationTypes";
 import { useFormik } from "formik";
 import { validationSchema } from "../../validation/yupValidation";
 import { useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ export default function SignUp() {
     const [isSumbit, setSubmit] = useState(false)
     const Navigate = useNavigate()
 
-    const initialValues: FormValues = {
+    const initialValues = {
         name: '',
         mobile: '',
         password: '',

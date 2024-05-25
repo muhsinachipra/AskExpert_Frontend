@@ -1,4 +1,7 @@
+// frontend\src\components\Header.tsx
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { RootState } from "../app/store";
 
 
 const navItems = [
@@ -10,11 +13,16 @@ const navItems = [
 export default function Header() {
 
     const navigate = useNavigate();
+    const isAuthenticated = useSelector((state: RootState) => state.auth.userInfo);
+    console.log('isAuthenticated', isAuthenticated);
 
-    const handleLoginButtonClick = () => {
-        navigate("/login");
+    const handleButtonClick = () => {
+        if (isAuthenticated) {
+            navigate("/profile");
+        } else {
+            navigate("/login");
+        }
     };
-
 
     return (
         <header className="bg-neutral-200 py-4 flex gap-5 justify-between self-center w-full max-md:flex-wrap">
@@ -29,8 +37,8 @@ export default function Header() {
                         {item.label}
                     </Link>
                 ))}
-                <button type="button" onClick={handleLoginButtonClick} className="justify-center mr-4 px-5 py-2 rounded-full  font-semibold text-white capitalize bg-indigo-500 max-md:px-9">
-                    Log in
+                <button type="button" onClick={handleButtonClick} className="justify-center mr-4 px-5 py-2 rounded-full  font-semibold text-white capitalize bg-indigo-500 max-md:px-9">
+                    {isAuthenticated ? "Profile" : "Log in"}
                 </button>
             </nav>
         </header>

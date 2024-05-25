@@ -38,19 +38,19 @@ export const userApiSlice = apiSlice.injectEndpoints({
 
         otpVerification: builder.mutation({
             query: (data) => ({
-                url: `${USER_URL}/verifyEmail`,
+                url: `${USER_URL}/verifyOTP`,
                 method: "POST",
                 body: data,
             }),
         }),
 
-        sendOTPforgotPassword: builder.mutation({
-            query: (data) => ({
-                url: `${USER_URL}/sendOTPforgotPassword`,
-                method: "POST",
-                body: data,
-            }),
-        }),
+        // sendOTPforgotPassword: builder.mutation({
+        //     query: (data) => ({
+        //         url: `${USER_URL}/sendOTPforgotPassword`,
+        //         method: "POST",
+        //         body: data,
+        //     }),
+        // }),
 
         // user forgot password
         forgotPassword: builder.mutation({
@@ -61,6 +61,23 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
+        resetPassword: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/resetPassword`,
+                method: "POST",
+                body: data,
+            }),
+        }),
+
+        validateAccesssToken: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/validateAccessToken`,
+                method: "POST",
+                body: data,
+            }),
+        }),
+
+
     }),
 });
 
@@ -70,6 +87,7 @@ export const {
     useOtpVerificationMutation,
     useSendOtpToEmailMutation,
     useGoogleAuthMutation,
-    useSendOTPforgotPasswordMutation,
     useForgotPasswordMutation,
+    useResetPasswordMutation,
+    useValidateAccesssTokenMutation,
 } = userApiSlice;

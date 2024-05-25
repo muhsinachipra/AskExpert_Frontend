@@ -1,3 +1,4 @@
+// frontend\src\slices\authSlice.ts
 import { createSlice } from "@reduxjs/toolkit";
 
 export type UserInfo = {
