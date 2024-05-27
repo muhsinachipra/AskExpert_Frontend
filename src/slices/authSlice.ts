@@ -1,4 +1,5 @@
 // frontend\src\slices\authSlice.ts
+
 import { createSlice } from "@reduxjs/toolkit";
 
 export type UserInfo = {
@@ -50,6 +51,10 @@ const authSlice = createSlice({
             state.forgotEmailInfo = null;
             localStorage.removeItem("forgotEmailInfo");
         },
+        userLogout: (state) => {
+            state.userInfo = null;
+            localStorage.removeItem("userInfo");
+        },
     }
 })
 
@@ -59,6 +64,7 @@ export const {
     clearRegister,
     setForgotEmail,
     clearForgotEmail,
+    userLogout,
 } = authSlice.actions;
 
 export default authSlice.reducer

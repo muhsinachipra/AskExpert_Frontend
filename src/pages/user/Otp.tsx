@@ -7,7 +7,7 @@ import { useOtpVerificationMutation, useRegisterMutation, useSendOtpToEmailMutat
 import { MyError } from "../../validation/validationTypes";
 import { clearRegister } from "../../slices/authSlice";
 import { toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -16,7 +16,7 @@ export default function Otp() {
     const dispatch = useDispatch();
     const { registerInfo } = useSelector((state: RootState) => state.auth);
     const [otp, setOtp] = useState("");
-    const Navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [otpVerification] = useOtpVerificationMutation();
     const [register] = useRegisterMutation();
@@ -39,12 +39,13 @@ export default function Otp() {
     }, [timer]);
 
 
-    const resendOtpHandler = async (e: any) => {
+    const resendOtpHandler = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         setTimer(60);
         setShowResendButton(false);
         try {
-            const { name, email }: any = registerInfo;
+            const name = registerInfo?.name;
+            const email = registerInfo?.email;
             const res = await sendOtpToEmail({ name, email }).unwrap();
             toast.success(res.message);
         } catch (err) {
@@ -52,14 +53,16 @@ export default function Otp() {
         }
     };
 
-    const submitRegisterHandler = async (e: any) => {
+    const submitRegisterHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
-            const { email }: any = registerInfo;
+            const email = registerInfo?.email;
             const res = await otpVerification({ otp, email }).unwrap();
 
             if (res.success) {
-                const { name, password, mobile }: any = registerInfo;
+                const name = registerInfo?.name;
+                const password = registerInfo?.password;
+                const mobile = registerInfo?.mobile;
                 const result = await register({
                     name,
                     email,
@@ -69,7 +72,7 @@ export default function Otp() {
                 console.log('result :', result)
                 dispatch(clearRegister());
                 toast.success("Successfully Registerd");
-                Navigate('/')
+                navigate('/')
             }
         } catch (err) {
             toast.error((err as MyError)?.data?.message || (err as MyError)?.error);

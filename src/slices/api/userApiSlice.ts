@@ -1,3 +1,5 @@
+// frontend\src\slices\api\userApiSlice.ts
+
 import { apiSlice } from "./apiSlice";
 
 const USER_URL = "/api/user";
@@ -44,14 +46,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        // sendOTPforgotPassword: builder.mutation({
-        //     query: (data) => ({
-        //         url: `${USER_URL}/sendOTPforgotPassword`,
-        //         method: "POST",
-        //         body: data,
-        //     }),
-        // }),
-
         // user forgot password
         forgotPassword: builder.mutation({
             query: (data) => ({
@@ -77,6 +71,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
+        userLogout: builder.mutation({
+            query: () => ({
+                url: `${USER_URL}/logout`,
+                method: "POST",
+            }),
+        }),
 
     }),
 });
@@ -90,4 +90,5 @@ export const {
     useForgotPasswordMutation,
     useResetPasswordMutation,
     useValidateAccesssTokenMutation,
+    useUserLogoutMutation,
 } = userApiSlice;

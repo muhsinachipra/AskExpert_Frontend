@@ -1533,87 +1533,141 @@
 
 // expert register 
 
-import * as React from "react";
+// import * as React from "react";
 
-interface InputFieldProps {
-  label: string;
-  value: string;
-  className?: string;
-}
+// interface InputFieldProps {
+//   label: string;
+//   value: string;
+//   className?: string;
+// }
 
-const InputField: React.FC<InputFieldProps> = ({ value, className }) => {
+// const InputField: React.FC<InputFieldProps> = ({ value, className }) => {
+//   return (
+//     <div className={`grow justify-center items-start px-7 py-7 bg-white rounded-2xl border border-solid border-slate-200 w-fit max-md:px-5 max-md:max-w-full ${className}`}>
+//       {value}
+//     </div>
+//   );
+// };
+
+// interface SelectFieldProps {
+//   label: string;
+//   value: string;
+//   className?: string;
+// }
+
+// const SelectField: React.FC<SelectFieldProps> = ({ value, className }) => {
+//   return (
+//     <div className={`flex flex-auto gap-5 px-8 py-7 bg-white rounded-2xl border border-solid border-slate-200 max-md:flex-wrap max-md:px-5 max-md:max-w-full ${className}`}>
+//       <div className="flex-auto">{value}</div>
+//       <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3eea0c1bbee78e75f9bbcb44c0ccf04ee9590f22f5acf709380ab0a5b7b7021?apiKey=62cb0e3201dd4b038734137173080a0d&" alt="" className="shrink-0 self-start mt-1.5 border-2 border-solid aspect-[1.79] border-slate-400 stroke-[1.5px] stroke-slate-400 w-[18px]" />
+//     </div>
+//   );
+// };
+
+// const fields = [
+//   { label: "Your Full name", value: "Charlene Reed" },
+//   { label: "Password", value: "**********" },
+//   { label: "Email", value: "charlenereed@gmail.com" },
+//   { label: "Confirm Password", value: "**********" },
+//   { label: "Full Address", value: "San Jose, California, USA" },
+// ];
+
+// export default function MyComponent() {
+//   return (
+//     <div className="flex flex-col text-base text-neutral-800">
+//       <div className="flex gap-5 w-full max-md:flex-wrap max-md:max-w-full">
+//         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/80a9d37d34f9feee0051e8a619944492e8458ffe256cb9efa8d9785d22ea8950?apiKey=62cb0e3201dd4b038734137173080a0d&" alt="Profile" className="shrink-0 self-start max-w-full aspect-[1.02] w-[183px]" />
+//         <div className="flex flex-col grow shrink-0 basis-0 w-fit max-md:max-w-full">
+//           <div className="flex gap-5 max-w-full w-[688px] max-md:flex-wrap">
+//             <div className="flex-auto capitalize">{fields[0].label}</div>
+//             <div>{fields[1].label}</div>
+//           </div>
+//           <div className="flex gap-5 mt-7 text-base text-slate-400 max-md:flex-wrap max-md:max-w-full">
+//             <InputField label={fields[0].label} value={fields[0].value} />
+//             <InputField label={fields[1].label} value={fields[1].value} className="py-8 whitespace-nowrap" />
+//           </div>
+//           <div className="flex gap-5 mt-8 max-w-full w-[753px] max-md:flex-wrap">
+//             <div>{fields[2].label}</div>
+//             <div className="flex-auto">{fields[3].label}</div>
+//           </div>
+//           <div className="flex gap-5 mt-7 text-base text-slate-400 max-md:flex-wrap max-md:max-w-full">
+//             <InputField label={fields[2].label} value={fields[2].value} />
+//             <InputField label={fields[3].label} value={fields[3].value} className="px-7 py-8 whitespace-nowrap" />
+//           </div>
+//         </div>
+//       </div>
+//       <div className="flex flex-col self-center px-5 mt-9 w-full max-w-[1194px] max-md:max-w-full">
+//         <div className="flex gap-5 max-w-full w-[707px] max-md:flex-wrap">
+//           <div className="flex-auto capitalize">Field of expertise</div>
+//           <div>{fields[4].label}</div>
+//         </div>
+//         <div className="flex gap-5 mt-6 w-full text-base text-slate-400 max-md:flex-wrap max-md:max-w-full">
+//           <SelectField label="Field of expertise" value="Choose a field" />
+//           <InputField label={fields[4].label} value={fields[4].value} />
+//         </div>
+//         <div className="mt-9 max-md:max-w-full">Upload Credentials</div>
+//         <div className="flex gap-5 justify-between px-6 py-4 mt-6 max-w-full text-base bg-white rounded-2xl border border-solid border-slate-200 text-slate-400 w-[577px] max-md:flex-wrap max-md:pl-5">
+//           <div className="my-auto">Select Files</div>
+//           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/35adf9dab3b3361bf35bd2bea70abebcfa02857652b6576c8423090e6657e098?apiKey=62cb0e3201dd4b038734137173080a0d&" alt="" className="shrink-0 aspect-[1.2] w-[47px]" />
+//         </div>
+//         <button className="items-center self-center px-16 pt-7 pb-4 mt-16 max-w-full text-2xl font-medium text-center text-white whitespace-nowrap bg-indigo-500 w-[262px] max-md:px-5 max-md:mt-10">
+//           Apply
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+import React, { useState } from 'react';
+
+const MyComponent: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className={`grow justify-center items-start px-7 py-7 bg-white rounded-2xl border border-solid border-slate-200 w-fit max-md:px-5 max-md:max-w-full ${className}`}>
-      {value}
+    <div className="relative inline-block text-left">
+      <div onClick={toggleDropdown} className="flex items-center cursor-pointer p-2 rounded bg-gray-100">
+        <img
+          src="https://via.placeholder.com/40" // Replace with the actual profile picture URL
+          alt="Profile"
+          className="w-10 h-10 rounded-full mr-3"
+        />
+        <div>
+          <p className="font-bold">Eucharia Odili</p>
+          <p className="text-gray-500 text-sm">Administrator</p>
+        </div>
+      </div>
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
+          <div className="py-1">
+            <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <span className="mr-3">👤</span>
+              Edit profile
+              <span className="ml-auto text-gray-500">E</span>
+            </button>
+            <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <span className="mr-3">🔧</span>
+              Widget settings
+              <span className="ml-auto text-gray-500">W</span>
+            </button>
+            <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <span className="mr-3">🚀</span>
+              Upgrade to professional
+            </button>
+            <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <span className="mr-3">🚪</span>
+              Log out
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-interface SelectFieldProps {
-  label: string;
-  value: string;
-  className?: string;
-}
-
-const SelectField: React.FC<SelectFieldProps> = ({ value, className }) => {
-  return (
-    <div className={`flex flex-auto gap-5 px-8 py-7 bg-white rounded-2xl border border-solid border-slate-200 max-md:flex-wrap max-md:px-5 max-md:max-w-full ${className}`}>
-      <div className="flex-auto">{value}</div>
-      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3eea0c1bbee78e75f9bbcb44c0ccf04ee9590f22f5acf709380ab0a5b7b7021?apiKey=62cb0e3201dd4b038734137173080a0d&" alt="" className="shrink-0 self-start mt-1.5 border-2 border-solid aspect-[1.79] border-slate-400 stroke-[1.5px] stroke-slate-400 w-[18px]" />
-    </div>
-  );
-};
-
-const fields = [
-  { label: "Your Full name", value: "Charlene Reed" },
-  { label: "Password", value: "**********" },
-  { label: "Email", value: "charlenereed@gmail.com" },
-  { label: "Confirm Password", value: "**********" },
-  { label: "Full Address", value: "San Jose, California, USA" },
-];
-
-export default function MyComponent() {
-  return (
-    <div className="flex flex-col text-base text-neutral-800">
-      <div className="flex gap-5 w-full max-md:flex-wrap max-md:max-w-full">
-        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/80a9d37d34f9feee0051e8a619944492e8458ffe256cb9efa8d9785d22ea8950?apiKey=62cb0e3201dd4b038734137173080a0d&" alt="Profile" className="shrink-0 self-start max-w-full aspect-[1.02] w-[183px]" />
-        <div className="flex flex-col grow shrink-0 basis-0 w-fit max-md:max-w-full">
-          <div className="flex gap-5 max-w-full w-[688px] max-md:flex-wrap">
-            <div className="flex-auto capitalize">{fields[0].label}</div>
-            <div>{fields[1].label}</div>
-          </div>
-          <div className="flex gap-5 mt-7 text-base text-slate-400 max-md:flex-wrap max-md:max-w-full">
-            <InputField label={fields[0].label} value={fields[0].value} />
-            <InputField label={fields[1].label} value={fields[1].value} className="py-8 whitespace-nowrap" />
-          </div>
-          <div className="flex gap-5 mt-8 max-w-full w-[753px] max-md:flex-wrap">
-            <div>{fields[2].label}</div>
-            <div className="flex-auto">{fields[3].label}</div>
-          </div>
-          <div className="flex gap-5 mt-7 text-base text-slate-400 max-md:flex-wrap max-md:max-w-full">
-            <InputField label={fields[2].label} value={fields[2].value} />
-            <InputField label={fields[3].label} value={fields[3].value} className="px-7 py-8 whitespace-nowrap" />
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col self-center px-5 mt-9 w-full max-w-[1194px] max-md:max-w-full">
-        <div className="flex gap-5 max-w-full w-[707px] max-md:flex-wrap">
-          <div className="flex-auto capitalize">Field of expertise</div>
-          <div>{fields[4].label}</div>
-        </div>
-        <div className="flex gap-5 mt-6 w-full text-base text-slate-400 max-md:flex-wrap max-md:max-w-full">
-          <SelectField label="Field of expertise" value="Choose a field" />
-          <InputField label={fields[4].label} value={fields[4].value} />
-        </div>
-        <div className="mt-9 max-md:max-w-full">Upload Credentials</div>
-        <div className="flex gap-5 justify-between px-6 py-4 mt-6 max-w-full text-base bg-white rounded-2xl border border-solid border-slate-200 text-slate-400 w-[577px] max-md:flex-wrap max-md:pl-5">
-          <div className="my-auto">Select Files</div>
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/35adf9dab3b3361bf35bd2bea70abebcfa02857652b6576c8423090e6657e098?apiKey=62cb0e3201dd4b038734137173080a0d&" alt="" className="shrink-0 aspect-[1.2] w-[47px]" />
-        </div>
-        <button className="items-center self-center px-16 pt-7 pb-4 mt-16 max-w-full text-2xl font-medium text-center text-white whitespace-nowrap bg-indigo-500 w-[262px] max-md:px-5 max-md:mt-10">
-          Apply
-        </button>
-      </div>
-    </div>
-  );
-}
+export default MyComponent;
