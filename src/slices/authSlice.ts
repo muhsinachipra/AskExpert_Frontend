@@ -2,6 +2,12 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
+export type AdminInfo = {
+    _id?: string;
+    email: string;
+    password: string;
+}
+
 export type UserInfo = {
     _id?: string;
     email: string;
@@ -13,16 +19,19 @@ export type UserInfo = {
 
 type initialState = {
     userInfo: UserInfo | null;
+    adminInfo: AdminInfo | null;
     registerInfo: UserInfo | null;
     forgotEmailInfo: string | null;
 }
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo');
+const adminInfoFromLocalStorage = localStorage.getItem('adminInfo');
 const registerInfoFromLocalStorage = localStorage.getItem("registerInfo");
 const forgotEmailInfoFromLocalStorage = localStorage.getItem("forgotEmailInfo");
 
 const initialState: initialState = {
     userInfo: userInfoFromLocalStorage ? JSON.parse(userInfoFromLocalStorage) : null,
+    adminInfo: adminInfoFromLocalStorage ? JSON.parse(adminInfoFromLocalStorage) : null,
     registerInfo: registerInfoFromLocalStorage ? JSON.parse(registerInfoFromLocalStorage) : null,
     forgotEmailInfo: forgotEmailInfoFromLocalStorage ? JSON.parse(forgotEmailInfoFromLocalStorage) : null,
 }
@@ -55,6 +64,10 @@ const authSlice = createSlice({
             state.userInfo = null;
             localStorage.removeItem("userInfo");
         },
+        setAdminCredential: (state, action) => {
+            state.adminInfo = action.payload;
+            localStorage.setItem("adminInfo", JSON.stringify(action.payload));
+        },
     }
 })
 
@@ -65,6 +78,7 @@ export const {
     setForgotEmail,
     clearForgotEmail,
     userLogout,
+    setAdminCredential,
 } = authSlice.actions;
 
 export default authSlice.reducer

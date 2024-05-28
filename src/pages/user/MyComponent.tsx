@@ -1620,53 +1620,114 @@
 
 
 
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
-const MyComponent: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+// const MyComponent: React.FC = () => {
+//   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+//   const toggleDropdown = () => {
+//     setIsOpen(!isOpen);
+//   };
 
+//   return (
+//     <div className="relative inline-block text-left">
+//       <div onClick={toggleDropdown} className="flex items-center cursor-pointer p-2 rounded bg-gray-100">
+//         <img
+//           src="https://via.placeholder.com/40" // Replace with the actual profile picture URL
+//           alt="Profile"
+//           className="w-10 h-10 rounded-full mr-3"
+//         />
+//         <div>
+//           <p className="font-bold">Eucharia Odili</p>
+//           <p className="text-gray-500 text-sm">Administrator</p>
+//         </div>
+//       </div>
+//       {isOpen && (
+//         <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
+//           <div className="py-1">
+//             <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+//               <span className="mr-3">👤</span>
+//               Edit profile
+//               <span className="ml-auto text-gray-500">E</span>
+//             </button>
+//             <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+//               <span className="mr-3">🔧</span>
+//               Widget settings
+//               <span className="ml-auto text-gray-500">W</span>
+//             </button>
+//             <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+//               <span className="mr-3">🚀</span>
+//               Upgrade to professional
+//             </button>
+//             <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+//               <span className="mr-3">🚪</span>
+//               Log out
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default MyComponent;
+
+
+
+
+
+import * as React from "react";
+
+type InputFieldProps = {
+  id: string;
+  label: string;
+  type: string;
+};
+
+const InputField: React.FC<InputFieldProps> = ({ id, label, type }) => (
+  <div className="mt-5">
+    <label htmlFor={id} className="sr-only">
+      {label}
+    </label>
+    <input
+      type={type}
+      id={id}
+      className="block w-[464px] max-w-full px-12 py-6 mt-5 bg-white border border-solid border-zinc-300 max-md:px-5"
+      placeholder={label}
+      aria-label={label}
+    />
+  </div>
+);
+
+type ButtonProps = {
+  label: string;
+};
+
+const Button: React.FC<ButtonProps> = ({ label }) => (
+  <button
+    className="block w-[464px] max-w-full px-16 py-5 mt-5 font-semibold text-center text-white capitalize bg-blue-950 max-md:px-5"
+    type="submit"
+  >
+    {label}
+  </button>
+);
+
+const MyComponent = () => {
   return (
-    <div className="relative inline-block text-left">
-      <div onClick={toggleDropdown} className="flex items-center cursor-pointer p-2 rounded bg-gray-100">
-        <img
-          src="https://via.placeholder.com/40" // Replace with the actual profile picture URL
-          alt="Profile"
-          className="w-10 h-10 rounded-full mr-3"
-        />
-        <div>
-          <p className="font-bold">Eucharia Odili</p>
-          <p className="text-gray-500 text-sm">Administrator</p>
-        </div>
+    <section className="flex justify-center items-center px-16 py-20 text-lg bg-neutral-200 text-neutral-700 max-md:px-5">
+      <div className="flex flex-col justify-center items-center p-20 mt-32 max-w-full bg-stone-50 w-[696px] max-md:px-5 max-md:mt-10">
+        <header className="mt-5">
+          <h1 className="text-4xl font-bold text-center leading-[48.4px]">
+            Log In
+          </h1>
+        </header>
+        <form className="w-full">
+          <InputField id="email" label="Your email" type="email" />
+          <InputField id="password" label="Your password" type="password" />
+          <Button label="Submit" />
+        </form>
       </div>
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
-          <div className="py-1">
-            <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              <span className="mr-3">👤</span>
-              Edit profile
-              <span className="ml-auto text-gray-500">E</span>
-            </button>
-            <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              <span className="mr-3">🔧</span>
-              Widget settings
-              <span className="ml-auto text-gray-500">W</span>
-            </button>
-            <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              <span className="mr-3">🚀</span>
-              Upgrade to professional
-            </button>
-            <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              <span className="mr-3">🚪</span>
-              Log out
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
+    </section>
   );
 };
 

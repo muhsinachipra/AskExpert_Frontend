@@ -20,7 +20,6 @@ export default function Header() {
 
     const navigate = useNavigate();
     const isAuthenticated = useSelector((state: RootState) => state.auth.userInfo);
-    console.log('isAuthenticated', isAuthenticated);
     const [isOpen, setIsOpen] = useState(false);
     const name = isAuthenticated?.name
     const email = isAuthenticated?.email
@@ -96,3 +95,13 @@ export default function Header() {
         </header>
     )
 }
+
+
+
+
+
+
+
+
+
+
