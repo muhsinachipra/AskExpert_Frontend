@@ -32,7 +32,7 @@ export default function Login() {
                 setIsLoading(true);
                 const res = await login(values).unwrap();
                 dispatch(setAdminCredential({ ...res.data }));
-                navigate('/dashboard')
+                navigate('/admin/dashboard')
                 toast.success(res.message);
             } catch (err) {
                 toast.error((err as MyError)?.data?.message || (err as MyError)?.error);
