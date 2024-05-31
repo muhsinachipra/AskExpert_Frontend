@@ -2,7 +2,7 @@
 
 import * as Yup from 'yup';
 
-export const validationSchema = Yup.object({
+export const userRegisterSchema = Yup.object({
     name: Yup.string()
         .min(3, "Name must be at least 3 characters")
         .max(30, "Name must be at most 30 characters")
@@ -24,7 +24,35 @@ export const validationSchema = Yup.object({
         .required("Please enter confirm password"),
 });
 
-export const loginSchema = Yup.object({
+export const expertRegisterSchema = Yup.object({
+    name: Yup.string()
+        .min(3, "Name must be at least 3 characters")
+        .max(30, "Name must be at most 30 characters")
+        .matches(/^[^\s]+(\s[^\s]+)*$/, "Name cannot have adjacent spaces")
+        .required("Please enter name"),
+    email: Yup.string()
+        .email("Please enter a valid email")
+        .required("Please enter email"),
+    password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .matches(/^[^\s]+$/, "Password cannot contain spaces")
+        .matches(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character")
+        .required("Please enter password"),
+    cpassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords do not match")
+        .required("Please enter confirm password"),
+    category: Yup.string()
+        .required("Please select a category"),
+    rate: Yup.number()
+        .min(500, "Rate per session must be at least 500")
+        .max(2000, "Rate per session cannot exceed 2000")
+        .required("Please enter rate per session"),
+    experience: Yup.number()
+        .min(0, "Experience must be a positive number")
+        .required("Please enter years of experience"),
+});
+
+export const userLoginSchema = Yup.object({
     email: Yup.string()
         .email("Please enter a valid email")
         .required("Please enter email"),

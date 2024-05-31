@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGoogleAuthMutation, useLoginMutation } from "../../slices/api/userApiSlice";
 import { useState } from "react";
 import { MyError } from "../../validation/validationTypes";
-import { loginSchema } from "../../validation/yupValidation";
+import { userLoginSchema } from "../../validation/yupValidation";
 import { setCredential } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Spinner";
@@ -30,7 +30,7 @@ export default function Login() {
 
     const { values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: initialValues,
-        validationSchema: loginSchema,
+        validationSchema: userLoginSchema,
         onSubmit: async (values) => {
             try {
                 setIsLoading(true);

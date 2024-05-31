@@ -1,9 +1,9 @@
-// frontend\src\pages\user\Otp.tsx
-
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useEffect, useState } from "react";
-import { useOtpVerificationMutation, useRegisterMutation, useSendOtpToEmailMutation } from "../../slices/api/userApiSlice";
+import { useExpertRegisterMutation } from "../../slices/api/expertApiSlice";
+import { useSendOtpToEmailMutation, useOtpVerificationMutation } from "../../slices/api/userApiSlice";
+
 import { MyError } from "../../validation/validationTypes";
 import { clearRegister } from "../../slices/authSlice";
 import { toast } from "react-toastify";
@@ -12,12 +12,12 @@ import OtpComponent from "../../components/Otp";
 
 export default function Otp() {
     const dispatch = useDispatch();
-    const { registerInfo } = useSelector((state: RootState) => state.auth);
+    const { expertRegisterInfo } = useSelector((state: RootState) => state.auth);
     const [otp, setOtp] = useState("");
     const navigate = useNavigate();
 
     const [otpVerification] = useOtpVerificationMutation();
-    const [register] = useRegisterMutation();
+    const [register] = useExpertRegisterMutation();
     const [sendOtpToEmail] = useSendOtpToEmailMutation();
 
     const [timer, setTimer] = useState(60);
@@ -41,8 +41,8 @@ export default function Otp() {
         setTimer(60);
         setShowResendButton(false);
         try {
-            const name = registerInfo?.name;
-            const email = registerInfo?.email;
+            const name = expertRegisterInfo?.name;
+            const email = expertRegisterInfo?.email;
             const res = await sendOtpToEmail({ name, email }).unwrap();
             toast.success(res.message);
         } catch (err) {
@@ -53,18 +53,28 @@ export default function Otp() {
     const submitRegisterHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
-            const email = registerInfo?.email;
+            const email = expertRegisterInfo?.email;
+            console.log('otp in the field',otp)
             const res = await otpVerification({ otp, email }).unwrap();
 
             if (res.success) {
-                const name = registerInfo?.name;
-                const password = registerInfo?.password;
-                const mobile = registerInfo?.mobile;
+                const name = expertRegisterInfo?.name;
+                const password = expertRegisterInfo?.password;
+                const profilePicUrl = expertRegisterInfo?.profilePic;
+                const resumeUrl = expertRegisterInfo?.resume;
+                const category = expertRegisterInfo?.category;
+                const rate = expertRegisterInfo?.rate;
+                const experience = expertRegisterInfo?.experience;
+                
                 await register({
                     name,
                     email,
-                    mobile,
                     password,
+                    profilePicUrl,
+                    resumeUrl,
+                    category,
+                    rate,
+                    experience
                 }).unwrap();
                 dispatch(clearRegister());
                 toast.success("Successfully Registered");

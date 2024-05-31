@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAdminLoginMutation } from "../../slices/api/adminApiSlice";
 import { useState } from "react";
 import { MyError } from "../../validation/validationTypes";
-import { loginSchema } from "../../validation/yupValidation";
+import { userLoginSchema } from "../../validation/yupValidation";
 import { setAdminCredential } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Spinner";
@@ -26,7 +26,7 @@ export default function Login() {
 
     const { values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: initialValues,
-        validationSchema: loginSchema,
+        validationSchema: userLoginSchema,
         onSubmit: async (values) => {
             try {
                 setIsLoading(true);

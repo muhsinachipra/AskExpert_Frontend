@@ -32,7 +32,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 
         sendOtpToEmail: builder.mutation({
             query: (data) => ({
-                url: `${USER_URL}/sendEmail`,
+                url: `${USER_URL}/sendOTP`,
                 method: "POST",
                 body: data,
             }),
