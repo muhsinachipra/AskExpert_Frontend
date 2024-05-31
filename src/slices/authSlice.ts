@@ -37,7 +37,6 @@ type initialState = {
     expertInfo: ExpertInfo | null;
     registerInfo: UserInfo | null;
     expertRegisterInfo: ExpertInfo | null;
-    forgotEmailInfo: string | null;
 }
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo');
@@ -45,7 +44,6 @@ const adminInfoFromLocalStorage = localStorage.getItem('adminInfo');
 const expertInfoFromLocalStorage = localStorage.getItem('expertInfo');
 const registerInfoFromLocalStorage = localStorage.getItem("registerInfo");
 const expertRegisterInfoFromLocalStorage = localStorage.getItem("expertRegisterInfo");
-const forgotEmailInfoFromLocalStorage = localStorage.getItem("forgotEmailInfo");
 
 const initialState: initialState = {
     userInfo: userInfoFromLocalStorage ? JSON.parse(userInfoFromLocalStorage) : null,
@@ -53,7 +51,6 @@ const initialState: initialState = {
     expertInfo: expertInfoFromLocalStorage ? JSON.parse(expertInfoFromLocalStorage) : null,
     registerInfo: registerInfoFromLocalStorage ? JSON.parse(registerInfoFromLocalStorage) : null,
     expertRegisterInfo: expertRegisterInfoFromLocalStorage ? JSON.parse(expertRegisterInfoFromLocalStorage) : null,
-    forgotEmailInfo: forgotEmailInfoFromLocalStorage ? JSON.parse(forgotEmailInfoFromLocalStorage) : null,
 }
 
 const authSlice = createSlice({
@@ -72,14 +69,6 @@ const authSlice = createSlice({
         clearRegister: (state) => {
             state.registerInfo = null;
             localStorage.removeItem("registerInfo");
-        },
-        setForgotEmail: (state, action) => {
-            state.forgotEmailInfo = action.payload;
-            localStorage.setItem("forgotEmailInfo", JSON.stringify(action.payload));
-        },
-        clearForgotEmail: (state) => {
-            state.forgotEmailInfo = null;
-            localStorage.removeItem("forgotEmailInfo");
         },
         userLogout: (state) => {
             state.userInfo = null;
@@ -117,8 +106,6 @@ export const {
     setCredential,
     setRegister,
     clearRegister,
-    setForgotEmail,
-    clearForgotEmail,
     userLogout,
 
     // expert

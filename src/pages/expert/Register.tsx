@@ -13,6 +13,7 @@ import { MyError } from "../../validation/validationTypes";
 import { storage } from "../../app/firebase/config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid"
+import { Link } from "react-router-dom";
 
 export default function Register() {
 
@@ -155,10 +156,11 @@ export default function Register() {
                                     <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Field of Expertise</label>
                                     <select name="category" value={values.category} onChange={handleChange} id="category" className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true}>
                                         <option value="">Select Field of Expertise</option>
-                                        <option value="Category 1">Category 1</option>
-                                        <option value="Category 2">Category 2</option>
-                                        <option value="Category 3">Category 3</option>
-                                        {/* Add more options as needed */}
+                                        <option value="Doctor">Doctor</option>
+                                        <option value="Lawyer">Lawyer</option>
+                                        <option value="Career Advisor">Career Advisor</option>
+                                        <option value="Financial Advisor">Financial Advisor</option>
+                                        <option value="psychiatrist">psychiatrist</option>
                                     </select>
                                     {errors.category && touched.category && (
                                         <div className="text-red-500">{errors.category}</div>
@@ -179,14 +181,6 @@ export default function Register() {
                                         <div className="text-red-500">{errors.rate}</div>
                                     )}
                                 </div>
-                                {/* <div>
-                                    <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profile Pic</label>
-                                    <input type="file" name="file" id="file" className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                </div>
-                                <div>
-                                    <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Resume</label>
-                                    <input type="file" name="file" id="file" className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                </div> */}
                                 <div>
                                     <label htmlFor="profilePic" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profile Pic</label>
                                     <input type="file" name="profilePic" id="profilePic" onChange={(event) => {
@@ -215,7 +209,7 @@ export default function Register() {
                             <hr className="border-gray-300 dark:border-gray-600" />
                             <button type="submit" className="w-full text-black border border-gray-300 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:text-white  dark:border-gray-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">{isSumbit ? <Spinner /> : "Register"}</button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Already have an account? <a className="font-medium text-addressrimary-600 hover:underline dark:text-primary-500">Login here</a>
+                                Already have an account? <Link to={'/expert/login'} className="cursor-pointer font-medium text-addressrimary-600 hover:underline dark:text-primary-500">Login here</Link>
                             </p>
                         </form>
                     </div>

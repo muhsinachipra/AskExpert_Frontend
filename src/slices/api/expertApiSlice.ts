@@ -3,21 +3,21 @@
 import { apiSlice } from "./apiSlice";
 
 const EXPERT_URL = "/api/expert";
-// const USER_URL = "/api/user";
 
 export const expertApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        // login: builder.mutation({
-        //     query: (data) => ({
-        //         url: `${EXPERT_URL}/login`,
-        //         method: "POST",
-        //         body: data,
-        //     }),
-        // }),
-
+        
         expertRegister: builder.mutation({
             query: (data) => ({
                 url: `${EXPERT_URL}/register`,
+                method: "POST",
+                body: data,
+            }),
+        }),
+
+        expertLogin: builder.mutation({
+            query: (data) => ({
+                url: `${EXPERT_URL}/login`,
                 method: "POST",
                 body: data,
             }),
@@ -48,21 +48,21 @@ export const expertApiSlice = apiSlice.injectEndpoints({
         //     }),
         // }),
 
-        // expertLogout: builder.mutation({
-        //     query: () => ({
-        //         url: `${EXPERT_URL}/logout`,
-        //         method: "POST",
-        //     }),
-        // }),
+        expertLogout: builder.mutation({
+            query: () => ({
+                url: `${EXPERT_URL}/logout`,
+                method: "POST",
+            }),
+        }),
 
     }),
 });
 
 export const {
-    // useLoginMutation,
+    useExpertLoginMutation,
     useExpertRegisterMutation,
     // useForgotPasswordMutation,
     // useResetPasswordMutation,
     // useValidateAccesssTokenMutation,
-    // useExpertLogoutMutation,
+    useExpertLogoutMutation,
 } = expertApiSlice;

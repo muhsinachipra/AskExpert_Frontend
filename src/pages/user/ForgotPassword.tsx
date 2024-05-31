@@ -5,8 +5,6 @@ import { useState } from "react";
 import { useForgotPasswordMutation } from "../../slices/api/userApiSlice";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import { useDispatch } from "react-redux";
-import { setForgotEmail } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 import { MyError } from "../../validation/validationTypes";
 import Spinner from "../../components/Spinner";
@@ -16,9 +14,6 @@ export default function ForgotPassword() {
 
     const [forgotPassword] = useForgotPasswordMutation();
     const [isSumbit, setSubmit] = useState(false)
-    const dispatch = useDispatch();
-
-
 
     const { values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
@@ -34,7 +29,6 @@ export default function ForgotPassword() {
             try {
                 const { email } = values;
                 const name = email.split("@")[0]; // Extract the part before the @ symbol as the name
-                dispatch(setForgotEmail(email))
                 const res = await forgotPassword({ name, email }).unwrap();
                 setSubmit(false)
                 toast.success(res.message)

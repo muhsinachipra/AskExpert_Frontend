@@ -5,7 +5,7 @@ import { useExpertRegisterMutation } from "../../slices/api/expertApiSlice";
 import { useSendOtpToEmailMutation, useOtpVerificationMutation } from "../../slices/api/userApiSlice";
 
 import { MyError } from "../../validation/validationTypes";
-import { clearRegister } from "../../slices/authSlice";
+import { clearExpertRegister } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import OtpComponent from "../../components/Otp";
@@ -86,7 +86,7 @@ export default function Otp() {
                     rate,
                     experience
                 }).unwrap();
-                dispatch(clearRegister());
+                dispatch(clearExpertRegister());
                 toast.success("Successfully Registered");
                 navigate('/');
             }
