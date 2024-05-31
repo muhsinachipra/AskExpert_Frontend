@@ -54,24 +54,34 @@ export default function Otp() {
         e.preventDefault();
         try {
             const email = expertRegisterInfo?.email;
-            console.log('otp in the field',otp)
+            // console.log('otp in the field',otp)
             const res = await otpVerification({ otp, email }).unwrap();
 
             if (res.success) {
                 const name = expertRegisterInfo?.name;
                 const password = expertRegisterInfo?.password;
-                const profilePicUrl = expertRegisterInfo?.profilePic;
-                const resumeUrl = expertRegisterInfo?.resume;
+                const profilePic = expertRegisterInfo?.profilePicUrl;
+                const resume = expertRegisterInfo?.resumeUrl;
                 const category = expertRegisterInfo?.category;
                 const rate = expertRegisterInfo?.rate;
                 const experience = expertRegisterInfo?.experience;
+
+                // console.log('expertRegisterInfo in the otp page: ', expertRegisterInfo)
+                // console.log('register data in the otp page: ', name,
+                // email,
+                // password,
+                // profilePic,
+                // resume,
+                // category,
+                // rate,
+                // experience)
                 
                 await register({
                     name,
                     email,
                     password,
-                    profilePicUrl,
-                    resumeUrl,
+                    profilePic,
+                    resume,
                     category,
                     rate,
                     experience

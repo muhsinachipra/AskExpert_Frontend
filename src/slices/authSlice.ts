@@ -25,8 +25,8 @@ export type ExpertInfo = {
     password?: string;
     category?: string;
     experience?: number;
-    profilePic?: string;
-    resume?: string;
+    profilePicUrl?: string;
+    resumeUrl?: string;
     rate?: number;
     createdAt?: string
 }

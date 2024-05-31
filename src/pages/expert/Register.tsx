@@ -89,7 +89,7 @@ export default function Register() {
                 const profilePicUrl = profilePicSnapshot ? await getDownloadURL(profilePicRef) : null;
                 const resumeUrl = resumeSnapshot ? await getDownloadURL(resumeRef) : null;
 
-                console.log('expert register values :',{ ...values, profilePicUrl, resumeUrl })
+                // console.log('expert register values :',{ ...values, profilePicUrl, resumeUrl })
                 dispatch(setExpertRegister({ ...values, profilePicUrl, resumeUrl }));
 
                 const { name, email } = values;
