@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^2.2.4",
     "@types/react-router-dom": "^5.3.3",
     "classnames": "^2.5.1",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.2",
     "formik": "^2.4.6",

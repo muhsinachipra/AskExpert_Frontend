@@ -27,9 +27,9 @@ export const ADMIN_SIDEBAR_LINKS: SidebarLinkType[] = [
 		icon: <HiOutlineViewGrid />
 	},
 	{
-		key: 'products',
-		label: 'Products',
-		path: '/admin/products',
+		key: 'expertmanagement',
+		label: 'expertmanagement',
+		path: '/admin/expertmanagement',
 		icon: <HiOutlineCube />
 	},
 	{
