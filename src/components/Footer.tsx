@@ -1,3 +1,4 @@
+// frontend\src\components\Footer.tsx
 
 type ContactItemProps = {
     icon: string;

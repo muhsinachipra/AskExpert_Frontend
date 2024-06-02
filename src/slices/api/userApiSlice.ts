@@ -78,6 +78,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
+        updateProfile: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/updateProfile`,
+                method: "PATCH",
+                body: data,
+            }),
+        }),
+
     }),
 });
 
@@ -91,4 +99,5 @@ export const {
     useResetPasswordMutation,
     useValidateAccesssTokenMutation,
     useUserLogoutMutation,
+    useUpdateProfileMutation,
 } = userApiSlice;

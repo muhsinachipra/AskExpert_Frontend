@@ -57,6 +57,14 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
         }
     };
 
+    const handleEditProfile = async () => {
+        if (!isExpertPage) {
+            navigate('/profile')
+        }
+    };
+
+
+
     const toggleDropdown = () => {
         if ((userLoggedIn && !isExpertPage) || (expertLoggedIn && isExpertPage)) {
             setIsOpen(!isOpen);
@@ -89,7 +97,7 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
                                     <span className="mr-3">😀</span>
                                     {name}<br />{email}
                                 </button>
-                                <button type="button" className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <button type="button" onClick={handleEditProfile} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                     <span className="mr-3">⚙</span>
                                     Edit profile
                                 </button>

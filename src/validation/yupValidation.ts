@@ -24,6 +24,17 @@ export const userRegisterSchema = Yup.object({
         .required("Please enter confirm password"),
 });
 
+export const userUpdateProfileSchema = Yup.object({
+    name: Yup.string()
+        .min(3, "Name must be at least 3 characters")
+        .max(30, "Name must be at most 30 characters")
+        .matches(/^[^\s]+(\s[^\s]+)*$/, "Name cannot have adjacent spaces")
+        .required("Please enter name"),
+    mobile: Yup.string()
+        .matches(/^(?!(\d)\1{9})[5-9]\d{9}$/, "Invalid mobile number")
+        .required("Please enter mobile"),
+});
+
 export const expertRegisterSchema = Yup.object({
     name: Yup.string()
         .min(3, "Name must be at least 3 characters")
