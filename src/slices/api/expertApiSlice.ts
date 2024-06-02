@@ -55,6 +55,13 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
+        expertUpdateProfile: builder.mutation({
+            query: (data) => ({
+                url: `${EXPERT_URL}/updateProfile`,
+                method: "PATCH",
+                body: data,
+            }),
+        }),
     }),
 });
 
@@ -65,4 +72,5 @@ export const {
     // useResetPasswordMutation,
     // useValidateAccesssTokenMutation,
     useExpertLogoutMutation,
+    useExpertUpdateProfileMutation,
 } = expertApiSlice;

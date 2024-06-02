@@ -63,6 +63,18 @@ export const expertRegisterSchema = Yup.object({
         .required("Please enter years of experience"),
 });
 
+export const expertUpdateProfileSchema = Yup.object({
+    name: Yup.string()
+        .min(3, "Name must be at least 3 characters")
+        .max(30, "Name must be at most 30 characters")
+        .matches(/^[^\s]+(\s[^\s]+)*$/, "Name cannot have adjacent spaces")
+        .required("Please enter name"),
+    rate: Yup.number()
+        .min(500, "Rate per session must be at least 500")
+        .max(2000, "Rate per session cannot exceed 2000")
+        .required("Please enter rate per session"),
+});
+
 export const userLoginSchema = Yup.object({
     email: Yup.string()
         .email("Please enter a valid email")

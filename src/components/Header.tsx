@@ -60,6 +60,8 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
     const handleEditProfile = async () => {
         if (!isExpertPage) {
             navigate('/profile')
+        } else {
+            navigate('/expert/profile')
         }
     };
 

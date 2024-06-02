@@ -7,6 +7,7 @@ import Otp from '../pages/user/Otp'
 import ForgotPassword from '../pages/user/ForgotPassword'
 import ResetPassword from '../pages/user/ResetPassword'
 import UserProfile from '../pages/user/UserProfile'
+import UserPrivateRoute from './privateRoutes/UserPrivateRoute'
 
 
 export function UserRoutes() {
@@ -18,7 +19,9 @@ export function UserRoutes() {
             <Route path='/forgot' element={<ForgotPassword />} />
             <Route path='/resetpassword/:email/:token' element={<ResetPassword />} />
             <Route path='/' element={<Landing />} />
-            <Route path='/profile' element={<UserProfile />} />
+            <Route path="*" element={<UserPrivateRoute />}>
+                <Route path='profile' element={<UserProfile />} />
+            </Route>
             <Route path='/test' element={<MyComponent />} />
         </Routes>
     )

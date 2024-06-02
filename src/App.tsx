@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { UserRoutes } from "./routes/userRoutes";
-import { ExpertRoutes } from "./routes/expertRoutes";
+import { UserRoutes } from "./routes/UserRoutes";
+import { ExpertRoutes } from "./routes/ExpertRoutes";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AdminRoutes } from "./routes/adminRoutes";
+import { AdminRoutes } from "./routes/AdminRoutes";
 
 export default function App() {
     return (
