@@ -1,7 +1,7 @@
-// frontend\src\pages\user\ResetPassword.tsx
+// frontend\src\pages\expert\ResetPassword.tsx
 
 import { useEffect, useState } from "react";
-import { useResetPasswordMutation, useValidateAccesssTokenMutation } from "../../slices/api/userApiSlice";
+import { useExpertResetPasswordMutation, useExpertValidateAccesssTokenMutation } from "../../slices/api/expertApiSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,11 +9,11 @@ import ResetPasswordComponent from "../../components/ResetPassword";
 
 export default function ResetPassword() {
     const [userId, setUserId] = useState<string>("");
-    const [resetPassword] = useResetPasswordMutation();
+    const [resetPassword] = useExpertResetPasswordMutation();
     const dispatch = useDispatch();
     const params = useParams();
     const navigate = useNavigate();
-    const [validateToken] = useValidateAccesssTokenMutation();
+    const [validateToken] = useExpertValidateAccesssTokenMutation();
 
     useEffect(() => {
         const fetchTokenValidation = async () => {
@@ -21,14 +21,14 @@ export default function ResetPassword() {
                 try {
                     const response = await validateToken({ token: params.token }).unwrap();
                     if (response.success) {
-                        setUserId(response.user);
+                        setUserId(response.expert);
                     } else {
                         toast.error(response.message);
-                        navigate('/login');
+                        navigate('/expert/login');
                     }
                 } catch (error) {
                     toast.error('Token validation failed');
-                    navigate('/login');
+                    navigate('/expert/login');
                 }
             }
         };
@@ -41,7 +41,7 @@ export default function ResetPassword() {
             const response = await resetPassword({ id: userId, password: newPassword }).unwrap();
             if (response.success) {
                 toast.success('Password reset successful!');
-                navigate('/login');
+                navigate('/expert/login');
             } else {
                 toast.error(response.message);
             }
@@ -61,12 +61,12 @@ export default function ResetPassword() {
 
 
 
-// // frontend\src\pages\user\ResetPassword.tsx
+// // frontend\src\pages\expert\ResetPassword.tsx
 // // import Header from "../../components/Header";
 
 // import { Formik, Form, Field, ErrorMessage } from 'formik';
 // import { useEffect, useState } from "react";
-// import { useResetPasswordMutation, useValidateAccesssTokenMutation } from "../../slices/api/userApiSlice";
+// import { useExpertResetPasswordMutation, useExpertValidateAccesssTokenMutation } from "../../slices/api/expertApiSlice";
 // import { useDispatch } from "react-redux";
 // import { useNavigate, useParams } from "react-router-dom";
 // import { toast } from "react-toastify";
@@ -75,12 +75,12 @@ export default function ResetPassword() {
 
 // export default function ResetPassword() {
 
-//     const [userId, setUserId] = useState<string>("")
-//     const [resetPassword] = useResetPasswordMutation();
+//     const [expertId, setExpertId] = useState<string>("")
+//     const [resetPassword] = useExpertResetPasswordMutation();
 //     const dispatch = useDispatch();
 //     const params = useParams();
 //     const navigate = useNavigate();
-//     const [validateToken] = useValidateAccesssTokenMutation()
+//     const [validateToken] = useExpertValidateAccesssTokenMutation()
 
 //     useEffect(() => {
 //         const fetchTokenValidation = async () => {
@@ -91,7 +91,7 @@ export default function ResetPassword() {
 //                     console.log(response)
 //                     if (response.success) {
 //                         console.log(response.success)
-//                         setUserId(response.user);
+//                         setExpertId(response.expert);
 //                     } else {
 //                         toast.error(response.message);
 //                         navigate('/login'); // Redirect to the forgot password page
@@ -106,9 +106,9 @@ export default function ResetPassword() {
 //         fetchTokenValidation();
 //     }, [dispatch, navigate, params.token, validateToken]);
 
-//     async function handleResetPassword(userId: string, newPassword: string) {
+//     async function handleResetPassword(expertId: string, newPassword: string) {
 //         try {
-//             const response = await resetPassword({ id: userId, password: newPassword }).unwrap();
+//             const response = await resetPassword({ id: expertId, password: newPassword }).unwrap();
 //             if (response.success) {
 //                 toast.success('Password reset successful!');
 //                 navigate('/login');
@@ -125,7 +125,7 @@ export default function ResetPassword() {
 //             {/* <Header /> */}
 //             <section className="bg-neutral-200 dark:bg-gray-900">
 
-//                 {userId ? (
+//                 {expertId ? (
 //                     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 //                         <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
 //                             <img className="w-8 h-8 mr-2" src="/Ask.svg" alt="logo" />
@@ -141,7 +141,7 @@ export default function ResetPassword() {
 //                                     initialValues={{ newPassword: '', confirmPassword: '' }}
 //                                     validationSchema={resetPasswordSchema}
 //                                     onSubmit={(values, { setSubmitting }) => {
-//                                         handleResetPassword(userId, values.newPassword);
+//                                         handleResetPassword(expertId, values.newPassword);
 //                                         setSubmitting(false);
 //                                     }}
 //                                 >

@@ -23,30 +23,29 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        // // expert forgot password
-        // forgotPassword: builder.mutation({
-        //     query: (data) => ({
-        //         url: `${EXPERT_URL}/forgotPassword`,
-        //         method: "POST",
-        //         body: data,
-        //     }),
-        // }),
+        expertForgotPassword: builder.mutation({
+            query: (data) => ({
+                url: `${EXPERT_URL}/forgotPassword`,
+                method: "POST",
+                body: data,
+            }),
+        }),
 
-        // resetPassword: builder.mutation({
-        //     query: (data) => ({
-        //         url: `${EXPERT_URL}/resetPassword`,
-        //         method: "POST",
-        //         body: data,
-        //     }),
-        // }),
+        expertResetPassword: builder.mutation({
+            query: (data) => ({
+                url: `${EXPERT_URL}/resetPassword`,
+                method: "POST",
+                body: data,
+            }),
+        }),
 
-        // validateAccesssToken: builder.mutation({
-        //     query: (data) => ({
-        //         url: `${EXPERT_URL}/validateAccessToken`,
-        //         method: "POST",
-        //         body: data,
-        //     }),
-        // }),
+        expertValidateAccesssToken: builder.mutation({
+            query: (data) => ({
+                url: `${EXPERT_URL}/validateAccessToken`,
+                method: "POST",
+                body: data,
+            }),
+        }),
 
         expertLogout: builder.mutation({
             query: () => ({
@@ -68,9 +67,9 @@ export const expertApiSlice = apiSlice.injectEndpoints({
 export const {
     useExpertLoginMutation,
     useExpertRegisterMutation,
-    // useForgotPasswordMutation,
-    // useResetPasswordMutation,
-    // useValidateAccesssTokenMutation,
+    useExpertForgotPasswordMutation,
+    useExpertResetPasswordMutation,
+    useExpertValidateAccesssTokenMutation,
     useExpertLogoutMutation,
     useExpertUpdateProfileMutation,
 } = expertApiSlice;
