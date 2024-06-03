@@ -7,6 +7,7 @@ import ExpertProfile from '../pages/expert/ExpertProfile'
 import ExpertPrivateRoute from './privateRoutes/ExpertPrivateRoute'
 import ForgotPassword from '../pages/expert/ForgotPassword'
 import ResetPassword from '../pages/expert/ResetPassword'
+import Home from '../pages/expert/Home'
 
 export function ExpertRoutes() {
     return (
@@ -19,6 +20,7 @@ export function ExpertRoutes() {
             <Route path='/resetpassword/:email/:token' element={<ResetPassword />} />
             <Route path="*" element={<ExpertPrivateRoute />}>
                 <Route path='profile' element={<ExpertProfile />} />
+                <Route path='home' element={<Home />} />
             </Route>
         </Routes>
     )

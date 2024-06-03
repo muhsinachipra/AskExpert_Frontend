@@ -29,7 +29,7 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
     const [expertLogoutMutation] = useExpertLogoutMutation();
 
     const navItems = [
-        { label: "Home", href: isExpertPage ? '/expert/' : '/', current: false },
+        { label: "Home", href: isExpertPage ? '/expert/home' : '/', current: false },
         { label: "About Us", href: "/about", current: false },
         { label: "Contact Us", href: "/contact", current: false },
     ];
@@ -89,7 +89,7 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
                 ))}
 
                 <div className="relative">
-                    <button type="button" onClick={toggleDropdown} className="justify-center mr-4 px-5 py-2 rounded-full font-semibold text-white capitalize bg-indigo-500 max-md:px-9">
+                    <button type="button" onClick={toggleDropdown} className="justify-center mr-4 px-5 py-2 rounded-full font-semibold text-white capitalize bg-indigo-500 hover:bg-indigo-600 max-md:px-9">
                         {(userLoggedIn && !isExpertPage) || (expertLoggedIn && isExpertPage) ? "Profile" : "Log in"}
                     </button>
                     {((userLoggedIn && !isExpertPage) || (expertLoggedIn && isExpertPage)) && isOpen && (

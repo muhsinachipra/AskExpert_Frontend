@@ -60,7 +60,8 @@ export default function Otp() {
             if (res.success) {
                 const name = expertRegisterInfo?.name;
                 const password = expertRegisterInfo?.password;
-                const profilePic = expertRegisterInfo?.profilePicUrl;
+                const profilePic = expertRegisterInfo?.profilePic;
+                // const profilePic = expertRegisterInfo?.profilePicUrl;
                 const resume = expertRegisterInfo?.resumeUrl;
                 const category = expertRegisterInfo?.category;
                 const rate = expertRegisterInfo?.rate;
@@ -88,7 +89,7 @@ export default function Otp() {
                 }).unwrap();
                 dispatch(clearExpertRegister());
                 toast.success("Successfully Registered");
-                navigate('/');
+                navigate('/expert/login');
             }
         } catch (err) {
             toast.error((err as MyError)?.data?.message || (err as MyError)?.error);

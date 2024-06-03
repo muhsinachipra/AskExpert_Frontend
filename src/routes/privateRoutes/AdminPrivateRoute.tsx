@@ -1,12 +1,13 @@
 // frontend\src\routes\privateRoutes\AdminPrivateRoute.tsx
 
-import { Navigate, Outlet } from "react-router-dom";
+import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 
 const AdminPrivateRoute = () => {
-    const { adminInfo } = useSelector((state:RootState) => state.auth);
-  return adminInfo ?<Outlet/> :  <Navigate to="/admin/login" replace />
+  const location = useLocation()
+  const { adminInfo } = useSelector((state: RootState) => state.auth);
+  return adminInfo ? <Outlet /> : <Navigate to="/admin" state={{ from: location }} replace />
 }
 
 export default AdminPrivateRoute

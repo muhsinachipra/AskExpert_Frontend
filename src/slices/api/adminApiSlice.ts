@@ -4,7 +4,7 @@ import { apiSlice } from "./apiSlice";
 
 const ADMIN_URL = "/api/admin";
 
-interface Expert {
+export interface ExpertData {
     _id: string;
     name: string;
     email: string;
@@ -27,7 +27,7 @@ interface GetExpertDataResponse {
     success: boolean;
     data: {
         success: boolean;
-        data: Expert[];
+        data: ExpertData[];
         message: string;
         status: number;
     };
@@ -57,11 +57,27 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 method: "GET",
             }),
         }),
+
         updateExpertVerification: builder.mutation({
             query: ({ expertId, isVerified }) => ({
                 url: `${ADMIN_URL}/verifyExpert/${expertId}`,
                 method: 'PATCH',
                 body: { isVerified },
+            }),
+        }),
+
+        adminLogout: builder.mutation({
+            query: () => ({
+                url: `${ADMIN_URL}/logout`,
+                method: "POST",
+            }),
+        }),
+
+        sendVerifiedEmail: builder.mutation({
+            query: ({ expertId }) => ({
+                url: `${ADMIN_URL}/sendVerifiedEmail/${expertId}`,
+                method: 'POST',
+                // body: { isVerified },
             }),
         }),
     }),
@@ -71,4 +87,6 @@ export const {
     useAdminLoginMutation,
     useGetExpertDataQuery,
     useUpdateExpertVerificationMutation,
+    useAdminLogoutMutation,
+    useSendVerifiedEmailMutation,
 } = adminApiSlice

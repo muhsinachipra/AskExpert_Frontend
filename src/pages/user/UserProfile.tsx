@@ -10,11 +10,14 @@ import { useUpdateProfileMutation } from "../../slices/api/userApiSlice";
 import { setCredential } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 import { MyError } from "../../validation/validationTypes";
+import Spinner from "../../components/Spinner";
+import { useState } from "react";
 
 export default function UserProfile() {
 
     const { userInfo } = useSelector((state: RootState) => state.auth);
     const [updateUser] = useUpdateProfileMutation()
+    const [isSumbit, setSubmit] = useState(false)
     const dispatch = useDispatch()
 
     const initialValues = {
@@ -26,6 +29,7 @@ export default function UserProfile() {
         initialValues: initialValues,
         validationSchema: userUpdateProfileSchema,
         onSubmit: async (values) => {
+            setSubmit(true);
             try {
                 const _id = userInfo?._id;
                 const { name, mobile } = values; // Destructure values
@@ -34,6 +38,8 @@ export default function UserProfile() {
                 toast.success(res.message)
             } catch (err) {
                 toast.error((err as MyError)?.data?.message || (err as MyError)?.error);
+            } finally {
+                setSubmit(false);
             }
         },
     });
@@ -43,7 +49,7 @@ export default function UserProfile() {
             <Header />
             <div className="container mx-auto my-10 p-5 max-w-lg">
                 <h1 className="text-3xl font-bold text-center mb-6">Edit Profile</h1>
-                <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+                <form onSubmit={handleSubmit} className="bg-neutral-200 p-6 rounded-lg shadow-md">
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                             Name
@@ -95,9 +101,8 @@ export default function UserProfile() {
                     <div className="flex items-center justify-between">
                         <button
                             type="submit"
-                            className="bg-teal-400 hover:bg-teal-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                            Save Changes
+                            className="w-1/3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            {isSumbit ? <Spinner /> : "Save Changes"}
                         </button>
                     </div>
                 </form>

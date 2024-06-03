@@ -2,7 +2,7 @@
 // import Header from "../../components/Header";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useGoogleAuthMutation, useLoginMutation } from "../../slices/api/userApiSlice";
 import { useState } from "react";
 import { MyError } from "../../validation/validationTypes";
@@ -18,6 +18,8 @@ export default function Login() {
     const dispatch = useDispatch();
     const [login] = useLoginMutation();
     const navigate = useNavigate();
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
     const [googleAuth] = useGoogleAuthMutation();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -36,7 +38,7 @@ export default function Login() {
                 setIsLoading(true);
                 const res = await login(values).unwrap();
                 dispatch(setCredential({ ...res.data }));
-                navigate('/')
+                navigate(from, { replace: true });
                 toast.success(res.message);
             } catch (err) {
                 toast.error((err as MyError)?.data?.message || (err as MyError)?.error);

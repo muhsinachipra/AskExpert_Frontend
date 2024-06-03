@@ -1676,58 +1676,96 @@
 
 
 
-import * as React from "react";
-
-type InputFieldProps = {
-  id: string;
-  label: string;
-  type: string;
-};
-
-const InputField: React.FC<InputFieldProps> = ({ id, label, type }) => (
-  <div className="mt-5">
-    <label htmlFor={id} className="sr-only">
-      {label}
-    </label>
-    <input
-      type={type}
-      id={id}
-      className="block w-[464px] max-w-full px-12 py-6 mt-5 bg-white border border-solid border-zinc-300 max-md:px-5"
-      placeholder={label}
-      aria-label={label}
-    />
-  </div>
-);
-
-type ButtonProps = {
-  label: string;
-};
-
-const Button: React.FC<ButtonProps> = ({ label }) => (
-  <button
-    className="block w-[464px] max-w-full px-16 py-5 mt-5 font-semibold text-center text-white capitalize bg-blue-950 max-md:px-5"
-    type="submit"
-  >
-    {label}
-  </button>
-);
-
 const MyComponent = () => {
   return (
-    <section className="flex justify-center items-center px-16 py-20 text-lg bg-neutral-200 text-neutral-700 max-md:px-5">
-      <div className="flex flex-col justify-center items-center p-20 mt-32 max-w-full bg-stone-50 w-[696px] max-md:px-5 max-md:mt-10">
-        <header className="mt-5">
-          <h1 className="text-4xl font-bold text-center leading-[48.4px]">
-            Log In
+    <div className="bg-secondary">
+      {/* <Navbar /> */}
+      <div className="relative ">
+        <img
+          src='../../../assets/images/copernico-TSYQ5stQVjg-unsplash.jpg'
+          alt=""
+          className="pt-20 h-56 w-full bg-dark-greens "
+        />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center mt-8">
+          <h1 className="text-3xl font-extrabold text-white mt-5">
+            <span className="bg-secondary  px-5 py-2 rounded-lg">MY</span>
           </h1>
-        </header>
-        <form className="w-full">
-          <InputField id="email" label="Your email" type="email" />
-          <InputField id="password" label="Your password" type="password" />
-          <Button label="Submit" />
-        </form>
+          <h1 className="text-3xl font-extrabold  text-white mt-3">
+            PROFILE
+          </h1>
+        </div>
       </div>
-    </section>
+
+      <div className="h-full max-[400px]:p-2 w-full flex items-center flex-col justify-center">
+        <div className="w-full p-4 md:px-12  md:py-4 lg:py-16 flex max-md:flex-col sm:w-[80%] items-start shadow-xl text-white rounded-3xl">
+        
+          <div className="flex-grow bg-pale-green w-full sm:w-[80%] p-4 ">
+            <form action="" >
+
+
+              <div className="mt-5 grid grid-cols-2 gap-5 max-md:grid-cols-1">
+                <div className=" shadow-xl p-3 flex rounded-lg ">
+                  <div className=" flex justify-center shadow-xl items-center w-12 h-12 rounded-lg">
+                    {/* <IoPersonSharp size={26} color="#3BE48B" /> */}
+                  </div>
+                  <div className="ml-5">
+                    <p className="font-medium text-dark-green">Name</p>
+                    <input
+                      name="name"
+                      // value={values.name}
+                      placeholder='{userInfo?.name}'
+                      type="text"
+                      // onChange={handleChange}
+                      className="mt-1 w-full  bg-secondary text-dark-green  outline-none"
+                    />
+                    {/* {errors.name && touched.name && (
+                      <div className="text-red-500">{errors.name}</div>
+                    )} */}
+                  </div>
+                </div>
+                <div className=" shadow-xl p-3 flex rounded-lg">
+                  <div className="  shadow-xl flex justify-center items-center w-12 h-12 rounded-lg">
+                    {/* <MdOutlineMail size={26} color="#3BE48B" /> */}
+                  </div>
+                  <div className="ml-5">
+                    <p className="font-medium text-dark-green">Email Address</p>
+                    <p className="mt-1 w-full text-dark-green bg-secondary  outline-none">
+                      {/* {userInfo?.email} */}
+                    </p>
+                  </div>
+                </div>
+                <div className=" shadow-xl p-3 flex rounded-lg">
+                  <div className=" flex justify-center items-center w-12 h-12 rounded-lg">
+                    {/* <FaMobileAlt size={26} color="#3BE48B" /> */}
+                  </div>
+                  <div className="ml-5">
+                    <p className="font-medium text-dark-green">Mobile</p>
+                    <input
+                      name="mobile"
+                      // value={values.mobile}
+                      placeholder='{userInfo?.mobile}'
+                      // onChange={handleChange}
+                      type="text"
+                      className="mt-1 w-full text-dark-green bg-secondary  focus:border-black outline-none"
+                    />
+                    {/* {errors.mobile && touched.mobile && (
+                      <div className="text-red-500">{errors.mobile}</div>
+                    )} */}
+                  </div>
+                </div>
+              </div>
+              <div className="flex w-full">
+                <div className="flex justify-end w-1/2">
+                  <button className="bg-tertiary rounded-md mt-4 bg-dark-greens  shadow-md w-28 h-10 font-medium">Save</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      {/* <Footer /> */}
+    </div>
   );
 };
 

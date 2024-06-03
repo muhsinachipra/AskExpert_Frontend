@@ -25,8 +25,10 @@ export type ExpertInfo = {
     password?: string;
     category?: string;
     experience?: number;
-    profilePicUrl?: string;
+    profilePic?: string;
+    // profilePicUrl?: string;
     resumeUrl?: string;
+    isVerified?:boolean;
     rate?: number;
     createdAt?: string
 }
@@ -98,6 +100,10 @@ const authSlice = createSlice({
             state.adminInfo = action.payload;
             localStorage.setItem("adminInfo", JSON.stringify(action.payload));
         },
+        adminLogout: (state) => {
+            state.adminInfo = null;
+            localStorage.removeItem("adminInfo");
+        },
     }
 })
 
@@ -116,6 +122,7 @@ export const {
 
     // admin
     setAdminCredential,
+    adminLogout,
 } = authSlice.actions;
 
 export default authSlice.reducer

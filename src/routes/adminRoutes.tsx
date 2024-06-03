@@ -12,9 +12,9 @@ export function AdminRoutes() {
     return (
         <Routes>
             <Route path='/' element={<Login />} />
-            <Route path="*" element={<AdminPrivateRoute />}>
-                <Route path="dashboard" element={<Layout />}>
-                    <Route index element={<Dashboard />} />
+            <Route element={<AdminPrivateRoute />}>
+                <Route element={<Layout />}>
+                    <Route path='dashboard' element={<Dashboard />} />
                     <Route path="expertmanagement" element={<ExpertManagement />} />
                 </Route>
             </Route>

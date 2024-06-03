@@ -2,7 +2,7 @@
 // import Header from "../../components/Header";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAdminLoginMutation } from "../../slices/api/adminApiSlice";
 import { useState } from "react";
 import { MyError } from "../../validation/validationTypes";
@@ -16,6 +16,8 @@ export default function Login() {
     const dispatch = useDispatch();
     const [login] = useAdminLoginMutation();
     const navigate = useNavigate();
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/admin/dashboard";
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -32,7 +34,8 @@ export default function Login() {
                 setIsLoading(true);
                 const res = await login(values).unwrap();
                 dispatch(setAdminCredential({ ...res.data }));
-                navigate('/admin/dashboard')
+                // navigate('/admin/dashboard')
+                navigate(from, { replace: true });
                 toast.success(res.message);
             } catch (err) {
                 toast.error((err as MyError)?.data?.message || (err as MyError)?.error);
