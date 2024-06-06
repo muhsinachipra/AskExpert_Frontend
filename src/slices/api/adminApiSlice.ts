@@ -25,15 +25,9 @@ export interface ExpertData {
 
 interface GetExpertDataResponse {
     success: boolean;
-    data: {
-        success: boolean;
-        data: ExpertData[];
-        message: string;
-        status: number;
-    };
+    data: ExpertData[];
     message: string;
 }
-
 
 export const adminApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -44,18 +38,13 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
-        // getExpertData: builder.mutation({
-        //     query: () => ({
-        //         url: `${ADMIN_URL}/login`,
-        //         method: "GET",
-        //         // body: data,
-        //     }),
-        // }),
-        getExpertData: builder.query<GetExpertDataResponse[], void>({
+        
+        getExpertData: builder.query<GetExpertDataResponse, void>({
             query: () => ({
                 url: `${ADMIN_URL}/expertData`,
-                method: "GET",
+                method: 'GET',
             }),
+            providesTags:['admin'],
         }),
 
         updateExpertVerification: builder.mutation({
@@ -64,6 +53,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 method: 'PATCH',
                 body: { isVerified },
             }),
+            invalidatesTags: ['admin'],
         }),
 
         adminLogout: builder.mutation({
@@ -77,7 +67,6 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             query: ({ expertId }) => ({
                 url: `${ADMIN_URL}/sendVerifiedEmail/${expertId}`,
                 method: 'POST',
-                // body: { isVerified },
             }),
         }),
     }),

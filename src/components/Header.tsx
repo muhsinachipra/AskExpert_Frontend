@@ -9,6 +9,9 @@ import withReactContent from 'sweetalert2-react-content';
 import { useUserLogoutMutation } from "../slices/api/userApiSlice";
 import { useExpertLogoutMutation } from "../slices/api/expertApiSlice";
 import { expertLogout, userLogout } from "../slices/authSlice";
+import { CgProfile } from "react-icons/cg";
+import { IoMdSettings } from "react-icons/io";
+import { RiLogoutBoxFill } from "react-icons/ri";
 
 const MySwal = withReactContent(Swal);
 
@@ -96,15 +99,15 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
                         <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none z-20">
                             <div className="py-1">
                                 <button type="button" className="flex items-center text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <span className="mr-3">😀</span>
+                                    <span className="mr-3"><CgProfile className="text-teal-500"/></span>
                                     {name}<br />{email}
                                 </button>
                                 <button type="button" onClick={handleEditProfile} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <span className="mr-3">⚙</span>
+                                    <span className="mr-3"><IoMdSettings className="text-teal-500"/></span>
                                     Edit profile
                                 </button>
                                 <button type="button" onClick={handleLogout} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <span className="mr-3">🚪</span>
+                                    <span className="mr-3"><RiLogoutBoxFill className="text-teal-500"/></span>
                                     Log out
                                 </button>
                             </div>

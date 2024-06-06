@@ -1,8 +1,7 @@
 // frontend\src\components\admin\Table.tsx
 
-
 import { useDispatch } from "react-redux";
-import { ExpertData, useGetExpertDataQuery, useSendVerifiedEmailMutation, useUpdateExpertVerificationMutation } from "../../slices/api/adminApiSlice";
+import { useGetExpertDataQuery, useSendVerifiedEmailMutation, useUpdateExpertVerificationMutation } from "../../slices/api/adminApiSlice";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
 import { setExpertCredential } from "../../slices/authSlice";
@@ -11,12 +10,10 @@ const getStatusClassName = (isVerified: boolean): string => {
     return isVerified ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600';
 };
 
-
 export default function AdminTable() {
-    const { data, refetch, error, isLoading } = useGetExpertDataQuery();
+    const { data, error, isLoading } = useGetExpertDataQuery();
     const [sendVerifiedEmail] = useSendVerifiedEmailMutation();
-    const experts: ExpertData[] = data?.data.data ?? [];
-    console.log('expert data form useGetExpertDataQuery :', experts)
+    const experts = data?.data ?? [];
     const [updateExpertVerification] = useUpdateExpertVerificationMutation();
     const dispatch = useDispatch();
 
@@ -24,12 +21,10 @@ export default function AdminTable() {
         try {
             const res = await updateExpertVerification({ expertId, isVerified: !isVerified });
             if (!isVerified) {
-                await sendVerifiedEmail({ expertId })
-                const newres = res.data?.data
+                await sendVerifiedEmail({ expertId });
+                const newres = res.data?.data;
                 dispatch(setExpertCredential({ ...newres }));
             }
-            console.log('response data :', res)
-            refetch();
         } catch (error) {
             console.error("Failed to update expert verification status", error);
         }
@@ -62,7 +57,7 @@ export default function AdminTable() {
                                     <td className="p-2">{expert.email}</td>
                                     <td className="p-2 max-w-xs truncate">
                                         <Link to={`${expert.resume}`} className="text-blue-600 hover:underline ellipsis">
-                                            #{expert.resume}
+                                            {expert.resume}
                                         </Link>
                                     </td>
                                     <td className="p-2">{expert.category}</td>
@@ -89,4 +84,3 @@ export default function AdminTable() {
         </div>
     );
 }
-
