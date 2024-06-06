@@ -22,9 +22,9 @@ export default function Register() {
     const [isSumbit, setSubmit] = useState(false)
     const navigate = useNavigate()
 
-    const [profilePic, setProfilePic] = useState<File | null>(null);
+    const [profilePicture, setProfilePic] = useState<File | null>(null);
     const [resume, setResume] = useState<File | null>(null);
-    const [fileErrors, setFileErrors] = useState({ profilePic: '', resume: '' });
+    const [fileErrors, setFileErrors] = useState({ profilePicture: '', resume: '' });
 
     const initialValues = {
         name: '',
@@ -38,15 +38,15 @@ export default function Register() {
 
     const validateFiles = () => {
         let valid = true;
-        const errors = { profilePic: '', resume: '' };
+        const errors = { profilePicture: '', resume: '' };
 
-        if (profilePic) {
-            if (!['image/jpeg', 'image/png'].includes(profilePic.type)) {
-                errors.profilePic = 'Unsupported file format for profile picture';
+        if (profilePicture) {
+            if (!['image/jpeg', 'image/png'].includes(profilePicture.type)) {
+                errors.profilePicture = 'Unsupported file format for profile picture';
                 valid = false;
             }
-            if (profilePic.size > 2000000) { // 2MB
-                errors.profilePic = 'Profile picture file size is too large';
+            if (profilePicture.size > 2000000) { // 2MB
+                errors.profilePicture = 'Profile picture file size is too large';
                 valid = false;
             }
         }
@@ -79,19 +79,19 @@ export default function Register() {
 
             try {
                 // Upload profile picture and resume to Firebase Storage
-                const profilePicRef = ref(storage, `expert/profilePics/${uuidv4()}-${profilePic?.name}`);
+                const profilePicRef = ref(storage, `expert/profilePics/${uuidv4()}-${profilePicture?.name}`);
                 const resumeRef = ref(storage, `expert/resumes/${uuidv4()}-${resume?.name}`);
 
                 const [profilePicSnapshot, resumeSnapshot] = await Promise.all([
-                    profilePic && uploadBytes(profilePicRef, profilePic),
+                    profilePicture && uploadBytes(profilePicRef, profilePicture),
                     resume && uploadBytes(resumeRef, resume),
                 ]);
 
-                const profilePicUrl = profilePicSnapshot ? await getDownloadURL(profilePicRef) : null;
+                const profilePic = profilePicSnapshot ? await getDownloadURL(profilePicRef) : null;
                 const resumeUrl = resumeSnapshot ? await getDownloadURL(resumeRef) : null;
 
-                // console.log('expert register values :',{ ...values, profilePicUrl, resumeUrl })
-                dispatch(setExpertRegister({ ...values, profilePicUrl, resumeUrl }));
+                // console.log('expert register values :',{ ...values, profilePic, resumeUrl })
+                dispatch(setExpertRegister({ ...values, profilePic, resumeUrl }));
 
                 const { name, email } = values;
                 const res = await sendOtpToEmail({ name, email }).unwrap();
@@ -182,15 +182,15 @@ export default function Register() {
                                     )}
                                 </div>
                                 <div>
-                                    <label htmlFor="profilePic" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profile Pic</label>
-                                    <input type="file" name="profilePic" id="profilePic" onChange={(event) => {
+                                    <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profile Pic</label>
+                                    <input type="file" name="profilePicture" id="profilePicture" onChange={(event) => {
                                         const files = event.currentTarget.files;
                                         if (files && files.length > 0) {
                                             setProfilePic(files[0]);
                                         }
                                     }} className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
-                                    {fileErrors.profilePic && (
-                                        <div className="text-red-500">{fileErrors.profilePic}</div>
+                                    {fileErrors.profilePicture && (
+                                        <div className="text-red-500">{fileErrors.profilePicture}</div>
                                     )}
                                 </div>
                                 <div>
