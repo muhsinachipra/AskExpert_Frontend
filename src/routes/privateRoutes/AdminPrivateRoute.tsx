@@ -7,7 +7,7 @@ import { RootState } from "../../app/store";
 const AdminPrivateRoute = () => {
   const location = useLocation()
   const { adminInfo } = useSelector((state: RootState) => state.auth);
-  return adminInfo ? <Outlet /> : <Navigate to="/admin" state={{ from: location }} replace />
+  return adminInfo ? <Outlet /> : <Navigate to="/admin/login" state={{ from: location }} replace />
 }
 
 export default AdminPrivateRoute

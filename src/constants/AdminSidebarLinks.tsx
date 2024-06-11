@@ -1,74 +1,44 @@
 // frontend\src\constants\AdminSidebarLinks.tsx
 
-import {
-	HiOutlineViewGrid,
-	HiOutlineCube,
-	// HiOutlineShoppingCart,
-	// HiOutlineUsers,
-	// HiOutlineDocumentText,
-	// HiOutlineAnnotation,
-	// HiOutlineQuestionMarkCircle,
-	// HiOutlineCog
-} from 'react-icons/hi'
-import { ReactNode } from 'react'
+import { Icon } from '@iconify/react';
 
-export interface SidebarLinkType {
-	key: string
-	label: string
-	path: string
-	icon: ReactNode
-}
+import { SideNavItem } from '../types/sideNavItem';
 
-export const ADMIN_SIDEBAR_LINKS: SidebarLinkType[] = [
-	{
-		key: 'dashboard',
-		label: 'Dashboard',
-		path: 'dashboard',
-		icon: <HiOutlineViewGrid />
-	},
-	{
-		key: 'expertmanagement',
-		label: 'Expert Management',
-		path: 'expertmanagement',
-		icon: <HiOutlineCube />
-	},
-	// {
-	// 	key: 'orders',
-	// 	label: 'Orders',
-	// 	path: '/orders',
-	// 	icon: <HiOutlineShoppingCart />
-	// },
-	// {
-	// 	key: 'customers',
-	// 	label: 'Customers',
-	// 	path: '/customers',
-	// 	icon: <HiOutlineUsers />
-	// },
-	// {
-	// 	key: 'transactions',
-	// 	label: 'Transactions',
-	// 	path: '/transactions',
-	// 	icon: <HiOutlineDocumentText />
-	// },
-	// {
-	// 	key: 'messages',
-	// 	label: 'Messages',
-	// 	path: '/messages',
-	// 	icon: <HiOutlineAnnotation />
-	// }
-]
-
-export const ADMIN_SIDEBAR_BOTTOM_LINKS: SidebarLinkType[] = [
-	// {
-	// 	key: 'settings',
-	// 	label: 'Settings',
-	// 	path: '/settings',
-	// 	icon: <HiOutlineCog />
-	// },
-	// {
-	// 	key: 'support',
-	// 	label: 'Help & Support',
-	// 	path: '/support',
-	// 	icon: <HiOutlineQuestionMarkCircle />
-	// }
-]
+export const SIDENAV_ITEMS: SideNavItem[] = [
+  {
+    title: 'Home',
+    path: '/admin/',
+    icon: <Icon icon="lucide:home" width="24" height="24" />,
+  },
+  {
+    title: 'Projects',
+    path: '/admin/projects',
+    icon: <Icon icon="lucide:folder" width="24" height="24" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'All', path: '/admin/projects' },
+      { title: 'Web Design', path: '/admin/projects/web-design' },
+      { title: 'Graphic Design', path: '/admin/projects/graphic-design' },
+    ],
+  },
+  {
+    title: 'Messages',
+    path: '/admin/messages',
+    icon: <Icon icon="lucide:mail" width="24" height="24" />,
+  },
+  {
+    title: 'Settings',
+    path: '/admin/settings',
+    icon: <Icon icon="lucide:settings" width="24" height="24" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'Account', path: '/admin/settings/account' },
+      { title: 'Privacy', path: '/admin/settings/privacy' },
+    ],
+  },
+  {
+    title: 'Help',
+    path: '/admin/help',
+    icon: <Icon icon="lucide:help-circle" width="24" height="24" />,
+  },
+];
