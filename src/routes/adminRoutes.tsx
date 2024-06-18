@@ -8,8 +8,9 @@ import RootLayout from '../pages/admin/Layout'
 // import ExpertManagement from '../pages/admin/ExpertManagement'
 import AdminPrivateRoute from './privateRoutes/AdminPrivateRoute'
 import Dashboard from '../pages/admin/dashboard/page'
-import ProjectsPage from '../pages/admin/projects/page'
-import MessagesPage from '../pages/admin/messages/page'
+import AllExperts from '../pages/admin/expert/page'
+import VerifyExperts from '../pages/admin/expert/verifyExperts/page'
+import Category from '../pages/admin/category/page'
 
 
 export function AdminRoutes() {
@@ -19,8 +20,9 @@ export function AdminRoutes() {
             <Route element={<AdminPrivateRoute />}>
                 <Route element={<RootLayout />}>
                     <Route index element={<Dashboard />} />
-                    <Route path='/projects' element={<ProjectsPage />} />
-                    <Route path='/messages' element={<MessagesPage />} />
+                    <Route path='/all-experts' element={<AllExperts />} />
+                    <Route path='/verify-experts' element={<VerifyExperts />} />
+                    <Route path='/category' element={<Category />} />
                 </Route>
             </Route>
         </Routes>

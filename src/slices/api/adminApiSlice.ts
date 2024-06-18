@@ -23,9 +23,16 @@ export interface ExpertData {
     __v: number;
 }
 
+export interface CategoryData {
+    _id: string;
+    categoryName: string;
+    categoryDescription: string;
+}
+
 interface GetExpertDataResponse {
     success: boolean;
     data: ExpertData[];
+    total?: number;
     message: string;
 }
 
@@ -38,13 +45,13 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
-        
-        getExpertData: builder.query<GetExpertDataResponse, void>({
-            query: () => ({
-                url: `${ADMIN_URL}/expertData`,
+
+        getExpertData: builder.query<GetExpertDataResponse, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${ADMIN_URL}/expertData?page=${page}&limit=${limit}`,
                 method: 'GET',
             }),
-            providesTags:['admin'],
+            providesTags: ['Expert'],
         }),
 
         updateExpertVerification: builder.mutation({
@@ -53,7 +60,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 method: 'PATCH',
                 body: { isVerified },
             }),
-            invalidatesTags: ['admin'],
+            invalidatesTags: ['Expert'],
         }),
 
         adminLogout: builder.mutation({
@@ -69,6 +76,24 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
             }),
         }),
+
+        addCategory: builder.mutation({
+            query: (data) => ({
+                url: `${ADMIN_URL}/addCategory`,
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ['Category'],
+        }),
+
+        getCategoryData: builder.query<{ data: CategoryData[], total: number }, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${ADMIN_URL}/categories?page=${page}&limit=${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['Category'],
+        }),
+
     }),
 })
 
@@ -78,4 +103,6 @@ export const {
     useUpdateExpertVerificationMutation,
     useAdminLogoutMutation,
     useSendVerifiedEmailMutation,
+    useAddCategoryMutation,
+    useGetCategoryDataQuery,
 } = adminApiSlice

@@ -6,39 +6,55 @@ import { SideNavItem } from '../types/sideNavItem';
 
 export const SIDENAV_ITEMS: SideNavItem[] = [
   {
-    title: 'Home',
+    title: 'Dashboard',
     path: '/admin/',
     icon: <Icon icon="lucide:home" width="24" height="24" />,
   },
   {
-    title: 'Projects',
-    path: '/admin/projects',
-    icon: <Icon icon="lucide:folder" width="24" height="24" />,
+    title: 'Expert',
+    path: '/admin/experts',
+    icon: <Icon icon="carbon:user-admin" width="24" height="24" />,
     submenu: true,
     subMenuItems: [
-      { title: 'All', path: '/admin/projects' },
-      { title: 'Web Design', path: '/admin/projects/web-design' },
-      { title: 'Graphic Design', path: '/admin/projects/graphic-design' },
+      { title: 'All', path: '/admin/all-experts' },
+      { title: 'Verify experts', path: '/admin/verify-experts' },
+      // { title: 'Graphic Design', path: '/admin/' },
     ],
   },
   {
-    title: 'Messages',
-    path: '/admin/messages',
-    icon: <Icon icon="lucide:mail" width="24" height="24" />,
-  },
-  {
-    title: 'Settings',
-    path: '/admin/settings',
-    icon: <Icon icon="lucide:settings" width="24" height="24" />,
+    title: 'User',
+    path: '/admin/users',
+    icon: <Icon icon="lucide:user" width="24" height="24" />,
     submenu: true,
     subMenuItems: [
-      { title: 'Account', path: '/admin/settings/account' },
-      { title: 'Privacy', path: '/admin/settings/privacy' },
+      { title: 'All', path: '/admin/users' },
+      { title: 'user-2', path: '/admin/projects/user-2' },
+      // { title: 'Graphic Design', path: '/admin/projects/graphic-design' },
     ],
   },
   {
-    title: 'Help',
-    path: '/admin/help',
-    icon: <Icon icon="lucide:help-circle" width="24" height="24" />,
+    title: 'Category',
+    path: '/admin/category',
+    icon: <Icon icon="material-symbols:category-outline" width="24" height="24" />,
+  },
+  // {
+  //   title: 'Settings',
+  //   path: '/admin/settings',
+  //   icon: <Icon icon="lucide:settings" width="24" height="24" />,
+  //   submenu: true,
+  //   subMenuItems: [
+  //     { title: 'Account', path: '/admin/settings/account' },
+  //     { title: 'Privacy', path: '/admin/settings/privacy' },
+  //   ],
+  // },
+  // {
+  //   title: 'Help',
+  //   path: '/admin/help',
+  //   icon: <Icon icon="lucide:help-circle" width="24" height="24" />,
+  // },
+  {
+    title: 'Logout',
+    path: '/admin/logout',
+    icon: <Icon icon="material-symbols:logout" width="24" height="24" />,
   },
 ];

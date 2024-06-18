@@ -95,3 +95,14 @@ export const resetPasswordSchema = Yup.object({
         .oneOf([Yup.ref("newPassword")], "Passwords do not match")
         .required("Please confirm your new password")
 });
+
+export const addCategorySchema = Yup.object({
+    categoryName: Yup.string()
+        .min(3, "Category name must be at least 3 characters")
+        .max(30, "Category name must be at most 30 characters")
+        .required("Please enter category name"),
+    categoryDescription: Yup.string()
+        .min(10, "Category description must be at least 10 characters")
+        .max(100, "Category description must be at most 100 characters")
+        .required("Please enter category description"),
+});
