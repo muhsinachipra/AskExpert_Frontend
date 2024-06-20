@@ -1,6 +1,25 @@
 // frontend\src\slices\authSlice.ts
 
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { userApiSlice } from "./api/userApiSlice";
+
+
+const getUserData = userApiSlice.endpoints.getUserData.initiate()
+export const fetchUserData = createAsyncThunk(
+    'auth/fetchUserData',
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const { data } = await dispatch(getUserData);
+            if (data) {
+                return data?.data;
+            } else {
+                throw new Error('Data not found');
+            }
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+)
 
 export type AdminInfo = {
     _id?: string;
@@ -28,27 +47,29 @@ export type ExpertInfo = {
     profilePic?: string;
     // profilePicUrl?: string;
     resumeUrl?: string;
-    isVerified?:boolean;
+    isVerified?: boolean;
     rate?: number;
     createdAt?: string
 }
 
 type initialState = {
     userInfo: UserInfo | null;
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
     adminInfo: AdminInfo | null;
     expertInfo: ExpertInfo | null;
     registerInfo: UserInfo | null;
     expertRegisterInfo: ExpertInfo | null;
 }
 
-const userInfoFromLocalStorage = localStorage.getItem('userInfo');
+const userInfoFromSessionStorage = sessionStorage.getItem('userInfo');
 const adminInfoFromLocalStorage = localStorage.getItem('adminInfo');
 const expertInfoFromLocalStorage = localStorage.getItem('expertInfo');
 const registerInfoFromLocalStorage = localStorage.getItem("registerInfo");
 const expertRegisterInfoFromLocalStorage = localStorage.getItem("expertRegisterInfo");
 
 const initialState: initialState = {
-    userInfo: userInfoFromLocalStorage ? JSON.parse(userInfoFromLocalStorage) : null,
+    userInfo: userInfoFromSessionStorage ? JSON.parse(userInfoFromSessionStorage) : null,
+    status: 'idle',
     adminInfo: adminInfoFromLocalStorage ? JSON.parse(adminInfoFromLocalStorage) : null,
     expertInfo: expertInfoFromLocalStorage ? JSON.parse(expertInfoFromLocalStorage) : null,
     registerInfo: registerInfoFromLocalStorage ? JSON.parse(registerInfoFromLocalStorage) : null,
@@ -62,7 +83,7 @@ const authSlice = createSlice({
         // user
         setCredential: (state, action) => {
             state.userInfo = action.payload;
-            localStorage.setItem("userInfo", JSON.stringify(action.payload));
+            sessionStorage.setItem("userInfo", JSON.stringify(action.payload));
         },
         setRegister: (state, action) => {
             state.registerInfo = action.payload;
@@ -74,7 +95,8 @@ const authSlice = createSlice({
         },
         userLogout: (state) => {
             state.userInfo = null;
-            localStorage.removeItem("userInfo");
+            localStorage.removeItem('isUserLoggedIn');
+            sessionStorage.removeItem("userInfo");
         },
 
         // expert
@@ -104,7 +126,21 @@ const authSlice = createSlice({
             state.adminInfo = null;
             localStorage.removeItem("adminInfo");
         },
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchUserData.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchUserData.fulfilled, (state, action) => {
+                state.userInfo = action.payload;
+                sessionStorage.setItem("userInfo", JSON.stringify(action.payload));
+                state.status = 'succeeded';
+            })
+            .addCase(fetchUserData.rejected, (state) => {
+                state.status = 'failed';
+            });
+    },
 })
 
 export const {

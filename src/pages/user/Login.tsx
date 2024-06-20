@@ -38,6 +38,7 @@ export default function Login() {
                 setIsLoading(true);
                 const res = await login(values).unwrap();
                 dispatch(setCredential({ ...res.data }));
+                localStorage.setItem('isUserLoggedIn', 'true');
                 navigate(from, { replace: true });
                 toast.success(res.message);
             } catch (err) {
@@ -106,12 +107,13 @@ export default function Login() {
                                             try {
                                                 const res = await googleAuth({ name, email, password }).unwrap();
                                                 dispatch(setCredential({ ...res.data }));
+                                                localStorage.setItem('isUserLoggedIn', 'true');
                                                 toast.success(res.message);
                                                 navigate('/')
                                             } catch (err) {
                                                 toast.error((err as MyError)?.data?.message || (err as MyError)?.error);
                                             }
-                                            console.log(credentialResponseDecoded);
+                                            // console.log(credentialResponseDecoded);
                                         } else {
                                             console.log("Credential not found");
                                         }

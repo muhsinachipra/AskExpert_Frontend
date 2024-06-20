@@ -27,6 +27,14 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
     const name = isExpertPage ? expertLoggedIn?.name : userLoggedIn?.name;
     const email = isExpertPage ? expertLoggedIn?.email : userLoggedIn?.email;
     const dispatch = useDispatch();
+    // const dispatch = useDispatch<AppDispatch>();
+
+    // useEffect(() => {
+    //     const isUserLoggedIn = localStorage.getItem('isUserLoggedIn');
+    //     if (isUserLoggedIn) {
+    //         dispatch(fetchUserData());
+    //     }
+    // }, [dispatch]);
 
     const [userLogoutMutation] = useUserLogoutMutation();
     const [expertLogoutMutation] = useExpertLogoutMutation();
@@ -99,15 +107,15 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
                         <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none z-20">
                             <div className="py-1">
                                 <button type="button" className="flex items-center text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <span className="mr-3"><CgProfile className="text-teal-500"/></span>
+                                    <span className="mr-3"><CgProfile className="text-teal-500" /></span>
                                     {name}<br />{email}
                                 </button>
                                 <button type="button" onClick={handleEditProfile} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <span className="mr-3"><IoMdSettings className="text-teal-500"/></span>
+                                    <span className="mr-3"><IoMdSettings className="text-teal-500" /></span>
                                     Edit profile
                                 </button>
                                 <button type="button" onClick={handleLogout} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <span className="mr-3"><RiLogoutBoxFill className="text-teal-500"/></span>
+                                    <span className="mr-3"><RiLogoutBoxFill className="text-teal-500" /></span>
                                     Log out
                                 </button>
                             </div>

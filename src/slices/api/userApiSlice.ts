@@ -1,8 +1,28 @@
 // frontend\src\slices\api\userApiSlice.ts
 
+import { UserInfo } from "../authSlice";
 import { apiSlice } from "./apiSlice";
 
 const USER_URL = "/api/user";
+
+// export interface UserData {
+//     _id: string;
+//     name: string;
+//     email: string;
+//     password: string;
+//     mobile: string;
+//     isBlocked: boolean;
+//     createdAt: string;
+//     updatedAt: string;
+//     __v: number;
+// }
+
+interface GetUserDataResponse {
+    success: boolean;
+    data: UserInfo;
+    message: string;
+}
+
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -14,6 +34,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
+        
         register: builder.mutation({
             query: (data) => ({
                 url: `${USER_URL}/signup`,
@@ -85,7 +106,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
-
+        
+        getUserData: builder.query<GetUserDataResponse, void>({
+            query: () => ({
+                url: `${USER_URL}/getUserData`,
+                method: 'GET',
+            }),
+            providesTags: ['User'],
+        }),
     }),
 });
 
@@ -100,4 +128,5 @@ export const {
     useValidateAccesssTokenMutation,
     useUserLogoutMutation,
     useUpdateProfileMutation,
+    useGetUserDataQuery,
 } = userApiSlice;
