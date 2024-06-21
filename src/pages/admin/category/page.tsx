@@ -8,6 +8,7 @@ import Modal from "../../../components/admin/Modal";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { addCategorySchema } from "../../../validation/yupValidation";
+import { MyError } from "../../../validation/validationTypes";
 
 const Category = () => {
     const [page, setPage] = useState(1);
@@ -18,8 +19,6 @@ const Category = () => {
     const total = data?.total ?? 0;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [categoryName, setCategoryName] = useState("");
-    const [categoryDescription, setCategoryDescription] = useState("");
 
     const tableHeaders = ["Name", "Description"];
 
@@ -38,17 +37,13 @@ const Category = () => {
         validationSchema: addCategorySchema,
         onSubmit: async (values, { resetForm }) => {
             try {
-                const response = await addCategory(values);
-                if (response.error) {
-                    toast.error(response.error.data.message);
-                } else {
-                    toast.success("Category added successfully");
-                    resetForm();
-                    setIsModalOpen(false);
-                }
+                await addCategory(values).unwrap();
+                toast.success("Category added successfully");
+                resetForm();
+                setIsModalOpen(false);
             } catch (error) {
                 console.error("Failed to add category", error);
-                toast.error("Failed to add category");
+                toast.error((error as MyError)?.data?.message || (error as MyError)?.error);
             }
         },
     });

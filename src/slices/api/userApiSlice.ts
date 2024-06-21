@@ -33,7 +33,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
-
         
         register: builder.mutation({
             query: (data) => ({

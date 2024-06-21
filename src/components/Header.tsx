@@ -27,14 +27,6 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
     const name = isExpertPage ? expertLoggedIn?.name : userLoggedIn?.name;
     const email = isExpertPage ? expertLoggedIn?.email : userLoggedIn?.email;
     const dispatch = useDispatch();
-    // const dispatch = useDispatch<AppDispatch>();
-
-    // useEffect(() => {
-    //     const isUserLoggedIn = localStorage.getItem('isUserLoggedIn');
-    //     if (isUserLoggedIn) {
-    //         dispatch(fetchUserData());
-    //     }
-    // }, [dispatch]);
 
     const [userLogoutMutation] = useUserLogoutMutation();
     const [expertLogoutMutation] = useExpertLogoutMutation();
