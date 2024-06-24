@@ -88,6 +88,15 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['Category'],
         }),
 
+        editCategory: builder.mutation({
+            query: (data) => ({
+                url: `${ADMIN_URL}/editCategory`,
+                method: "PATCH",
+                body: data,
+            }),
+            invalidatesTags: ['Category'],
+        }),
+
         getCategoryData: builder.query<{ data: CategoryData[], total: number }, { page: number; limit: number }>({
             query: ({ page, limit }) => ({
                 url: `${ADMIN_URL}/categories?page=${page}&limit=${limit}`,
@@ -106,5 +115,6 @@ export const {
     useAdminLogoutMutation,
     useSendVerifiedEmailMutation,
     useAddCategoryMutation,
+    useEditCategoryMutation,
     useGetCategoryDataQuery,
 } = adminApiSlice

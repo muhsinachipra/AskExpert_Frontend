@@ -21,7 +21,7 @@ const VerifyExperts = () => {
     const experts = data?.data ?? [];
     const total = data?.total ?? 0;
 
-    const handleVerificationToggle = async (expertId: string, isVerified: boolean) => {
+    const handleButtonClick = async (expertId: string, isVerified: boolean) => {
         try {
             const res = await updateExpertVerification({ expertId, isVerified: !isVerified });
             if (!isVerified) {
@@ -48,7 +48,7 @@ const VerifyExperts = () => {
 
     const tableHeaders = ["Name", "Email", "Resume", "Category", "Experience", "Rate", "Verified"];
 
-    const renderRow = (expert: ExpertData, handleVerificationToggle: (expertId: string, isVerified: boolean) => void) => (
+    const renderRow = (expert: ExpertData, handleButtonClick: (expertId: string, isVerified: boolean) => void) => (
         <>
             <td className="p-2">{expert.name}</td>
             <td className="p-2">{expert.email}</td>
@@ -62,7 +62,7 @@ const VerifyExperts = () => {
             <td className="p-2">{expert.rate}</td>
             <td className="p-2">
                 <button
-                    onClick={() => handleVerificationToggle(expert._id, expert.isVerified)}
+                    onClick={() => handleButtonClick(expert._id, expert.isVerified)}
                     className={`${getStatusClassName(expert.isVerified)} py-1 px-2 rounded-full text-sm`}
                 >
                     {expert.isVerified ? "Verified" : "Unverified"}
@@ -78,7 +78,7 @@ const VerifyExperts = () => {
                 data={experts}
                 isLoading={isLoading}
                 error={error}
-                handleVerificationToggle={handleVerificationToggle}
+                handleButtonClick={handleButtonClick}
                 tableHeaders={tableHeaders}
                 renderRow={renderRow}
             />

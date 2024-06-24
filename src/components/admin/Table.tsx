@@ -10,14 +10,14 @@ interface Identifiable {
 
 interface AdminTableProps<T extends Identifiable> {
     data: T[];
-    isLoading: boolean;
+    isLoading?: boolean;
     error: FetchBaseQueryError | SerializedError | undefined;
-    handleVerificationToggle: (id: string, isVerified: boolean) => void;
+    handleButtonClick: (id: string, isVerified: boolean) => void;
     tableHeaders: string[];
-    renderRow: (datum: T, handleVerificationToggle: (id: string, isVerified: boolean) => void) => React.ReactNode;
+    renderRow: (datum: T, handleButtonClick: (id: string, isVerified: boolean) => void) => React.ReactNode;
 }
 
-export default function AdminTable<T extends Identifiable>({ data, isLoading, error, handleVerificationToggle, tableHeaders, renderRow }: AdminTableProps<T>) {
+export default function AdminTable<T extends Identifiable>({ data, isLoading, error, handleButtonClick, tableHeaders, renderRow }: AdminTableProps<T>) {
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data</div>;
 
@@ -36,7 +36,7 @@ export default function AdminTable<T extends Identifiable>({ data, isLoading, er
                         {data.length > 0 ? (
                             data.map((datum) => (
                                 <tr key={datum._id} className="border-b hover:bg-gray-50">
-                                    {renderRow(datum, handleVerificationToggle)}
+                                    {renderRow(datum, handleButtonClick)}
                                 </tr>
                             ))
                         ) : (
