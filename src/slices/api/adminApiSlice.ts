@@ -1,37 +1,22 @@
 // frontend\src\slices\api\adminApiSlice.ts
 
+import { ICategory, IExpert, IUser } from "../../types/domain";
 import { apiSlice } from "./apiSlice";
 
 const ADMIN_URL = "/api/admin";
 
-export interface ExpertData {
-    _id: string;
-    name: string;
-    email: string;
-    password: string;
-    category: string;
-    experience: number;
-    profilePic: string;
-    resume: string;
-    rate: number;
-    rating: number;
-    wallet: number;
-    isVerified: boolean;
-    isBlocked: boolean;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-}
 
-export interface CategoryData {
-    _id: string;
-    categoryName: string;
-    categoryDescription: string;
-}
 
 interface GetExpertDataResponse {
     success: boolean;
-    data: ExpertData[];
+    data: IExpert[];
+    total?: number;
+    message: string;
+}
+
+interface GetUserDataResponse {
+    success: boolean;
+    data: IUser[];
     total?: number;
     message: string;
 }
@@ -97,12 +82,20 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['Category'],
         }),
 
-        getCategoryData: builder.query<{ data: CategoryData[], total: number }, { page: number; limit: number }>({
+        getCategoryData: builder.query<{ data: ICategory[], total: number }, { page: number; limit: number }>({
             query: ({ page, limit }) => ({
                 url: `${ADMIN_URL}/categories?page=${page}&limit=${limit}`,
                 method: 'GET',
             }),
             providesTags: ['Category'],
+        }),
+
+        adminGetUserData: builder.query<GetUserDataResponse, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${ADMIN_URL}/userData?page=${page}&limit=${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['User'],
         }),
 
     }),
@@ -117,4 +110,5 @@ export const {
     useAddCategoryMutation,
     useEditCategoryMutation,
     useGetCategoryDataQuery,
+    useAdminGetUserDataQuery,
 } = adminApiSlice

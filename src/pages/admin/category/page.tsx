@@ -1,8 +1,9 @@
 // frontend/src/pages/admin/category/page.tsx
 
 import { useState } from "react";
-import { useGetCategoryDataQuery, useAddCategoryMutation, useEditCategoryMutation, CategoryData } from "../../../slices/api/adminApiSlice";
+import { useGetCategoryDataQuery, useAddCategoryMutation, useEditCategoryMutation } from "../../../slices/api/adminApiSlice";
 import Spinner from "../../../components/Spinner";
+import { ICategory } from "../../../types/domain";
 import Modal from "../../../components/admin/Modal";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
@@ -21,11 +22,11 @@ const Category = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     // const [currentCategory, setCurrentCategory] = useState<{ id: string, categoryName: string, categoryDescription: string } | null>(null);
-    const [currentCategory, setCurrentCategory] = useState<CategoryData | null>(null);
+    const [currentCategory, setCurrentCategory] = useState<ICategory | null>(null);
 
     const tableHeaders = ["Name", "Description", "Action"];
 
-    const handleEditButtonClick = (category: CategoryData) => {
+    const handleEditButtonClick = (category: ICategory) => {
         setCurrentCategory(category);
         setIsEditModalOpen(true);
     };

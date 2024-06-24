@@ -11,6 +11,7 @@ import Dashboard from '../pages/admin/dashboard/page'
 import AllExperts from '../pages/admin/expert/page'
 import VerifyExperts from '../pages/admin/expert/verifyExperts/page'
 import Category from '../pages/admin/category/page'
+import AllUsers from '../pages/admin/user/page'
 
 
 export function AdminRoutes() {
@@ -23,6 +24,7 @@ export function AdminRoutes() {
                     <Route path='/all-experts' element={<AllExperts />} />
                     <Route path='/verify-experts' element={<VerifyExperts />} />
                     <Route path='/category' element={<Category />} />
+                    <Route path='/all-users' element={<AllUsers />} />
                 </Route>
             </Route>
         </Routes>

@@ -46,7 +46,7 @@ export type ExpertInfo = {
     experience?: number;
     profilePic?: string;
     // profilePicUrl?: string;
-    resumeUrl?: string;
+    resume?: string;
     isVerified?: boolean;
     rate?: number;
     createdAt?: string

@@ -62,7 +62,7 @@ export default function Otp() {
                 const password = expertRegisterInfo?.password;
                 const profilePic = expertRegisterInfo?.profilePic;
                 // const profilePic = expertRegisterInfo?.profilePicUrl;
-                const resume = expertRegisterInfo?.resumeUrl;
+                const resume = expertRegisterInfo?.resume;
                 const category = expertRegisterInfo?.category;
                 const rate = expertRegisterInfo?.rate;
                 const experience = expertRegisterInfo?.experience;

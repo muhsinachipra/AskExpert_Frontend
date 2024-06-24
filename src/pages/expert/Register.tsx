@@ -27,8 +27,8 @@ export default function Register() {
 
 
     const [profilePicture, setProfilePic] = useState<File | null>(null);
-    const [resume, setResume] = useState<File | null>(null);
-    const [fileErrors, setFileErrors] = useState({ profilePicture: '', resume: '' });
+    const [resumee, setResume] = useState<File | null>(null);
+    const [fileErrors, setFileErrors] = useState({ profilePicture: '', resumee: '' });
 
     const initialValues = {
         name: '',
@@ -42,7 +42,7 @@ export default function Register() {
 
     const validateFiles = () => {
         let valid = true;
-        const errors = { profilePicture: '', resume: '' };
+        const errors = { profilePicture: '', resumee: '' };
 
         if (profilePicture) {
             if (!['image/jpeg', 'image/png'].includes(profilePicture.type)) {
@@ -55,13 +55,13 @@ export default function Register() {
             }
         }
 
-        if (resume) {
-            if (resume.type !== 'application/pdf') {
-                errors.resume = 'Unsupported file format for resume';
+        if (resumee) {
+            if (resumee.type !== 'application/pdf') {
+                errors.resumee = 'Unsupported file format for resume';
                 valid = false;
             }
-            if (resume.size > 5000000) { // 5MB
-                errors.resume = 'Resume file size is too large';
+            if (resumee.size > 5000000) { // 5MB
+                errors.resumee = 'Resume file size is too large';
                 valid = false;
             }
         }
@@ -84,18 +84,18 @@ export default function Register() {
             try {
                 // Upload profile picture and resume to Firebase Storage
                 const profilePicRef = ref(storage, `expert/profilePics/${uuidv4()}-${profilePicture?.name}`);
-                const resumeRef = ref(storage, `expert/resumes/${uuidv4()}-${resume?.name}`);
+                const resumeRef = ref(storage, `expert/resumes/${uuidv4()}-${resumee?.name}`);
 
                 const [profilePicSnapshot, resumeSnapshot] = await Promise.all([
                     profilePicture && uploadBytes(profilePicRef, profilePicture),
-                    resume && uploadBytes(resumeRef, resume),
+                    resumee && uploadBytes(resumeRef, resumee),
                 ]);
 
                 const profilePic = profilePicSnapshot ? await getDownloadURL(profilePicRef) : null;
-                const resumeUrl = resumeSnapshot ? await getDownloadURL(resumeRef) : null;
+                const resume = resumeSnapshot ? await getDownloadURL(resumeRef) : null;
 
-                // console.log('expert register values :',{ ...values, profilePic, resumeUrl })
-                dispatch(setExpertRegister({ ...values, profilePic, resumeUrl }));
+                // console.log('expert register values :',{ ...values, profilePic, resume })
+                dispatch(setExpertRegister({ ...values, profilePic, resume }));
 
                 const { name, email } = values;
                 const res = await sendOtpToEmail({ name, email }).unwrap();

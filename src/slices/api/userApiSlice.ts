@@ -1,25 +1,13 @@
 // frontend\src\slices\api\userApiSlice.ts
 
-import { UserInfo } from "../authSlice";
+import { IUser } from "../../types/domain";
 import { apiSlice } from "./apiSlice";
 
 const USER_URL = "/api/user";
 
-// export interface UserData {
-//     _id: string;
-//     name: string;
-//     email: string;
-//     password: string;
-//     mobile: string;
-//     isBlocked: boolean;
-//     createdAt: string;
-//     updatedAt: string;
-//     __v: number;
-// }
-
 interface GetUserDataResponse {
     success: boolean;
-    data: UserInfo;
+    data: IUser;
     message: string;
 }
 

@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useGetExpertDataQuery, useSendVerifiedEmailMutation, useUpdateExpertVerificationMutation, ExpertData } from "../../../../slices/api/adminApiSlice";
+import { useGetExpertDataQuery, useSendVerifiedEmailMutation, useUpdateExpertVerificationMutation } from "../../../../slices/api/adminApiSlice";
 import { setExpertCredential } from "../../../../slices/authSlice";
+import { IExpert } from "../../../../types/domain";
 import AdminTable from "../../../../components/admin/Table";
 import { Link } from "react-router-dom";
 
@@ -48,7 +49,7 @@ const VerifyExperts = () => {
 
     const tableHeaders = ["Name", "Email", "Resume", "Category", "Experience", "Rate", "Verified"];
 
-    const renderRow = (expert: ExpertData, handleButtonClick: (expertId: string, isVerified: boolean) => void) => (
+    const renderRow = (expert: IExpert, handleButtonClick: (expertId: string, isVerified: boolean) => void) => (
         <>
             <td className="p-2">{expert.name}</td>
             <td className="p-2">{expert.email}</td>
@@ -74,7 +75,7 @@ const VerifyExperts = () => {
     return (
         <>
             <span className="font-bold text-4xl">Verify Experts</span>
-            <AdminTable<ExpertData>
+            <AdminTable<IExpert>
                 data={experts}
                 isLoading={isLoading}
                 error={error}

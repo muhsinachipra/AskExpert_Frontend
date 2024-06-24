@@ -27,7 +27,7 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     icon: <Icon icon="lucide:user" width="24" height="24" />,
     submenu: true,
     subMenuItems: [
-      { title: 'All', path: '/admin/users' },
+      { title: 'All', path: '/admin/all-users' },
       { title: 'user-2', path: '/admin/projects/user-2' },
       // { title: 'Graphic Design', path: '/admin/projects/graphic-design' },
     ],
