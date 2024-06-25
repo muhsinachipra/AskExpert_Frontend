@@ -98,6 +98,14 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             providesTags: ['User'],
         }),
 
+        toggleUserBlockedStatus: builder.mutation({
+            query: ({ userId, isBlocked }) => ({
+                url: `${ADMIN_URL}/userBlockedStatus/${userId}`,
+                method: 'PATCH',
+                body: { isBlocked },
+            }),
+            invalidatesTags: ['User'],
+        }),
     }),
 })
 
@@ -111,4 +119,5 @@ export const {
     useEditCategoryMutation,
     useGetCategoryDataQuery,
     useAdminGetUserDataQuery,
+    useToggleUserBlockedStatusMutation,
 } = adminApiSlice

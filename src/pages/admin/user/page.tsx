@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAdminGetUserDataQuery } from "../../../slices/api/adminApiSlice";
 import AdminTable from "../../../components/admin/Table";
 import { IUser } from "../../../types/domain";
+import { useToggleUserBlockedStatusMutation } from "../../../slices/api/adminApiSlice";
 
 const getStatusClassName = (isBlocked: boolean): string => {
     return isBlocked ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600';
@@ -13,13 +14,14 @@ const AllUsers = () => {
     const [page, setPage] = useState(1);
     const [limit] = useState(6);
     const { data, error, isLoading } = useAdminGetUserDataQuery({ page, limit });
+    const [toggleUserBlockedStatus] = useToggleUserBlockedStatusMutation();
     const users = data?.data ?? [];
     const total = data?.total ?? 0;
 
     const handleButtonClick = async (userId: string, isBlocked: boolean) => {
         try {
             console.log(userId, isBlocked)
-            // await toggleUserBlockedStatus({ userId, isBlocked: !isBlocked });
+            await toggleUserBlockedStatus({ userId, isBlocked: !isBlocked });
         } catch (error) {
             console.error("Failed to update user Block status", error);
         }

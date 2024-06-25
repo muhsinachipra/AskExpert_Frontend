@@ -21,7 +21,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
-        
+
         register: builder.mutation({
             query: (data) => ({
                 url: `${USER_URL}/signup`,
@@ -93,7 +93,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
-        
+
         getUserData: builder.query<GetUserDataResponse, void>({
             query: () => ({
                 url: `${USER_URL}/getUserData`,
@@ -101,6 +101,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['User'],
         }),
+
     }),
 });
 
