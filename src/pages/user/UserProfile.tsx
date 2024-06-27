@@ -34,6 +34,7 @@ export default function UserProfile() {
                 const _id = userInfo?._id;
                 const { name, mobile } = values; // Destructure values
                 const res = await updateUser({ _id, name, mobile }).unwrap();
+                console.log('res data from updataProfile', res)
                 dispatch(setCredential({ ...res.user }));
                 toast.success(res.message)
             } catch (err) {

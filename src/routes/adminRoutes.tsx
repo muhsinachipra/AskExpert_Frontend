@@ -24,7 +24,7 @@ export function AdminRoutes() {
                     <Route path='/all-experts' element={<AllExperts />} />
                     <Route path='/verify-experts' element={<VerifyExperts />} />
                     <Route path='/category' element={<Category />} />
-                    <Route path='/all-users' element={<AllUsers />} />
+                    <Route path='/users' element={<AllUsers />} />
                 </Route>
             </Route>
         </Routes>

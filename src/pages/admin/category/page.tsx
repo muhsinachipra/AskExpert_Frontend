@@ -94,7 +94,7 @@ const Category = () => {
 
     return (
         <>
-            <span className="font-bold text-4xl">Category</span>
+            <span className="font-bold text-4xl">Category Management</span>
             <button
                 className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
                 onClick={() => setIsAddModalOpen(true)}
@@ -121,9 +121,11 @@ const Category = () => {
                                         <tr key={category._id} className="border-b hover:bg-gray-50">
                                             <td className="p-2">{category.categoryName}</td>
                                             <td className="p-2">{category.categoryDescription}</td>
-                                            <button onClick={() => handleEditButtonClick(category)}>
-                                                Edit
-                                            </button>
+                                            <td className="p-2">
+                                                <button onClick={() => handleEditButtonClick(category)}>
+                                                    Edit
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
