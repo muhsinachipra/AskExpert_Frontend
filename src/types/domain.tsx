@@ -35,3 +35,11 @@ export interface IUser {
     updatedAt: string;
     __v: number;
 }
+
+export interface ISchedule {
+    _id: string;
+    time: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+}

@@ -1,20 +1,20 @@
 // frontend\src\pages\expert\Register.tsx
 
 import { useFormik } from "formik";
-import { useSendOtpToEmailMutation } from "../../slices/api/userApiSlice";
+import { useSendOtpToEmailMutation } from "../../../slices/api/userApiSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { expertRegisterSchema } from "../../validation/yupValidation";
-import { clearExpertRegister, setExpertRegister } from "../../slices/authSlice";
-import Spinner from "../../components/Spinner";
-import { MyError } from "../../validation/validationTypes";
-import { storage } from "../../app/firebase/config";
+import { expertRegisterSchema } from "../../../validation/yupValidation";
+import { clearExpertRegister, setExpertRegister } from "../../../slices/authSlice";
+import Spinner from "../../../components/Spinner";
+import { MyError } from "../../../validation/validationTypes";
+import { storage } from "../../../app/firebase/config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid"
 import { Link } from "react-router-dom";
-import { useGetCategoryDataQuery } from "../../slices/api/adminApiSlice";
+import { useGetCategoryDataQuery } from "../../../slices/api/adminApiSlice";
 
 export default function Register() {
 
@@ -211,8 +211,8 @@ export default function Register() {
                                             setResume(files[0]);
                                         }
                                     }} className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
-                                    {fileErrors.resume && (
-                                        <div className="text-red-500">{fileErrors.resume}</div>
+                                    {fileErrors.resumee && (
+                                        <div className="text-red-500">{fileErrors.resumee}</div>
                                     )}
                                 </div>
                             </div>

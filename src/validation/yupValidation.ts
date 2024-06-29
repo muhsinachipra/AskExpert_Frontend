@@ -106,3 +106,7 @@ export const addCategorySchema = Yup.object({
         .max(100, "Category description must be at most 100 characters")
         .required("Please enter category description"),
 });
+
+export const addScheduleSchema = Yup.object({
+    time: Yup.string().required('Time is required'),
+});

@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { RootState } from "../../../app/store";
 import { useEffect, useState } from "react";
-import { useExpertRegisterMutation } from "../../slices/api/expertApiSlice";
-import { useSendOtpToEmailMutation, useOtpVerificationMutation } from "../../slices/api/userApiSlice";
+import { useExpertRegisterMutation } from "../../../slices/api/expertApiSlice";
+import { useSendOtpToEmailMutation, useOtpVerificationMutation } from "../../../slices/api/userApiSlice";
 
-import { MyError } from "../../validation/validationTypes";
-import { clearExpertRegister } from "../../slices/authSlice";
+import { MyError } from "../../../validation/validationTypes";
+import { clearExpertRegister } from "../../../slices/authSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import OtpComponent from "../../components/Otp";
+import OtpComponent from "../../../components/Otp";
 
 export default function Otp() {
     const dispatch = useDispatch();

@@ -1,11 +1,11 @@
 // frontend\src\pages\expert\ResetPassword.tsx
 
 import { useEffect, useState } from "react";
-import { useExpertResetPasswordMutation, useExpertValidateAccesssTokenMutation } from "../../slices/api/expertApiSlice";
+import { useExpertResetPasswordMutation, useExpertValidateAccesssTokenMutation } from "../../../slices/api/expertApiSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import ResetPasswordComponent from "../../components/ResetPassword";
+import ResetPasswordComponent from "../../../components/ResetPassword";
 
 export default function ResetPassword() {
     const [userId, setUserId] = useState<string>("");
