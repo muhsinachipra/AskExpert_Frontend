@@ -7,7 +7,7 @@ const ADMIN_URL = "/api/admin";
 
 
 
-interface GetExpertDataResponse {
+export interface GetExpertDataResponse {
     success: boolean;
     data: IExpert[];
     total?: number;

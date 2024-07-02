@@ -1,6 +1,7 @@
 // frontend\src\slices\api\userApiSlice.ts
 
-import { IUser } from "../../types/domain";
+import { IAppointment, IUser } from "../../types/domain";
+import { GetExpertDataResponse } from "./adminApiSlice";
 import { apiSlice } from "./apiSlice";
 
 const USER_URL = "/api/user";
@@ -11,6 +12,11 @@ interface GetUserDataResponse {
     message: string;
 }
 
+export interface GetExpertSlotsResponse {
+    success: boolean;
+    data: IAppointment[];
+    message: string;
+}
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -102,6 +108,22 @@ export const userApiSlice = apiSlice.injectEndpoints({
             providesTags: ['User'],
         }),
 
+        getExpertsByCategory: builder.query<GetExpertDataResponse, string>({
+            query: (categoryName) => ({
+                url: `${USER_URL}/getExpertsByCategory/${categoryName}`,
+                method: 'GET',
+            }),
+            providesTags: ['Expert'],
+        }),
+
+        getExpertSlots: builder.query<GetExpertSlotsResponse, string>({
+            query: (expertId) => ({
+                url: `${USER_URL}/getExpertSlots/${expertId}`,
+                method: 'GET',
+            }),
+            providesTags: ['Expert'],
+        }),
+
     }),
 });
 
@@ -117,4 +139,6 @@ export const {
     useUserLogoutMutation,
     useUpdateProfileMutation,
     useGetUserDataQuery,
+    useGetExpertsByCategoryQuery,
+    useGetExpertSlotsQuery,
 } = userApiSlice;

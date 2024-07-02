@@ -6,6 +6,7 @@ import { TbPoint } from "react-icons/tb";
 import TestimonialCard from "../../components/TestimonialCard";
 import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
+import { useGetCategoryDataQuery } from "../../slices/api/adminApiSlice";
 
 function Hero() {
     return (
@@ -27,31 +28,36 @@ function Hero() {
     );
 }
 
-const cardData = [
-    { imageSrc: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg", title: "Doctors" },
-    { imageSrc: "https://t3.ftcdn.net/jpg/06/36/88/40/360_F_636884026_Myd8mWq6y2Lu2IOXC47DHjlTnyBC25fu.jpg", title: "Lawyers" },
-    { imageSrc: "https://img.freepik.com/free-photo/mechanic-holding-wrench_1170-1136.jpg?t=st=1715320874~exp=1715324474~hmac=e5e3b12c366d07aa86bb581f69ac15c4684caecbbffbefc17150e0cd071d58e3&w=740", title: "Mechanics" },
-    { imageSrc: "https://img.freepik.com/free-photo/portrait-freelancer-looking-camera-sitting-desk-with-charts-smart-businessman-sitting-his-workplace-course-late-night-hours-doing-his-job_482257-10278.jpg?t=st=1715321877~exp=1715325477~hmac=a4d512f2011cbf3fde54bf78affe45221ff5176eb2b84044b5a0619c7e3d1403&w=740", title: "IT Professionals" },
-    { imageSrc: "https://img.freepik.com/premium-photo/portrait-smiling-young-man-sitting-with-colleague-table_1048944-25467744.jpg?w=740", title: "Career Advisors" },
-    { imageSrc: "https://img.freepik.com/premium-photo/busy-analyst-team-office-analyzing-financial-data-analysis-entity_31965-171231.jpg?w=740", title: "Finance Advisors" },
-    { imageSrc: "https://img.freepik.com/premium-photo/worried-man_23-2147990570.jpg?w=740", title: "Psychologist" },
-    { imageSrc: "https://img.freepik.com/free-photo/close-up-veterinarian-taking-care-dog_23-2149100197.jpg?t=st=1715340194~exp=1715343794~hmac=144c119a4e8ff181e9e3b15896d942f2f906c629c740fdc190ac2ea398eae6ef&w=740", title: "Veterinarian" },
-    { imageSrc: "https://img.freepik.com/premium-photo/cheerful-european-woman-doctor-nutritionist-white-coat-with-organic-fruits-vegetables_116547-78050.jpg?w=740", title: "Dietitian" },
-];
-
 function Category() {
+    const { data, error, isLoading } = useGetCategoryDataQuery({ page: 1, limit: 100 });
+
+    const categoryData = data?.data;
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error loading categories</div>;
+    }
     return (
 
         <>
-            <div className="flex justify-center max-md:mx-4 text-center mt-10 text-5xl font-bold">What category are you seeking help with?</div>
+           <div className="flex justify-center max-md:mx-4 text-center mt-10 text-5xl font-bold">
+                What category are you seeking help with?
+            </div>
             <div className="flex flex-col mx-14 my-7 max-md:mx-3 items-center">
-                {[...Array(Math.ceil(cardData.length / 3))].map((_, rowIndex) => (
-                    <div key={rowIndex} className="flex flex-row justify-center items-center max-md:flex-wrap">
-                        {cardData.slice(rowIndex * 3, rowIndex * 3 + 3).map((card, index) => (
-                            <CategoryCard key={index} imageSrc={card.imageSrc} title={card.title} />
-                        ))}
-                    </div>
-                ))}
+                {categoryData && data.total > 0 ? (
+                    [...Array(Math.ceil(data.total / 3))].map((_, rowIndex) => (
+                        <div key={rowIndex} className="flex flex-row justify-center items-center max-md:flex-wrap">
+                            {categoryData.slice(rowIndex * 3, rowIndex * 3 + 3).map((category, index) => (
+                                <CategoryCard key={index} imageSrc={category.categoryImage} title={category.categoryName} />
+                            ))}
+                        </div>
+                    ))
+                ) : (
+                    <div>No categories found</div>
+                )}
             </div>
         </>
     );

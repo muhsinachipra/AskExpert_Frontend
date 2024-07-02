@@ -3,12 +3,12 @@
 import { Link, useNavigate } from "react-router-dom";
 // import { FormValues } from "../../validation/validationTypes";
 import { useFormik } from "formik";
-import { userRegisterSchema } from "../../validation/yupValidation";
+import { userRegisterSchema } from "../../../validation/yupValidation";
 import { useDispatch } from "react-redux";
-import { clearRegister, setRegister } from "../../slices/authSlice";
+import { clearRegister, setRegister } from "../../../slices/authSlice";
 import { useState } from "react";
-import Spinner from "../../components/Spinner";
-import { useSendOtpToEmailMutation } from "../../slices/api/userApiSlice";
+import Spinner from "../../../components/Spinner";
+import { useSendOtpToEmailMutation } from "../../../slices/api/userApiSlice";
 import { toast } from "react-toastify";
 
 export default function SignUp() {

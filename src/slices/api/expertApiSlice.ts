@@ -1,9 +1,16 @@
 // frontend\src\slices\api\expertApiSlice.ts
 
-import { ISchedule } from "../../types/domain";
+import { IAppointment } from "../../types/domain";
 import { apiSlice } from "./apiSlice";
 
 const EXPERT_URL = "/api/expert";
+
+export interface GetSchedulesDataResponse {
+    success: boolean;
+    data: IAppointment[];
+    message: string;
+    status: number;
+}
 
 export const expertApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -65,12 +72,12 @@ export const expertApiSlice = apiSlice.injectEndpoints({
 
         // Schedules.......................
 
-        getSchedules: builder.query<ISchedule[], void>({
+        getSchedules: builder.query<GetSchedulesDataResponse, void>({
             query: () => `${EXPERT_URL}/schedules`,
             providesTags: ['Schedule'],
         }),
 
-        addSchedule: builder.mutation<ISchedule, Partial<ISchedule>>({
+        addSchedule: builder.mutation<IAppointment, Partial<IAppointment>>({
             query: (newSchedule) => ({
                 url: `${EXPERT_URL}/schedules`,
                 method: 'POST',
@@ -78,11 +85,10 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Schedule'],
         }),
-        editSchedule: builder.mutation<ISchedule, Partial<ISchedule>>({
-            query: ({ _id, ...patch }) => ({
+        cancelSchedule: builder.mutation<void, string>({
+            query: (_id) => ({
                 url: `${EXPERT_URL}/schedules/${_id}`,
-                method: 'PATCH',
-                body: patch,
+                method: 'DELETE',
             }),
             invalidatesTags: ['Schedule'],
         }),
@@ -99,5 +105,5 @@ export const {
     useExpertUpdateProfileMutation,
     useGetSchedulesQuery,
     useAddScheduleMutation,
-    useEditScheduleMutation,
+    useCancelScheduleMutation,
 } = expertApiSlice;

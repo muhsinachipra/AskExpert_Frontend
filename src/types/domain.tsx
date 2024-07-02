@@ -21,6 +21,7 @@ export interface IExpert {
 
 export interface ICategory {
     _id: string;
+    categoryImage: string;
     categoryName: string;
     categoryDescription: string;
 }
@@ -36,10 +37,24 @@ export interface IUser {
     __v: number;
 }
 
-export interface ISchedule {
+// export interface ISchedule {
+//     _id: string;
+//     time: string;
+//     createdAt: string;
+//     updatedAt: string;
+//     __v: number;
+// }
+
+
+export interface IAppointment {
     _id: string;
+    expertId: string;
     time: string;
-    createdAt: string;
-    updatedAt: string;
+    price: number;
+    paymentStatus: string;
+    paymentId: string;
+    appointmentStatus: string;
+    createdAt: Date;
+    updatedAt: Date;
     __v: number;
 }

@@ -18,16 +18,16 @@ const isActionWithPayload = (action: unknown): action is ActionWithPayload => {
 };
 
 const redirectMiddleware: Middleware = store => next => action => {
-    console.log('inside redirectMiddleware')
+    // console.log('inside redirectMiddleware')
     if (isActionWithPayload(action) && action.type.endsWith('/rejected')) {
         const { data } = action.payload || {};
-        console.log('inside redirectMiddleware data : ', data)
+        // console.log('inside redirectMiddleware data : ', data)
         if (data && data.message === "Not authorized, user is blocked") {
             store.dispatch(userLogout());
             toast.error('You are Blocked, Please contact the admin');
         }
     }
-    console.log('inside redirectMiddleware action : ', action)
+    // console.log('inside redirectMiddleware action : ', action)
     return next(action);
 };
 

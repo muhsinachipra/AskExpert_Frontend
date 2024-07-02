@@ -1,12 +1,12 @@
 // frontend\src\pages\user\ForgotPassword.tsx
 
 import { useState } from "react";
-import { useForgotPasswordMutation } from "../../slices/api/userApiSlice";
+import { useForgotPasswordMutation } from "../../../slices/api/userApiSlice";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { toast } from "react-toastify";
-import { MyError } from "../../validation/validationTypes";
-import ForgotPasswordComponent from "../../components/ForgotPassword";
+import { MyError } from "../../../validation/validationTypes";
+import ForgotPasswordComponent from "../../../components/ForgotPassword";
 
 export default function ForgotPassword() {
     const [forgotPassword] = useForgotPasswordMutation();

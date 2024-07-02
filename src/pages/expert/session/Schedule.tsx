@@ -2,18 +2,24 @@
 
 import { useState } from 'react';
 import ScheduleComponent from '../../../components/expert/ScheduleComponent';
-import { useGetSchedulesQuery, useAddScheduleMutation } from '../../../slices/api/expertApiSlice';
+import { useGetSchedulesQuery, useAddScheduleMutation, useCancelScheduleMutation } from '../../../slices/api/expertApiSlice';
 import Spinner from '../../../components/Spinner';
 import Modal from '../../../components/admin/Modal';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { addScheduleSchema } from '../../../validation/yupValidation';
 import { MyError } from '../../../validation/validationTypes';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 export default function Schedule() {
-  const { data: schedules, error, isLoading } = useGetSchedulesQuery();
+  const { data, error, isLoading } = useGetSchedulesQuery();
+  const schedules = data?.data;
+  console.log('schedule from Schedules.tsx : ', schedules)
   const [addSchedule] = useAddScheduleMutation();
-  // const [editSchedule] = useEditScheduleMutation();
+  const [cancelSchedule] = useCancelScheduleMutation();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const formikAdd = useFormik({
@@ -40,18 +46,31 @@ export default function Schedule() {
     setIsAddModalOpen(false);
   };
 
-  const handleCancel = (_id: string) => {
+  const handleCancel = async (_id: string) => {
     // Handle cancel action
     console.log('Cancelled', _id);
-  };
+    const result = await MySwal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Cancel!',
+      cancelButtonText: 'No, Revert!',
+    });
 
-  const handleEdit = (_id: string) => {
-    // Handle edit action
-    console.log('Edited', _id);
+    if (result.isConfirmed) {
+      try {
+        await cancelSchedule(_id).unwrap();
+        toast.success('Schedule cancelled successfully');
+      } catch (error) {
+        console.error('Failed to cancel schedule', error);
+        toast.error((error as MyError)?.data?.message || (error as MyError)?.error);
+      }
+    }
   };
 
   if (isLoading) return <Spinner />;
-  // if (error) return <div>Error loading schedules</div>;
+  if (error) return <div>Error loading schedules</div>;
 
   return (
     <>
@@ -64,14 +83,14 @@ export default function Schedule() {
           key={schedule._id}
           time={schedule.time}
           onCancel={() => handleCancel(schedule._id)}
-          onEdit={() => handleEdit(schedule._id)}
+        // onEdit={() => handleEdit(schedule._id)}
         />
       ))}
 
       <Modal isOpen={isAddModalOpen} onClose={handleAddModalClose}>
         <h2 className="text-2xl mb-4">Add Schedule</h2>
         <form onSubmit={formikAdd.handleSubmit}>
-        <label htmlFor="time" className="block text-gray-700">Time</label>
+          <label htmlFor="time" className="block text-gray-700">Time</label>
           <input
             type="time"
             id="time"
@@ -80,7 +99,7 @@ export default function Schedule() {
             value={formikAdd.values.time}
             onChange={formikAdd.handleChange}
             onBlur={formikAdd.handleBlur}
-            placeholder="Enter time" // Optionally add placeholder
+            placeholder="Enter time"
           />
           {formikAdd.touched.time && formikAdd.errors.time ? (
             <div className="text-red-500">{formikAdd.errors.time}</div>
@@ -93,92 +112,3 @@ export default function Schedule() {
     </>
   );
 }
-{/* <Modal isOpen={isAddModalOpen} onClose={handleAddModalClose}>
-        <h2 className="text-2xl mb-4">Add Schedule</h2>
-        <form onSubmit={formikAdd.handleSubmit}>
-          <input
-            type="text"
-            className="border p-2 w-full mb-4"
-            placeholder="Time"
-            name="time"
-            value={formikAdd.values.time}
-            onChange={formikAdd.handleChange}
-            onBlur={formikAdd.handleBlur}
-          />
-          {formikAdd.touched.time && formikAdd.errors.time ? (
-            <div className="text-red-500">{formikAdd.errors.time}</div>
-          ) : null}
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-            Add
-          </button>
-        </form>
-      </Modal> */}
-
-
-// // frontend\src\pages\expert\session\Schedule.tsx
-
-// import { useState } from "react";
-// import Modal from "../../../components/expert/Modal";
-// import ScheduleComponent from "../../../components/expert/ScheduleComponent";
-// import { useAddScheduleMutation, useEditScheduleMutation, useGetSchedulesQuery } from "../../../slices/api/expertApiSlice";
-
-// export default function Schedule() {
-//   const { data: schedules, error, isLoading } = useGetSchedulesQuery();
-//   const [addSchedule] = useAddScheduleMutation();
-//   const [editSchedule] = useEditScheduleMutation();
-//   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
-
-
-//   const handleCancel = () => {
-//     // Handle cancel action
-//     console.log("Cancelled");
-//   };
-
-//   const handleEdit = () => {
-//     // Handle edit action
-//     console.log("Edited");
-//   };
-
-//   const schedules = [
-//     { time: '06:00PM' },
-//     { time: '07:00PM' },
-//     { time: '08:00PM' },
-//     { time: '09:00PM' },
-//   ];
-
-//   return (
-//     <>
-//       <span className="font-bold text-4xl">Schedule</span>
-//       {schedules.map((schedule, index) => (
-//         <ScheduleComponent
-//           key={index}
-//           time={schedule.time}
-//           onCancel={handleCancel}
-//           onEdit={handleEdit}
-//         />
-//       ))}
-
-//       <Modal isOpen={isAddModalOpen} onClose={handleAddModalClose}>
-//         <h2 className="text-2xl mb-4">Add Schedule</h2>
-//         <form onSubmit={formikAdd.handleSubmit}>
-//           <input
-//             type="text"
-//             className="border p-2 w-full mb-4"
-//             placeholder="Time"
-//             name="time"
-//             value={formikAdd.values.time}
-//             onChange={formikAdd.handleChange}
-//             onBlur={formikAdd.handleBlur}
-//           />
-//           {formikAdd.touched.time && formikAdd.errors.time ? (
-//             <div className="text-red-500">{formikAdd.errors.time}</div>
-//           ) : null}
-//           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-//             Add
-//           </button>
-//         </form>
-//       </Modal>
-//     </>
-//   );
-// }

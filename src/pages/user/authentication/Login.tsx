@@ -2,14 +2,14 @@
 // import Header from "../../components/Header";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { useLocation, Link, useNavigate } from "react-router-dom";
-import { useGoogleAuthMutation, useLoginMutation } from "../../slices/api/userApiSlice";
+import {  Link, useNavigate } from "react-router-dom";
+import { useGoogleAuthMutation, useLoginMutation } from "../../../slices/api/userApiSlice";
 import { useState } from "react";
-import { MyError } from "../../validation/validationTypes";
-import { userLoginSchema } from "../../validation/yupValidation";
-import { setCredential } from "../../slices/authSlice";
+import { MyError } from "../../../validation/validationTypes";
+import { userLoginSchema } from "../../../validation/yupValidation";
+import { setCredential } from "../../../slices/authSlice";
 import { toast } from "react-toastify";
-import Spinner from "../../components/Spinner";
+import Spinner from "../../../components/Spinner";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
@@ -18,8 +18,8 @@ export default function Login() {
     const dispatch = useDispatch();
     const [login] = useLoginMutation();
     const navigate = useNavigate();
-    const location = useLocation()
-    const from = location.state?.from?.pathname || "/";
+    // const location = useLocation()
+    // const from = location.state?.from?.pathname || "/";
     const [googleAuth] = useGoogleAuthMutation();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -39,7 +39,8 @@ export default function Login() {
                 const res = await login(values).unwrap();
                 dispatch(setCredential({ ...res.data }));
                 localStorage.setItem('isUserLoggedIn', 'true');
-                navigate(from, { replace: true });
+                navigate('/home');
+                // navigate(from, { replace: true });
                 toast.success(res.message);
             } catch (err) {
                 toast.error((err as MyError)?.data?.message || (err as MyError)?.error);
@@ -109,7 +110,8 @@ export default function Login() {
                                                 dispatch(setCredential({ ...res.data }));
                                                 localStorage.setItem('isUserLoggedIn', 'true');
                                                 toast.success(res.message);
-                                                navigate('/')
+                                                navigate('/home');
+                                                // navigate('/')
                                             } catch (err) {
                                                 toast.error((err as MyError)?.data?.message || (err as MyError)?.error);
                                             }

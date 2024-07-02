@@ -1,14 +1,14 @@
 // frontend\src\pages\user\Otp.tsx
 
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { RootState } from "../../../app/store";
 import { useEffect, useState } from "react";
-import { useOtpVerificationMutation, useRegisterMutation, useSendOtpToEmailMutation } from "../../slices/api/userApiSlice";
-import { MyError } from "../../validation/validationTypes";
-import { clearRegister } from "../../slices/authSlice";
+import { useOtpVerificationMutation, useRegisterMutation, useSendOtpToEmailMutation } from "../../../slices/api/userApiSlice";
+import { MyError } from "../../../validation/validationTypes";
+import { clearRegister } from "../../../slices/authSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import OtpComponent from "../../components/Otp";
+import OtpComponent from "../../../components/Otp";
 
 export default function Otp() {
     const dispatch = useDispatch();
