@@ -85,6 +85,7 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Schedule'],
         }),
+        
         cancelSchedule: builder.mutation<void, string>({
             query: (_id) => ({
                 url: `${EXPERT_URL}/schedules/${_id}`,

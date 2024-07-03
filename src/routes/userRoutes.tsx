@@ -13,6 +13,7 @@ import UserPrivateRoute from './privateRoutes/UserPrivateRoute'
 import Home from '../pages/user/home/Home'
 import SelectExpert from '../pages/user/SelectExpert'
 import Slots from '../pages/user/Slots'
+import Success from '../pages/user/Success'
 
 
 export function UserRoutes() {
@@ -29,6 +30,7 @@ export function UserRoutes() {
                 <Route path='home' element={<Home />} />
                 <Route path='experts/:categoryName' element={<SelectExpert />} />
                 <Route path='slots/:expertId' element={<Slots />} />
+                <Route path='success' element={<Success />} />
             </Route>
             <Route path='/test' element={<MyComponent />} />
         </Routes>

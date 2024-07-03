@@ -38,6 +38,7 @@ function Slots() {
                                 key={slot._id}
                                 time={slot.time}
                                 price={slot.price}
+                                slotId={slot._id}
                             />
                         ))
                     ) : (

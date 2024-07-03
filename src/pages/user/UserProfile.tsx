@@ -16,6 +16,7 @@ import { useState } from "react";
 export default function UserProfile() {
 
     const { userInfo } = useSelector((state: RootState) => state.auth);
+    console.log('userInfo : ', userInfo)
     const [updateUser] = useUpdateProfileMutation()
     const [isSumbit, setSubmit] = useState(false)
     const dispatch = useDispatch()

@@ -61,14 +61,13 @@ type initialState = {
     expertRegisterInfo: ExpertInfo | null;
 }
 
-const userInfoFromSessionStorage = sessionStorage.getItem('userInfo');
 const adminInfoFromLocalStorage = localStorage.getItem('adminInfo');
 const expertInfoFromLocalStorage = localStorage.getItem('expertInfo');
 const registerInfoFromLocalStorage = localStorage.getItem("registerInfo");
 const expertRegisterInfoFromLocalStorage = localStorage.getItem("expertRegisterInfo");
 
 const initialState: initialState = {
-    userInfo: userInfoFromSessionStorage ? JSON.parse(userInfoFromSessionStorage) : null,
+    userInfo: null,
     status: 'idle',
     adminInfo: adminInfoFromLocalStorage ? JSON.parse(adminInfoFromLocalStorage) : null,
     expertInfo: expertInfoFromLocalStorage ? JSON.parse(expertInfoFromLocalStorage) : null,
@@ -83,7 +82,7 @@ const authSlice = createSlice({
         // user
         setCredential: (state, action) => {
             state.userInfo = action.payload;
-            sessionStorage.setItem("userInfo", JSON.stringify(action.payload));
+            // sessionStorage.setItem("userInfo", JSON.stringify(action.payload));
         },
         setRegister: (state, action) => {
             state.registerInfo = action.payload;
@@ -134,7 +133,8 @@ const authSlice = createSlice({
             })
             .addCase(fetchUserData.fulfilled, (state, action) => {
                 state.userInfo = action.payload;
-                sessionStorage.setItem("userInfo", JSON.stringify(action.payload));
+                console.log('refetched user data from server')
+                // sessionStorage.setItem("userInfo", JSON.stringify(action.payload));
                 state.status = 'succeeded';
             })
             .addCase(fetchUserData.rejected, (state) => {
