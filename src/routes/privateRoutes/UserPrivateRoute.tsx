@@ -7,7 +7,6 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 const UserPrivateRoute = () => {
     const location = useLocation()
     const { userInfo } = useSelector((state: RootState) => state.auth);
-    console.log('userInfo in the UserPrivateRoute',userInfo)
     return userInfo ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />;
 }
 

@@ -38,7 +38,6 @@ export default function Login() {
                 setIsLoading(true);
                 const res = await login(values).unwrap();
                 dispatch(setCredential({ ...res.data }));
-                localStorage.setItem('isUserLoggedIn', 'true');
                 navigate('/home');
                 // navigate(from, { replace: true });
                 toast.success(res.message);
@@ -54,7 +53,6 @@ export default function Login() {
         name: string;
         email: string;
     }
-
 
     return (
         <>
@@ -108,7 +106,6 @@ export default function Login() {
                                             try {
                                                 const res = await googleAuth({ name, email, password }).unwrap();
                                                 dispatch(setCredential({ ...res.data }));
-                                                localStorage.setItem('isUserLoggedIn', 'true');
                                                 toast.success(res.message);
                                                 navigate('/home');
                                                 // navigate('/')

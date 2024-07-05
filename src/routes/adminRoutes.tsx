@@ -1,6 +1,6 @@
 // frontend\src\routes\adminRoutes.tsx
 
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from '../pages/admin/Login'
 // import Layout from '../components/admin/layout/Layout'
 import RootLayout from '../pages/admin/Layout'
@@ -12,12 +12,17 @@ import AllExperts from '../pages/admin/expert/page'
 import VerifyExperts from '../pages/admin/expert/verifyExperts/page'
 import Category from '../pages/admin/category/page'
 import AllUsers from '../pages/admin/user/page'
+import { useSelector } from 'react-redux'
+import { RootState } from '../app/store'
 
 
 export function AdminRoutes() {
+
+    const { adminInfo } = useSelector((state: RootState) => state.auth);
+
     return (
         <Routes>
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={adminInfo ? <Navigate to="/admin" /> : <Login />} />
             <Route element={<AdminPrivateRoute />}>
                 <Route element={<RootLayout />}>
                     <Route index element={<Dashboard />} />

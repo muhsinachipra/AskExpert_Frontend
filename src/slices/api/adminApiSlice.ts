@@ -1,25 +1,10 @@
 // frontend\src\slices\api\adminApiSlice.ts
 
-import { ICategory, IExpert, IUser } from "../../types/domain";
+import { ICategory } from "../../types/domain";
+import { GetAdminDataForStateResponse, GetExpertDataResponse, GetUserDataResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const ADMIN_URL = "/api/admin";
-
-
-
-export interface GetExpertDataResponse {
-    success: boolean;
-    data: IExpert[];
-    total?: number;
-    message: string;
-}
-
-interface GetUserDataResponse {
-    success: boolean;
-    data: IUser[];
-    total?: number;
-    message: string;
-}
 
 export const adminApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -31,7 +16,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        getExpertData: builder.query<GetExpertDataResponse, { page: number; limit: number }>({
+        adminGetExpertData: builder.query<GetExpertDataResponse, { page: number; limit: number }>({
             query: ({ page, limit }) => ({
                 url: `${ADMIN_URL}/expertData?page=${page}&limit=${limit}`,
                 method: 'GET',
@@ -106,12 +91,21 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['User'],
         }),
+
+        getAdminData: builder.query<GetAdminDataForStateResponse, void>({
+            query: () => ({
+                url: `${ADMIN_URL}/getAdminData`,
+                method: 'GET',
+            }),
+            providesTags: ['Admin'],
+        }),
+
     }),
 })
 
 export const {
     useAdminLoginMutation,
-    useGetExpertDataQuery,
+    useAdminGetExpertDataQuery,
     useUpdateExpertVerificationMutation,
     useAdminLogoutMutation,
     useSendVerifiedEmailMutation,

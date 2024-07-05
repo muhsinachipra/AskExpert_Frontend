@@ -1,6 +1,6 @@
 // frontend\src\routes\UserRoutes.tsx
 
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from '../pages/user/authentication/Login'
 import SignUp from '../pages/user/authentication/SignUp'
 import Landing from '../pages/user/LandingPage'
@@ -14,12 +14,17 @@ import Home from '../pages/user/home/Home'
 import SelectExpert from '../pages/user/SelectExpert'
 import Slots from '../pages/user/Slots'
 import Success from '../pages/user/Success'
+import { useSelector } from 'react-redux'
+import { RootState } from '../app/store'
 
 
 export function UserRoutes() {
+
+    const { userInfo } = useSelector((state: RootState) => state.auth);
+
     return (
         <Routes>
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={userInfo ? <Navigate to="/home" /> : <Login />} />
             <Route path='/register' element={<SignUp />} />
             <Route path='/otp' element={<Otp />} />
             <Route path='/forgot' element={<ForgotPassword />} />

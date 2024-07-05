@@ -1,25 +1,46 @@
 interface ScheduleComponentProps {
+    date: string;
     time: string;
     onCancel: () => void;
 }
 
-const ScheduleComponent = ({ time, onCancel }: ScheduleComponentProps) => {
+const ScheduleComponent = ({ date, time, onCancel }: ScheduleComponentProps) => {
     return (
-        <section className="py-5 px-4 bg-white rounded-3xl w-full mb-4">
+        <section className="py-5 px-4 bg-white rounded-3xl w-full mb-4 shadow-md">
             <div className="flex justify-between items-center">
-                <div className="text-3xl font-medium text-neutral-800">
-                    <time>{time}</time>
+                <div>
+                    <div className="text-xl font-semibold text-gray-500">
+                        <time>{date}</time>
+                    </div>
+                    <div className="text-3xl font-medium text-neutral-800 mt-1">
+                        <time>{time}</time>
+                    </div>
                 </div>
                 <div className="flex justify-end">
                     <button
                         onClick={onCancel}
-                        className="px-6 py-2 text-red-400 border border-red-400 rounded-full"
+                        className="px-6 py-2 text-red-400 border border-red-400 rounded-full hover:bg-red-50 transition-colors"
                     >
                         Cancel
                     </button>
                 </div>
             </div>
         </section>
+        // <section className="py-5 px-4 bg-white rounded-3xl w-full mb-4">
+        //     <div className="flex justify-between items-center">
+        //         <div className="text-3xl font-medium text-neutral-800">
+        //             <time>{date} {time}</time>
+        //         </div>
+        //         <div className="flex justify-end">
+        //             <button
+        //                 onClick={onCancel}
+        //                 className="px-6 py-2 text-red-400 border border-red-400 rounded-full"
+        //             >
+        //                 Cancel
+        //             </button>
+        //         </div>
+        //     </div>
+        // </section>
     );
 };
 

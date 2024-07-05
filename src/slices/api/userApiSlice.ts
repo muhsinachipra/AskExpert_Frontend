@@ -1,22 +1,10 @@
 // frontend\src\slices\api\userApiSlice.ts
 
-import { IAppointment, IUser } from "../../types/domain";
-import { GetExpertDataResponse } from "./adminApiSlice";
+import { GetAppointmentDataResponse, GetExpertDataResponse, GetUserDataForStateResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const USER_URL = "/api/user";
 
-interface GetUserDataResponse {
-    success: boolean;
-    data: IUser;
-    message: string;
-}
-
-export interface GetExpertSlotsResponse {
-    success: boolean;
-    data: IAppointment[];
-    message: string;
-}
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -100,7 +88,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        getUserData: builder.query<GetUserDataResponse, void>({
+        getUserData: builder.query<GetUserDataForStateResponse, void>({
             query: () => ({
                 url: `${USER_URL}/getUserData`,
                 method: 'GET',
@@ -116,7 +104,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             providesTags: ['Expert'],
         }),
 
-        getExpertSlots: builder.query<GetExpertSlotsResponse, string>({
+        getExpertSlots: builder.query<GetAppointmentDataResponse, string>({
             query: (expertId) => ({
                 url: `${USER_URL}/getExpertSlots/${expertId}`,
                 method: 'GET',

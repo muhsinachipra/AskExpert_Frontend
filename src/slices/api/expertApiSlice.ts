@@ -1,16 +1,10 @@
 // frontend\src\slices\api\expertApiSlice.ts
 
 import { IAppointment } from "../../types/domain";
+import { GetAppointmentDataResponse, GetExpertDataForStateResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const EXPERT_URL = "/api/expert";
-
-export interface GetSchedulesDataResponse {
-    success: boolean;
-    data: IAppointment[];
-    message: string;
-    status: number;
-}
 
 export const expertApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -72,7 +66,7 @@ export const expertApiSlice = apiSlice.injectEndpoints({
 
         // Schedules.......................
 
-        getSchedules: builder.query<GetSchedulesDataResponse, void>({
+        getSchedules: builder.query<GetAppointmentDataResponse, void>({
             query: () => `${EXPERT_URL}/schedules`,
             providesTags: ['Schedule'],
         }),
@@ -85,7 +79,7 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Schedule'],
         }),
-        
+
         cancelSchedule: builder.mutation<void, string>({
             query: (_id) => ({
                 url: `${EXPERT_URL}/schedules/${_id}`,
@@ -93,6 +87,15 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Schedule'],
         }),
+
+        getExpertData: builder.query<GetExpertDataForStateResponse, void>({
+            query: () => ({
+                url: `${EXPERT_URL}/getExpertData`,
+                method: 'GET',
+            }),
+            providesTags: ['Expert'],
+        }),
+
     }),
 });
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useGetExpertDataQuery, useSendVerifiedEmailMutation, useUpdateExpertVerificationMutation } from "../../../../slices/api/adminApiSlice";
+import { useAdminGetExpertDataQuery, useSendVerifiedEmailMutation, useUpdateExpertVerificationMutation } from "../../../../slices/api/adminApiSlice";
 import { setExpertCredential } from "../../../../slices/authSlice";
 import { IExpert } from "../../../../types/domain";
 import AdminTable from "../../../../components/admin/Table";
@@ -15,7 +15,7 @@ const getStatusClassName = (isVerified: boolean): string => {
 const VerifyExperts = () => {
     const [page, setPage] = useState(1);
     const [limit] = useState(6);
-    const { data, error, isLoading } = useGetExpertDataQuery({ page, limit });
+    const { data, error, isLoading } = useAdminGetExpertDataQuery({ page, limit });
     const [sendVerifiedEmail] = useSendVerifiedEmailMutation();
     const [updateExpertVerification] = useUpdateExpertVerificationMutation();
     const dispatch = useDispatch();

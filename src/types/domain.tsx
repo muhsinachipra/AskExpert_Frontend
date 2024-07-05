@@ -4,7 +4,6 @@ export interface IExpert {
     _id: string;
     name: string;
     email: string;
-    password: string;
     category: string;
     experience: number;
     profilePic: string;
@@ -37,18 +36,16 @@ export interface IUser {
     __v: number;
 }
 
-// export interface ISchedule {
-//     _id: string;
-//     time: string;
-//     createdAt: string;
-//     updatedAt: string;
-//     __v: number;
-// }
-
+export interface IAdmin{
+    _id?: string
+    email: string;
+    name: string;
+}
 
 export interface IAppointment {
     _id: string;
     expertId: string;
+    date: string; 
     time: string;
     price: number;
     paymentStatus: string;

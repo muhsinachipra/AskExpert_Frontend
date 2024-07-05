@@ -109,4 +109,5 @@ export const addCategorySchema = Yup.object({
 
 export const addScheduleSchema = Yup.object({
     time: Yup.string().required('Time is required'),
+    date: Yup.string().required('Date is required'),
 });
