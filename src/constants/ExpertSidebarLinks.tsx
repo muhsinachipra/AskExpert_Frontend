@@ -7,7 +7,7 @@ import { SideNavItem } from '../types/sideNavItem';
 export const SIDENAV_ITEMS: SideNavItem[] = [
   {
     title: 'Home',
-    path: '/expert/',
+    path: '/expert/home',
     icon: <Icon icon="akar-icons:home" width="24" height="24" />,
   },
   {

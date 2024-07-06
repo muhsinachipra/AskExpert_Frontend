@@ -11,7 +11,9 @@ export const fetchUserData = createAsyncThunk(
     'auth/fetchUserData',
     async (_, { dispatch, rejectWithValue }) => {
         try {
+            // console.log('asyncthunk fetchUserData called.....')
             const { data } = await dispatch(getUserData);
+            // console.log('data in asyncthunk fetchUserData : ', data)
             if (data) {
                 return data?.data;
             } else {
@@ -74,7 +76,7 @@ export type AsyncThunkConfig = {
     fulfilledMeta?: unknown
     /** type to be passed into the second argument of `rejectWithValue` to finally be merged into `rejectedAction.meta` */
     rejectedMeta?: unknown
-  }
+}
 
 export type AdminInfo = {
     _id?: string;
@@ -109,9 +111,11 @@ export type ExpertInfo = {
 
 type initialState = {
     userInfo: UserInfo | null;
-    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    userStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
     adminInfo: AdminInfo | null;
+    adminStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
     expertInfo: ExpertInfo | null;
+    expertStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
     registerInfo: UserInfo | null;
     expertRegisterInfo: ExpertInfo | null;
 }
@@ -121,9 +125,11 @@ const expertRegisterInfoFromLocalStorage = localStorage.getItem("expertRegisterI
 
 const initialState: initialState = {
     userInfo: null,
-    status: 'idle',
+    userStatus: 'idle',
     adminInfo: null,
+    adminStatus: 'idle',
     expertInfo: null,
+    expertStatus: 'idle',
     registerInfo: registerInfoFromLocalStorage ? JSON.parse(registerInfoFromLocalStorage) : null,
     expertRegisterInfo: expertRegisterInfoFromLocalStorage ? JSON.parse(expertRegisterInfoFromLocalStorage) : null,
 }
@@ -136,6 +142,7 @@ const authSlice = createSlice({
         setCredential: (state, action) => {
             state.userInfo = action.payload;
             localStorage.setItem('isUserLoggedIn', 'true');
+            state.userStatus = 'succeeded';
         },
         setRegister: (state, action) => {
             state.registerInfo = action.payload;
@@ -154,6 +161,7 @@ const authSlice = createSlice({
         setExpertCredential: (state, action) => {
             state.expertInfo = action.payload;
             localStorage.setItem('isExpertLoggedIn', 'true');
+            state.expertStatus = 'succeeded';
         },
         setExpertRegister: (state, action) => {
             state.expertRegisterInfo = action.payload;
@@ -172,6 +180,7 @@ const authSlice = createSlice({
         setAdminCredential: (state, action) => {
             state.adminInfo = action.payload;
             localStorage.setItem('isAdminLoggedIn', 'true');
+            state.adminStatus = 'succeeded';
         },
         adminLogout: (state) => {
             state.adminInfo = null;
@@ -182,39 +191,76 @@ const authSlice = createSlice({
         builder
             // user
             .addCase(fetchUserData.pending, (state) => {
-                state.status = 'loading';
+                state.userStatus = 'loading';
             })
             .addCase(fetchUserData.fulfilled, (state, action) => {
-                console.log('setting action.payload.....')
                 state.userInfo = action.payload;
-                state.status = 'succeeded';
+                state.userStatus = 'succeeded';
             })
             .addCase(fetchUserData.rejected, (state) => {
-                state.status = 'failed';
+                state.userStatus = 'failed';
             })
             // expert 
             .addCase(fetchExpertData.pending, (state) => {
-                state.status = 'loading';
+                state.expertStatus = 'loading';
             })
             .addCase(fetchExpertData.fulfilled, (state, action) => {
                 state.expertInfo = action.payload;
-                state.status = 'succeeded';
+                state.expertStatus = 'succeeded';
             })
             .addCase(fetchExpertData.rejected, (state) => {
-                state.status = 'failed';
+                state.expertStatus = 'failed';
             })
             // admin
             .addCase(fetchAdminData.pending, (state) => {
-                state.status = 'loading';
+                state.adminStatus = 'loading';
             })
             .addCase(fetchAdminData.fulfilled, (state, action) => {
                 state.adminInfo = action.payload;
-                state.status = 'succeeded';
+                state.adminStatus = 'succeeded';
             })
             .addCase(fetchAdminData.rejected, (state) => {
-                state.status = 'failed';
+                state.adminStatus = 'failed';
             });
     },
+    // extraReducers: (builder) => {
+    //     builder
+    //         // user
+    //         .addCase(fetchUserData.pending, (state) => {
+    //             state.status = 'loading';
+    //         })
+    //         .addCase(fetchUserData.fulfilled, (state, action) => {
+    //             // console.log('setting data to redux.....')
+    //             // console.log('action.payload to redux : ', action.payload)
+    //             state.userInfo = action.payload;
+    //             state.status = 'succeeded';
+    //         })
+    //         .addCase(fetchUserData.rejected, (state) => {
+    //             state.status = 'failed';
+    //         })
+    //         // expert 
+    //         .addCase(fetchExpertData.pending, (state) => {
+    //             state.status = 'loading';
+    //         })
+    //         .addCase(fetchExpertData.fulfilled, (state, action) => {
+    //             state.expertInfo = action.payload;
+    //             state.status = 'succeeded';
+    //         })
+    //         .addCase(fetchExpertData.rejected, (state) => {
+    //             state.status = 'failed';
+    //         })
+    //         // admin
+    //         .addCase(fetchAdminData.pending, (state) => {
+    //             state.status = 'loading';
+    //         })
+    //         .addCase(fetchAdminData.fulfilled, (state, action) => {
+    //             state.adminInfo = action.payload;
+    //             state.status = 'succeeded';
+    //         })
+    //         .addCase(fetchAdminData.rejected, (state) => {
+    //             state.status = 'failed';
+    //         });
+    // },
 })
 
 export const {

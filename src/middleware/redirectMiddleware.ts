@@ -1,7 +1,7 @@
 // frontend\src\middleware\redirectMiddleware.ts
 
 import { Middleware } from '@reduxjs/toolkit';
-import { userLogout } from '../slices/authSlice';
+import { expertLogout, userLogout } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 
 interface ActionWithPayload {
@@ -25,6 +25,10 @@ const redirectMiddleware: Middleware = store => next => action => {
         if (data && data.message === "Not authorized, user is blocked") {
             store.dispatch(userLogout());
             toast.error('You are Blocked, Please contact the admin');
+        }
+        if (data && data.message === "Not authorized, You are not verified yet") {
+            store.dispatch(expertLogout());
+            toast.error('Not authorized, You are not verified yet');
         }
     }
     // console.log('inside redirectMiddleware action : ', action)
