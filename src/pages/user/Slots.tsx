@@ -13,6 +13,7 @@ function Slots() {
 
     const { userInfo } = useSelector((state: RootState) => state.auth);
     const userId = userInfo?._id
+    const userName = userInfo?.name
 
 
     const { expertId } = useParams();
@@ -47,7 +48,8 @@ function Slots() {
                                 date={slot.date}
                                 price={slot.price}
                                 slotId={slot._id}
-                                userId={userId||''}
+                                userId={userId || ''}
+                                userName={userName || ''}
                             />
                         ))
                     ) : (

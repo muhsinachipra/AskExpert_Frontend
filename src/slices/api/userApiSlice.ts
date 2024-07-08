@@ -118,7 +118,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `${USER_URL}/payment`,
                 method: 'POST',
                 body: data
-            })
+            }),
+            invalidatesTags: ['Appointment'],
         }),
 
         getUserAppointments: builder.query<GetAppointmentDataResponse, void>({

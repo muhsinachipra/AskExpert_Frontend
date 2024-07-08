@@ -54,7 +54,7 @@ export const expertApiSlice = apiSlice.injectEndpoints({
                 url: `${EXPERT_URL}/logout`,
                 method: "POST",
             }),
-            invalidatesTags: ['Schedule', 'Expert'],
+            invalidatesTags: ['Schedule', 'Expert', 'Appointment'],
         }),
 
         expertUpdateProfile: builder.mutation({
@@ -97,6 +97,14 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             providesTags: ['Expert'],
         }),
 
+        getAppointmentsData: builder.query<GetAppointmentDataResponse, void>({
+            query: () => ({
+                url: `${EXPERT_URL}/getAppointmentsData`,
+                method: 'GET',
+            }),
+            providesTags: ['Appointment'],
+        })
+
     }),
 });
 
@@ -111,4 +119,5 @@ export const {
     useGetSchedulesQuery,
     useAddScheduleMutation,
     useCancelScheduleMutation,
+    useGetAppointmentsDataQuery
 } = expertApiSlice;

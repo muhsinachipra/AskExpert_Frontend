@@ -1,24 +1,48 @@
 // frontend\src\components\user\AppointmentsCard.tsx
 
-import { useUserGetExpertDataQuery } from "../../slices/api/userApiSlice";
 import { useEffect, useState } from "react";
 
 interface AppointmentsCardProps {
     time: string;
     date: string;
-    expertId: string;
+    expertName: string;
+    expertCategory: string;
 }
 
-const AppointmentsCard = ({ time, date, expertId }: AppointmentsCardProps) => {
-
-    const { data } = useUserGetExpertDataQuery(expertId);
-    const expert = data?.data;
+const AppointmentsCard = ({ time, date, expertName, expertCategory }: AppointmentsCardProps) => {
 
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+
+    // useEffect(() => {
+    //     const appointmentDateTime = new Date(`${date}T${time}`);
+    //     const now = new Date();
+
+    //     console.log('appointmentDateTime: ', appointmentDateTime)
+    //     console.log('now time: ', now)
+
+    //     if (now >= appointmentDateTime) {
+    //         console.log('Setting button enabled immediately.');
+    //         setIsButtonEnabled(true);
+    //     } else {
+    //         const timeout = appointmentDateTime.getTime() - now.getTime();
+    //         console.log(`Button will be enabled in ${timeout}ms.`);
+    //         const timerId = setTimeout(() => {
+    //             console.log('Timeout reached, enabling button.');
+    //             setIsButtonEnabled(true);
+    //         }, timeout);
+    //         return () => {
+    //             console.log('Clearing timeout.');
+    //             clearTimeout(timerId);
+    //         };
+    //     }
+    // }, [date, time]);
 
     useEffect(() => {
         const appointmentDateTime = new Date(`${date}T${time}`);
         const now = new Date();
+
+        console.log('appointmentDateTime: ', appointmentDateTime)
+        console.log('now time: ', now)
 
         if (now >= appointmentDateTime) {
             setIsButtonEnabled(true);
@@ -49,29 +73,23 @@ const AppointmentsCard = ({ time, date, expertId }: AppointmentsCardProps) => {
                     <div className="w-24 text-gray-600 font-medium">Time:</div>
                     <div className="ml-2 text-gray-800 text-lg">{time}</div>
                 </div>
-                {expert && (
-                    <div className="flex mb-2">
-                        <div className="w-24 text-gray-600 font-medium">Expert:</div>
-                        <div className="ml-2 text-gray-800 text-lg">{expert.name}</div>
-                    </div>
-                )}
-                {expert && (
-                    <div className="flex mb-4">
-                        <div className="w-24 text-gray-600 font-medium">Specialty:</div>
-                        <div className="ml-2 text-gray-800 text-lg">{expert.category}</div>
-                    </div>
-                )}
+                <div className="flex mb-2">
+                    <div className="w-24 text-gray-600 font-medium">Expert:</div>
+                    <div className="ml-2 text-gray-800 text-lg">{expertName}</div>
+                </div>
+                <div className="flex mb-4">
+                    <div className="w-24 text-gray-600 font-medium">Specialty:</div>
+                    <div className="ml-2 text-gray-800 text-lg">{expertCategory}</div>
+                </div>
             </div>
             <div className="flex-shrink-0 flex items-center">
-                {expert && (
-                    <button
-                        className={`w-full px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors duration-200 ${isButtonEnabled ? 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75' : 'bg-gray-400 cursor-not-allowed'}`}
-                        onClick={handleCallClick}
-                        disabled={!isButtonEnabled}
-                    >
-                        Call {expert.name}
-                    </button>
-                )}
+                <button
+                    className={`w-full px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors duration-200 ${isButtonEnabled ? 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75' : 'bg-gray-400 cursor-not-allowed'}`}
+                    onClick={handleCallClick}
+                    disabled={!isButtonEnabled}
+                >
+                    Call {expertName}
+                </button>
             </div>
         </div>
     );

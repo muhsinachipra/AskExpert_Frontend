@@ -80,6 +80,9 @@ export default function Schedule() {
       <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4" onClick={() => setIsAddModalOpen(true)}>
         Add Schedule
       </button>
+      {schedules?.length === 0 && (
+        <p className="font-bold text-2xl text-gray-500 mt-4">No schedules found</p>
+      )}
       {schedules?.map((schedule) => (
         <ScheduleComponent
           key={schedule._id}
