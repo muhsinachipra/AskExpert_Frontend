@@ -1,11 +1,39 @@
 // frontend\src\components\admin\Header.tsx
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useScroll from '../../hooks/use-scroll';
 import { cn } from '../../lib/utils';
+import { Icon } from '@iconify/react';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { adminLogout } from '../../slices/authSlice';
+import { useAdminLogoutMutation } from '../../slices/api/adminApiSlice';
+
+const MySwal = withReactContent(Swal);
 
 const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const scrolled = useScroll(5);
+
+  const [adminLogoutMutation] = useAdminLogoutMutation();
+  const handleLogout = async () => {
+    const result = await MySwal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, logout!',
+      cancelButtonText: 'No, cancel!',
+    });
+
+    if (result.isConfirmed) {
+      dispatch(adminLogout());
+      await adminLogoutMutation('').unwrap();
+      navigate('/admin/login');
+    }
+  };
 
   return (
     <div
@@ -28,8 +56,9 @@ const Header = () => {
         </div>
 
         <div className="hidden md:block">
-          <div className="h-8 w-8 rounded-full bg-zinc-300 flex items-center justify-center text-center">
-            <span className="font-semibold text-sm">HQ</span>
+          <div onClick={handleLogout} className="h-8 w-8 rounded-full bg-zinc-300 flex items-center justify-center text-center">
+            {/* <span className="font-semibold text-sm">HQ</span> */}
+            <Icon icon="material-symbols:logout" width="24" height="24" />
           </div>
         </div>
       </div>

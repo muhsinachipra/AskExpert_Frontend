@@ -9,73 +9,73 @@ import { AdminRoutes } from "./routes/AdminRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./app/store";
 import { useEffect } from "react";
-import {  fetchAdminData, fetchExpertData, fetchUserData } from "./slices/authSlice";
-// import { IAdmin, IExpert, IUser } from "./types/domain";
-// import { AsyncThunk } from "@reduxjs/toolkit";
+import {  AdminInfo, AsyncThunkConfig, ExpertInfo, fetchAdminData, fetchExpertData, fetchUserData, UserInfo } from "./slices/authSlice";
+import { IAdmin, IExpert, IUser } from "./types/domain";
+import { AsyncThunk } from "@reduxjs/toolkit";
 
 export default function App() {
 
     const dispatch = useDispatch<AppDispatch>();
     const { userInfo, expertInfo, adminInfo } = useSelector((state: RootState) => state.auth);
 
-    useEffect(() => {
-        const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn");
-        if (isAdminLoggedIn && !adminInfo) {
-            try {
-                dispatch(fetchAdminData());
-            } catch (error) {
-                console.error("Failed to fetch admin data:", error);
-                localStorage.removeItem("isAdminLoggedIn");
-            }
-        }
-    }, [dispatch, adminInfo]);
+    // useEffect(() => {
+    //     const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn");
+    //     if (isAdminLoggedIn && !adminInfo) {
+    //         try {
+    //             dispatch(fetchAdminData());
+    //         } catch (error) {
+    //             console.error("Failed to fetch admin data:", error);
+    //             localStorage.removeItem("isAdminLoggedIn");
+    //         }
+    //     }
+    // }, [dispatch, adminInfo]);
 
-    useEffect(() => {
-        const isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
-        if (isUserLoggedIn && !userInfo) {
-            try {
-                dispatch(fetchUserData());
-            } catch (error) {
-                console.error("Failed to fetch user data:", error);
-                localStorage.removeItem("isUserLoggedIn");
-            }
-        }
-    }, [dispatch, userInfo]);
+    // useEffect(() => {
+    //     const isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
+    //     if (isUserLoggedIn && !userInfo) {
+    //         try {
+    //             dispatch(fetchUserData());
+    //         } catch (error) {
+    //             console.error("Failed to fetch user data:", error);
+    //             localStorage.removeItem("isUserLoggedIn");
+    //         }
+    //     }
+    // }, [dispatch, userInfo]);
 
-    useEffect(() => {
-        const isExpertLoggedIn = localStorage.getItem("isExpertLoggedIn");
-        if (isExpertLoggedIn && !expertInfo) {
-            try {
-                dispatch(fetchExpertData());
-            } catch (error) {
-                console.error("Failed to fetch expert data:", error);
-                localStorage.removeItem("isExpertLoggedIn");
-            }
-        }
-    }, [dispatch, expertInfo]);
+    // useEffect(() => {
+    //     const isExpertLoggedIn = localStorage.getItem("isExpertLoggedIn");
+    //     if (isExpertLoggedIn && !expertInfo) {
+    //         try {
+    //             dispatch(fetchExpertData());
+    //         } catch (error) {
+    //             console.error("Failed to fetch expert data:", error);
+    //             localStorage.removeItem("isExpertLoggedIn");
+    //         }
+    //     }
+    // }, [dispatch, expertInfo]);
 
  
 
 
-    // useEffect(() => {
-    //     const fetchData = async (key: string, info: UserInfo | ExpertInfo | AdminInfo | null, fetchAction: AsyncThunk<IUser, void, AsyncThunkConfig> | AsyncThunk<IExpert, void, AsyncThunkConfig> | AsyncThunk<IAdmin, void, AsyncThunkConfig>) => {
-    //         const isLoggedIn = localStorage.getItem(key);
-    //         if (isLoggedIn && !info) {
-    //             try {
-    //                 // console.log(`refetching useEffect...`)
-    //                 await dispatch(fetchAction());
-    //                 // console.log(`after dispatch(fetchAction()) in useEffect...`)
-    //             } catch (error) {
-    //                 console.error(`Failed to fetch ${key} data:`, error);
-    //                 localStorage.removeItem(key);
-    //             }
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchData = async (key: string, info: UserInfo | ExpertInfo | AdminInfo | null, fetchAction: AsyncThunk<IUser, void, AsyncThunkConfig> | AsyncThunk<IExpert, void, AsyncThunkConfig> | AsyncThunk<IAdmin, void, AsyncThunkConfig>) => {
+            const isLoggedIn = localStorage.getItem(key);
+            if (isLoggedIn && !info) {
+                try {
+                    console.log(`refetching useEffect...`)
+                    await dispatch(fetchAction());
+                    // console.log(`after dispatch(fetchAction()) in useEffect...`)
+                } catch (error) {
+                    console.error(`Failed to fetch ${key} data:`, error);
+                    localStorage.removeItem(key);
+                }
+            }
+        };
 
-    //     fetchData("isUserLoggedIn", userInfo, fetchUserData);
-    //     fetchData("isExpertLoggedIn", expertInfo, fetchExpertData);
-    //     fetchData("isAdminLoggedIn", adminInfo, fetchAdminData);
-    // }, [dispatch, userInfo, expertInfo, adminInfo])
+        fetchData("isUserLoggedIn", userInfo, fetchUserData);
+        fetchData("isExpertLoggedIn", expertInfo, fetchExpertData);
+        fetchData("isAdminLoggedIn", adminInfo, fetchAdminData);
+    }, [dispatch, userInfo, expertInfo, adminInfo])
 
     return (
         <BrowserRouter>

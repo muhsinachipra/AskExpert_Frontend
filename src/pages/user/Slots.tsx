@@ -5,9 +5,16 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import SlotCard from "../../components/user/SlotCard";
 import { useGetExpertSlotsQuery } from "../../slices/api/userApiSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 
 function Slots() {
+
+    const { userInfo } = useSelector((state: RootState) => state.auth);
+    const userId = userInfo?._id
+
+
     const { expertId } = useParams();
     const { data, error, isLoading } = useGetExpertSlotsQuery(expertId || '');
 
@@ -37,8 +44,10 @@ function Slots() {
                             <SlotCard
                                 key={slot._id}
                                 time={slot.time}
+                                date={slot.date}
                                 price={slot.price}
                                 slotId={slot._id}
+                                userId={userId||''}
                             />
                         ))
                     ) : (
