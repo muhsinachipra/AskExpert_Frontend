@@ -45,6 +45,9 @@ function SelectExpert() {
                             image={expert.image}
                         />
                     ))} */}
+                    {expertsData?.length === 0 && (
+                        <div className="text-4xl font-bold mt-14 mb-6 text-center text-gray-500">No experts found.</div>
+                    )}
                     {expertsData?.map((expert) => (
                         <ExpertListCard
                             key={expert._id}

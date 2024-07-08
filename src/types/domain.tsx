@@ -36,7 +36,7 @@ export interface IUser {
     __v: number;
 }
 
-export interface IAdmin{
+export interface IAdmin {
     _id?: string
     email: string;
     name: string;
@@ -44,8 +44,12 @@ export interface IAdmin{
 
 export interface IAppointment {
     _id: string;
+    userId?: string;
+    userName?: string;
     expertId: string;
-    date: string; 
+    expertName: string;
+    expertCategory: string;
+    date: string;
     time: string;
     price: number;
     paymentStatus: string;

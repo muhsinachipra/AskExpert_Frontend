@@ -1,6 +1,6 @@
 // frontend\src\slices\api\userApiSlice.ts
 
-import { GetAppointmentDataResponse, GetExpertDataResponse, GetUserDataForStateResponse } from "../../types/response";
+import { GetAppointmentDataResponse, GetExpertDataResponse, GetSingleExpertDataResponse, GetUserDataForStateResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const USER_URL = "/api/user";
@@ -78,6 +78,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `${USER_URL}/logout`,
                 method: "POST",
             }),
+            invalidatesTags: ['Schedule', 'User', 'Appointment', 'Expert'],
         }),
 
         updateProfile: builder.mutation({
@@ -117,9 +118,25 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `${USER_URL}/payment`,
                 method: 'POST',
                 body: data
-            })
+            }),
+            invalidatesTags: ['Appointment'],
         }),
 
+        getUserAppointments: builder.query<GetAppointmentDataResponse, void>({
+            query: () => ({
+                url: `${USER_URL}/getUserAppointments`,
+                method: 'GET',
+            }),
+            providesTags: ['Appointment'],
+        }),
+
+        userGetExpertData: builder.query<GetSingleExpertDataResponse, string>({
+            query: (expertId) => ({
+                url: `${USER_URL}/getExpertData/${expertId}`,
+                method: 'GET',
+            }),
+            providesTags: ['Expert'],
+        }),
     }),
 });
 
@@ -138,4 +155,6 @@ export const {
     useGetExpertsByCategoryQuery,
     useGetExpertSlotsQuery,
     usePaymentMutation,
+    useGetUserAppointmentsQuery,
+    useUserGetExpertDataQuery,
 } = userApiSlice;

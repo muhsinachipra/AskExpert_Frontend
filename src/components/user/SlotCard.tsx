@@ -11,20 +11,22 @@ type SlotCardProps = {
     price: number;
     slotId: string;
     userId: string;
+    userName: string;
 };
 
-const SlotCard = ({ time, date, price, slotId, userId }: SlotCardProps) => {
+const SlotCard = ({ time, date, price, slotId, userId, userName }: SlotCardProps) => {
 
     const [payment] = usePaymentMutation();
 
-    const handlePayment = async (price: number, slotId: string, userId: string) => {
+    const handlePayment = async (price: number, slotId: string, userId: string, userName: string) => {
         console.log('public_stripe_key : ', public_stripe_key)
         const stripePromise: Stripe | null = await loadStripe(public_stripe_key);
 
         const response = await payment({
             amount: price,
             appointmentId: slotId,
-            userId: userId
+            userId: userId,
+            userName: userName
         }).unwrap();
         console.log('response from payment mutation : ', response)
         const session = response;
@@ -48,7 +50,7 @@ const SlotCard = ({ time, date, price, slotId, userId }: SlotCardProps) => {
                     <time dateTime={date}>{new Date(date).toLocaleDateString()}</time>
                 </div>
             </div>
-            <button onClick={() => handlePayment(price, slotId, userId)}
+            <button onClick={() => handlePayment(price, slotId, userId, userName)}
                 className="flex gap-2 items-center justify-center px-10 py-4 text-2xl font-semibold text-center text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 transition duration-300 ease-in-out max-md:px-5 max-md:py-3">
                 <span>Pay {price} ₹</span>
             </button>

@@ -11,6 +11,11 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     icon: <Icon icon="akar-icons:home" width="24" height="24" />,
   },
   {
+    title: 'Appointments',
+    path: '/expert/appointments',
+    icon: <Icon icon="teenyicons:appointments-outline" width="24" height="24" />,
+  },
+  {
     title: 'Schedule',
     path: '/expert/schedule',
     icon: <Icon icon="akar-icons:schedule" width="24" height="24" />,

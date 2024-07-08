@@ -13,6 +13,7 @@ function Slots() {
 
     const { userInfo } = useSelector((state: RootState) => state.auth);
     const userId = userInfo?._id
+    const userName = userInfo?.name
 
 
     const { expertId } = useParams();
@@ -36,7 +37,7 @@ function Slots() {
     return (
         <>
             <Header />
-            <div className="container h-screen mx-auto mt-10">
+            <div className="container mx-auto mt-10 min-h-[100vh]">
                 <div className="text-4xl font-bold mb-6">Slots</div>
                 <div className="space-y-4">
                     {slotData && slotData.length > 0 ? (
@@ -47,7 +48,8 @@ function Slots() {
                                 date={slot.date}
                                 price={slot.price}
                                 slotId={slot._id}
-                                userId={userId||''}
+                                userId={userId || ''}
+                                userName={userName || ''}
                             />
                         ))
                     ) : (

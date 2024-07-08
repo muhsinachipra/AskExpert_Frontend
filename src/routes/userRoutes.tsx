@@ -14,6 +14,7 @@ import Home from '../pages/user/home/Home'
 import SelectExpert from '../pages/user/SelectExpert'
 import Slots from '../pages/user/Slots'
 import Success from '../pages/user/Success'
+import Appointments from '../pages/user/Appointments'
 // import { useSelector } from 'react-redux'
 // import { RootState } from '../app/store'
 
@@ -38,6 +39,7 @@ export function UserRoutes() {
                 <Route path='experts/:categoryName' element={<SelectExpert />} />
                 <Route path='slots/:expertId' element={<Slots />} />
                 <Route path='success' element={<Success />} />
+                <Route path='appointments' element={<Appointments />} />
             </Route>
             <Route path='/test' element={<MyComponent />} />
         </Routes>
