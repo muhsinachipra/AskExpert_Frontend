@@ -54,6 +54,7 @@ export const expertApiSlice = apiSlice.injectEndpoints({
                 url: `${EXPERT_URL}/logout`,
                 method: "POST",
             }),
+            invalidatesTags: ['Schedule', 'Expert'],
         }),
 
         expertUpdateProfile: builder.mutation({

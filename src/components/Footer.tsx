@@ -40,7 +40,7 @@ const socialIcons = ["https://cdn.builder.io/api/v1/image/assets/TEMP/77a5f443bf
 
 export default function Footer() {
     return (
-        <footer className="flex flex-col items-center p-5 bg-neutral-700 max-md:px-5">
+        <footer className="flex flex-col items-center mt-5 p-5 bg-neutral-700 max-md:px-5">
             <div className="flex gap-5 justify-between pr-4 mt-4 max-w-full text-white w-[1220px] max-md:flex-wrap">
                 <div className="flex gap-3 my-auto text-3xl font-semibold leading-8 whitespace-nowrap">
                     <img
