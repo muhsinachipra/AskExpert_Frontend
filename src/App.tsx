@@ -1,11 +1,11 @@
 // frontend\src\App.tsx
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { UserRoutes } from "./routes/UserRoutes";
-import { ExpertRoutes } from "./routes/ExpertRoutes";
+import { UserRoutes } from "./routes/userRoutes";
+import { ExpertRoutes } from "./routes/expertRoutes";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AdminRoutes } from "./routes/AdminRoutes";
+import { AdminRoutes } from "./routes/adminRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./app/store";
 import { useEffect } from "react";

@@ -1,3 +1,5 @@
+// frontend\src\pages\expert\session\Schedule.tsx
+
 import { useMemo, useState } from 'react';
 import ScheduleComponent from '../../../components/expert/ScheduleComponent';
 import { useGetSchedulesQuery, useAddScheduleMutation, useCancelScheduleMutation } from '../../../slices/api/expertApiSlice';
@@ -24,6 +26,7 @@ export default function Schedule() {
     initialValues: {
       date: '',
       startTime: '',
+      endTime: '',
       recurrence: '',
     },
     validationSchema: addScheduleSchema,
@@ -31,8 +34,10 @@ export default function Schedule() {
       console.log('values onSubmit : ', values);
 
       const startDateTime = new Date(`${values.date}T${values.startTime}`)
+      const endDateTime = new Date(`${values.date}T${values.endTime}`)
       const untilDateTime = new Date(`${values.recurrence}`)
       const dtstartLocalTime = new Date(startDateTime.getTime() - (startDateTime.getTimezoneOffset() * 60000));
+      const dtendLocalTime = new Date(endDateTime.getTime() - (endDateTime.getTimezoneOffset() * 60000));
       const untilLocalTime = new Date(untilDateTime.getTime() - (untilDateTime.getTimezoneOffset() * 60000));
       untilLocalTime.setDate(untilLocalTime.getDate() + 1);
 
@@ -40,6 +45,7 @@ export default function Schedule() {
         const rruleString = new RRule({
           freq: RRule.DAILY, // Change this as needed
           dtstart: dtstartLocalTime,
+          // dtend: dtendLocalTime,
           until: untilLocalTime,
         }).toString();
         console.log('rruleString; ', rruleString)
@@ -47,6 +53,8 @@ export default function Schedule() {
         const scheduleData = {
           ...values,
           rrule: rruleString,
+          dtstart: dtstartLocalTime.toISOString(),
+          dtend: dtendLocalTime.toISOString(),
         };
 
         await addSchedule(scheduleData).unwrap();
@@ -59,7 +67,6 @@ export default function Schedule() {
       }
     },
   });
-
   const handleAddModalClose = () => {
     formikAdd.resetForm();
     setIsAddModalOpen(false);
@@ -103,6 +110,7 @@ export default function Schedule() {
           key={schedule._id}
           date={schedule.date}
           startTime={formatTimeTo12Hour(schedule.startTime)}
+          endTime={formatTimeTo12Hour(schedule.endTime)}
           onCancel={() => handleCancel(schedule._id)}
         />
       ))}
@@ -123,7 +131,9 @@ export default function Schedule() {
           {formikAdd.touched.date && formikAdd.errors.date ? (
             <div className="text-red-500">{formikAdd.errors.date}</div>
           ) : null}
-          <label htmlFor="startTime" className="block text-gray-700">Time</label>
+
+
+          <label htmlFor="startTime" className="block text-gray-700">Start Time</label>
           <input
             type="time"
             id="startTime"
@@ -137,6 +147,24 @@ export default function Schedule() {
           {formikAdd.touched.startTime && formikAdd.errors.startTime ? (
             <div className="text-red-500">{formikAdd.errors.startTime}</div>
           ) : null}
+
+
+          <label htmlFor="endTime" className="block text-gray-700">End Time</label>
+          <input
+            type="time"
+            id="endTime"
+            className="border p-2 w-full mb-4"
+            name="endTime"
+            value={formikAdd.values.endTime}
+            onChange={formikAdd.handleChange}
+            onBlur={formikAdd.handleBlur}
+            placeholder="Enter endTime"
+          />
+          {formikAdd.touched.endTime && formikAdd.errors.endTime ? (
+            <div className="text-red-500">{formikAdd.errors.endTime}</div>
+          ) : null}
+
+
           <label htmlFor="recurrence" className="block text-gray-700">Recurrence Until</label>
           <input
             type="date"
