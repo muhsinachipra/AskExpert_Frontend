@@ -1,10 +1,10 @@
 interface ScheduleComponentProps {
     date: string;
-    time: string;
+    startTime: string;
     onCancel: () => void;
 }
 
-const ScheduleComponent = ({ date, time, onCancel }: ScheduleComponentProps) => {
+const ScheduleComponent = ({ date, startTime, onCancel }: ScheduleComponentProps) => {
     return (
         <section className="py-5 px-4 bg-white rounded-3xl w-full mb-4 shadow-md">
             <div className="flex justify-between items-center">
@@ -13,7 +13,7 @@ const ScheduleComponent = ({ date, time, onCancel }: ScheduleComponentProps) => 
                         <time>{date}</time>
                     </div>
                     <div className="text-3xl font-medium text-neutral-800 mt-1">
-                        <time>{time}</time>
+                        <time>{startTime}</time>
                     </div>
                 </div>
                 <div className="flex justify-end">
@@ -29,7 +29,7 @@ const ScheduleComponent = ({ date, time, onCancel }: ScheduleComponentProps) => 
         // <section className="py-5 px-4 bg-white rounded-3xl w-full mb-4">
         //     <div className="flex justify-between items-center">
         //         <div className="text-3xl font-medium text-neutral-800">
-        //             <time>{date} {time}</time>
+        //             <time>{date} {startTime}</time>
         //         </div>
         //         <div className="flex justify-end">
         //             <button
@@ -50,20 +50,20 @@ export default ScheduleComponent;
 // // frontend\src\components\expert\ScheduleComponent.tsx
 
 // interface ScheduleComponentProps {
-//     time: string;
+//     startTime: string;
 //     onCancel: () => void;
 //     // onEdit: () => void;
 // }
 
 
-// const ScheduleComponent = ({ time, onCancel }: ScheduleComponentProps) => {
+// const ScheduleComponent = ({ startTime, onCancel }: ScheduleComponentProps) => {
 
 //     return (
 //         <section className="py-5 pr-14 pl-4 bg-white rounded-3xl max-w-[754px] max-md:pr-5">
 //             <div className="flex gap-5 max-md:flex-col max-md:gap-0">
 //                 <div className="flex flex-col w-[43%] max-md:w-full">
 //                     <div className="flex grow gap-5 text-3xl font-medium whitespace-nowrap text-neutral-800 max-md:mt-10">
-//                         <time className="flex-auto my-auto">{time}</time>
+//                         <time className="flex-auto my-auto">{startTime}</time>
 //                     </div>
 //                 </div>
 //                 <div className="flex flex-col w-[57%] max-md:w-full max-md:mt-10">

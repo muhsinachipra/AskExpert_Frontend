@@ -107,7 +107,13 @@ export const addCategorySchema = Yup.object({
         .required("Please enter category description"),
 });
 
+// export const addScheduleSchema = Yup.object({
+//     startTime: Yup.string().required('Time is required'),
+//     date: Yup.string().required('Date is required'),
+// });
+
 export const addScheduleSchema = Yup.object({
-    time: Yup.string().required('Time is required'),
-    date: Yup.string().required('Date is required'),
+  startTime: Yup.string().required('Time is required'),
+  date: Yup.string().required('Date is required'),
+  recurrence: Yup.string().required('Recurrence is required'),
 });

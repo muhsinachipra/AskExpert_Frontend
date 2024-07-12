@@ -3,46 +3,22 @@
 import { useEffect, useState } from "react";
 
 interface AppointmentsCardProps {
-    time: string;
+    startTime: string;
     date: string;
     expertName: string;
     expertCategory: string;
 }
 
-const AppointmentsCard = ({ time, date, expertName, expertCategory }: AppointmentsCardProps) => {
+const AppointmentsCard = ({ startTime, date, expertName, expertCategory }: AppointmentsCardProps) => {
 
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
-    // useEffect(() => {
-    //     const appointmentDateTime = new Date(`${date}T${time}`);
-    //     const now = new Date();
-
-    //     console.log('appointmentDateTime: ', appointmentDateTime)
-    //     console.log('now time: ', now)
-
-    //     if (now >= appointmentDateTime) {
-    //         console.log('Setting button enabled immediately.');
-    //         setIsButtonEnabled(true);
-    //     } else {
-    //         const timeout = appointmentDateTime.getTime() - now.getTime();
-    //         console.log(`Button will be enabled in ${timeout}ms.`);
-    //         const timerId = setTimeout(() => {
-    //             console.log('Timeout reached, enabling button.');
-    //             setIsButtonEnabled(true);
-    //         }, timeout);
-    //         return () => {
-    //             console.log('Clearing timeout.');
-    //             clearTimeout(timerId);
-    //         };
-    //     }
-    // }, [date, time]);
-
     useEffect(() => {
-        const appointmentDateTime = new Date(`${date}T${time}`);
+        const appointmentDateTime = new Date(`${date}T${startTime}`);
         const now = new Date();
 
         console.log('appointmentDateTime: ', appointmentDateTime)
-        console.log('now time: ', now)
+        console.log('now startTime: ', now)
 
         if (now >= appointmentDateTime) {
             setIsButtonEnabled(true);
@@ -53,110 +29,36 @@ const AppointmentsCard = ({ time, date, expertName, expertCategory }: Appointmen
             }, timeout);
             return () => clearTimeout(timerId);
         }
-    }, [date, time]);
+    }, [date, startTime]);
 
     const handleCallClick = () => {
         // start video call
     };
 
     return (
-        <div className="p-6 border border-gray-200 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 flex">
-            <div className="flex-grow">
-                <div className="mb-4">
-                    <h2 className="text-2xl font-bold text-gray-800">Appointment</h2>
-                </div>
-                <div className="flex mb-2">
-                    <div className="w-24 text-gray-600 font-medium">Date:</div>
-                    <div className="ml-2 text-gray-800 text-lg">{date}</div>
-                </div>
-                <div className="flex mb-2">
-                    <div className="w-24 text-gray-600 font-medium">Time:</div>
-                    <div className="ml-2 text-gray-800 text-lg">{time}</div>
-                </div>
-                <div className="flex mb-2">
-                    <div className="w-24 text-gray-600 font-medium">Expert:</div>
-                    <div className="ml-2 text-gray-800 text-lg">{expertName}</div>
-                </div>
-                <div className="flex mb-4">
-                    <div className="w-24 text-gray-600 font-medium">Specialty:</div>
-                    <div className="ml-2 text-gray-800 text-lg">{expertCategory}</div>
-                </div>
+        <div className="p-6 border border-gray-200 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 flex items-center justify-between space-x-6">
+            <div className="flex flex-col items-start">
+                <div className="font-bold text-lg">{startTime}</div>
+                <div className="text-gray-600">{date}</div>
             </div>
-            <div className="flex-shrink-0 flex items-center">
-                <button
-                    className={`w-full px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors duration-200 ${isButtonEnabled ? 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75' : 'bg-gray-400 cursor-not-allowed'}`}
-                    onClick={handleCallClick}
-                    disabled={!isButtonEnabled}
-                >
-                    Call {expertName}
-                </button>
+            <div className="flex flex-col items-start">
+                <div className="font-semibold text-gray-800">{expertName}</div>
             </div>
+            <div className="flex flex-col items-start">
+                <div className="font-semibold text-gray-800">{expertCategory}</div>
+            </div>
+            <button
+                className={`w-24 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors duration-200 ${isButtonEnabled
+                    ? 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75'
+                    : 'bg-gray-400 cursor-not-allowed'
+                    }`}
+                onClick={handleCallClick}
+                disabled={!isButtonEnabled}
+            >
+                Call
+            </button>
         </div>
     );
 };
 
 export default AppointmentsCard;
-
-
-
-// // frontend\src\components\user\AppointmentsCard.tsx
-
-// import { useUserGetExpertDataQuery } from "../../slices/api/userApiSlice";
-
-// interface AppointmentsCardProps {
-//     time: string;
-//     date: string;
-//     expertId: string;
-// }
-
-// const AppointmentsCard = ({ time, date, expertId }: AppointmentsCardProps) => {
-
-//     const { data } = useUserGetExpertDataQuery(expertId);
-//     const expert = data?.data;
-
-//     const handleCallClick = () => {
-//         // start video call
-//     };
-
-//     return (
-//         <div className="p-6 border border-gray-200 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 flex">
-//             <div className="flex-grow">
-//                 <div className="mb-4">
-//                     <h2 className="text-2xl font-bold text-gray-800">Appointment</h2>
-//                 </div>
-//                 <div className="mb-2">
-//                     <span className="block text-gray-600 font-medium">Date:</span>
-//                     <span className="block text-gray-800 text-lg">{date}</span>
-//                 </div>
-//                 <div className="mb-2">
-//                     <span className="block text-gray-600 font-medium">Time:</span>
-//                     <span className="block text-gray-800 text-lg">{time}</span>
-//                 </div>
-//                 {expert && (
-//                     <>
-//                         <div className="mb-2">
-//                             <span className="block text-gray-600 font-medium">Expert:</span>
-//                             <span className="block text-gray-800 text-lg">{expert.name}</span>
-//                         </div>
-//                         <div className="mb-4">
-//                             <span className="block text-gray-600 font-medium">Specialty:</span>
-//                             <span className="block text-gray-800 text-lg">{expert.category}</span>
-//                         </div>
-//                     </>
-//                 )}
-//             </div>
-//             <div className="flex-shrink-0 flex items-center">
-//                 {expert && (
-//                     <button
-//                         className="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition-colors duration-200"
-//                         onClick={handleCallClick}
-//                     >
-//                         Call {expert.name}
-//                     </button>
-//                 )}
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default AppointmentsCard;

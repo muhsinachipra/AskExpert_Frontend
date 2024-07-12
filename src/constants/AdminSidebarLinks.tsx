@@ -57,9 +57,9 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
   //   path: '/admin/help',
   //   icon: <Icon icon="lucide:help-circle" width="24" height="24" />,
   // },
-  {
-    title: 'Logout',
-    path: '/admin/logout',
-    icon: <Icon icon="material-symbols:logout" width="24" height="24" />,
-  },
+  // {
+  //   title: 'Logout',
+  //   path: '/admin/logout',
+  //   icon: <Icon icon="material-symbols:logout" width="24" height="24" />,
+  // },
 ];

@@ -119,7 +119,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: data
             }),
-            invalidatesTags: ['Appointment'],
+            invalidatesTags: ['Appointment', 'Schedule'],
         }),
 
         getUserAppointments: builder.query<GetAppointmentDataResponse, void>({

@@ -6,7 +6,7 @@ import { usePaymentMutation } from '../../slices/api/userApiSlice';
 const public_stripe_key = import.meta.env.VITE_STRIPE_PUBLIC_KET;
 
 type SlotCardProps = {
-    time: string;
+    startTime: string;
     date: string;
     price: number;
     slotId: string;
@@ -14,7 +14,7 @@ type SlotCardProps = {
     userName: string;
 };
 
-const SlotCard = ({ time, date, price, slotId, userId, userName }: SlotCardProps) => {
+const SlotCard = ({ startTime, date, price, slotId, userId, userName }: SlotCardProps) => {
 
     const [payment] = usePaymentMutation();
 
@@ -44,7 +44,7 @@ const SlotCard = ({ time, date, price, slotId, userId, userName }: SlotCardProps
         <main className="flex flex-col gap-5 md:flex-row justify-between px-5 py-11 bg-white max-md:flex-wrap md:px-11 max-md:py-5 rounded-lg shadow-md border border-gray-200">
             <div className="flex flex-col self-start">
                 <div className="flex items-center gap-2 mt-2 text-3xl font-extrabold tracking-wide leading-6 text-gray-800">
-                    <time dateTime={time}>{time}</time>
+                    <time dateTime={startTime}>{startTime}</time>
                 </div>
                 <div className="mt-2 text-xl font-semibold text-gray-600">
                     <time dateTime={date}>{new Date(date).toLocaleDateString()}</time>
