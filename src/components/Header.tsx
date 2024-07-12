@@ -1,12 +1,12 @@
 // frontend\src\components\Header.tsx
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"
 import { RootState } from "../app/store";
 import { useState } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { useUserLogoutMutation } from "../slices/api/userApiSlice";
+import { useGetUserAppointmentsQuery, useUserLogoutMutation } from "../slices/api/userApiSlice";
 import { useExpertLogoutMutation } from "../slices/api/expertApiSlice";
 import { expertLogout, userLogout } from "../slices/authSlice";
 import { CgProfile } from "react-icons/cg";
@@ -20,6 +20,9 @@ interface HeaderProps {
 }
 
 export default function Header({ isExpertPage = false }: HeaderProps) {
+
+    const { data } = useGetUserAppointmentsQuery();
+    const appointmentCount = data?.data.length;
     const navigate = useNavigate();
     const userLoggedIn = useSelector((state: RootState) => state.auth.userInfo);
     const expertLoggedIn = useSelector((state: RootState) => state.auth.expertInfo);
@@ -33,7 +36,7 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
 
     const navItems = [
         { label: "Home", href: isExpertPage ? '/expert/home' : '/home', current: false },
-        { label: "Appointments", href: "/appointments", current: false },
+        { label: "Appointments", href: "/appointments", current: false, count: appointmentCount },
         { label: "About Us", href: "/contact", current: false },
     ];
 
@@ -64,11 +67,9 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
         if (!isExpertPage) {
             navigate('/profile')
         } else {
-            navigate('/expert/profile')
+            navigate('/expert/profile2')
         }
     };
-
-
 
     const toggleDropdown = () => {
         if ((userLoggedIn && !isExpertPage) || (expertLoggedIn && isExpertPage)) {
@@ -86,8 +87,13 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
             </div>
             <nav className="flex gap-5 pl-20 text-lg text-center max-md:flex-wrap">
                 {navItems.map((item) => (
-                    <Link key={item.label} to={item.href} className={`justify-center px-0.5 py-1 my-auto text-neutral-700 font-medium`}>
+                    <Link key={item.label} to={item.href} className={`relative justify-center px-0.5 py-1 my-auto text-neutral-700 font-medium`}>
                         {item.label}
+                        {item.count !== undefined && item.count > 0 && (
+                            <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-700 rounded-full">
+                                {item.count}
+                            </span>
+                        )}
                     </Link>
                 ))}
 

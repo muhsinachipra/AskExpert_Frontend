@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Spinner from "../../components/Spinner";
 import AppointmentsCard from "../../components/user/AppointmentsCard";
+import { formatTimeTo12Hour } from "../../lib/utils";
 import { useGetUserAppointmentsQuery } from "../../slices/api/userApiSlice";
 
 function Appointments() {
@@ -23,10 +24,10 @@ function Appointments() {
                         appointmentData.map((appointment) => (
                             <AppointmentsCard
                                 key={appointment._id}
-                                time={appointment.time}
+                                startTime={formatTimeTo12Hour(appointment.startTime)}
                                 date={appointment.date}
-                                expertName={appointment.expertName} 
-                                expertCategory={appointment.expertCategory} 
+                                expertName={appointment.expertName}
+                                expertCategory={appointment.expertCategory}
                             />
                         ))
                     ) : (

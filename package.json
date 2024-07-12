@@ -32,6 +32,7 @@
     "react-router-dom": "^6.23.0",
     "react-toastify": "^10.0.5",
     "redux-persist": "^6.0.0",
+    "rrule": "^2.8.1",
     "sweetalert2": "^11.11.0",
     "sweetalert2-react-content": "^5.0.7",
     "tailwind-merge": "^2.3.0",

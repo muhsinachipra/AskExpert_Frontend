@@ -1,5 +1,3 @@
-// frontend/src/pages/expert/session/Schedule.tsx
-
 import { useMemo, useState } from 'react';
 import ScheduleComponent from '../../../components/expert/ScheduleComponent';
 import { useGetSchedulesQuery, useAddScheduleMutation, useCancelScheduleMutation } from '../../../slices/api/expertApiSlice';
@@ -11,14 +9,13 @@ import { addScheduleSchema } from '../../../validation/yupValidation';
 import { MyError } from '../../../validation/validationTypes';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-
+import { RRule } from 'rrule';
+import { formatTimeTo12Hour } from '../../../lib/utils';
 const MySwal = withReactContent(Swal);
 
 export default function Schedule() {
   const { data, error, isLoading } = useGetSchedulesQuery();
-  // const schedules = data?.data;
   const schedules = useMemo(() => data?.data, [data]);
-  // console.log('schedule from Schedules.tsx : ', schedules)
   const [addSchedule] = useAddScheduleMutation();
   const [cancelSchedule] = useCancelScheduleMutation();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -26,13 +23,33 @@ export default function Schedule() {
   const formikAdd = useFormik({
     initialValues: {
       date: '',
-      time: '',
+      startTime: '',
+      recurrence: '',
     },
     validationSchema: addScheduleSchema,
     onSubmit: async (values, { resetForm }) => {
+      console.log('values onSubmit : ', values);
+
+      const startDateTime = new Date(`${values.date}T${values.startTime}`)
+      const untilDateTime = new Date(`${values.recurrence}`)
+      const dtstartLocalTime = new Date(startDateTime.getTime() - (startDateTime.getTimezoneOffset() * 60000));
+      const untilLocalTime = new Date(untilDateTime.getTime() - (untilDateTime.getTimezoneOffset() * 60000));
+      untilLocalTime.setDate(untilLocalTime.getDate() + 1);
+
       try {
-        console.log('Submitting form values : ', values);
-        await addSchedule(values).unwrap();
+        const rruleString = new RRule({
+          freq: RRule.DAILY, // Change this as needed
+          dtstart: dtstartLocalTime,
+          until: untilLocalTime,
+        }).toString();
+        console.log('rruleString; ', rruleString)
+
+        const scheduleData = {
+          ...values,
+          rrule: rruleString,
+        };
+
+        await addSchedule(scheduleData).unwrap();
         toast.success('Schedule added successfully');
         resetForm();
         setIsAddModalOpen(false);
@@ -49,8 +66,6 @@ export default function Schedule() {
   };
 
   const handleCancel = async (_id: string) => {
-    // Handle cancel action
-    console.log('Cancelled', _id);
     const result = await MySwal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -87,9 +102,8 @@ export default function Schedule() {
         <ScheduleComponent
           key={schedule._id}
           date={schedule.date}
-          time={schedule.time}
+          startTime={formatTimeTo12Hour(schedule.startTime)}
           onCancel={() => handleCancel(schedule._id)}
-        // onEdit={() => handleEdit(schedule._id)}
         />
       ))}
       <Modal isOpen={isAddModalOpen} onClose={handleAddModalClose}>
@@ -109,49 +123,39 @@ export default function Schedule() {
           {formikAdd.touched.date && formikAdd.errors.date ? (
             <div className="text-red-500">{formikAdd.errors.date}</div>
           ) : null}
-
-          <label htmlFor="time" className="block text-gray-700">Time</label>
+          <label htmlFor="startTime" className="block text-gray-700">Time</label>
           <input
             type="time"
-            id="time"
+            id="startTime"
             className="border p-2 w-full mb-4"
-            name="time"
-            value={formikAdd.values.time}
+            name="startTime"
+            value={formikAdd.values.startTime}
             onChange={formikAdd.handleChange}
             onBlur={formikAdd.handleBlur}
-            placeholder="Enter time"
+            placeholder="Enter startTime"
           />
-          {formikAdd.touched.time && formikAdd.errors.time ? (
-            <div className="text-red-500">{formikAdd.errors.time}</div>
+          {formikAdd.touched.startTime && formikAdd.errors.startTime ? (
+            <div className="text-red-500">{formikAdd.errors.startTime}</div>
           ) : null}
-
+          <label htmlFor="recurrence" className="block text-gray-700">Recurrence Until</label>
+          <input
+            type="date"
+            id="recurrence"
+            className="border p-2 w-full mb-4"
+            name="recurrence"
+            value={formikAdd.values.recurrence}
+            onChange={formikAdd.handleChange}
+            onBlur={formikAdd.handleBlur}
+            placeholder="Enter recurrence end date"
+          />
+          {formikAdd.touched.recurrence && formikAdd.errors.recurrence ? (
+            <div className="text-red-500">{formikAdd.errors.recurrence}</div>
+          ) : null}
           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
             Add
           </button>
         </form>
       </Modal>
-      {/* <Modal isOpen={isAddModalOpen} onClose={handleAddModalClose}>
-        <h2 className="text-2xl mb-4">Add Schedule</h2>
-        <form onSubmit={formikAdd.handleSubmit}>
-          <label htmlFor="time" className="block text-gray-700">Time</label>
-          <input
-            type="time"
-            id="time"
-            className="border p-2 w-full mb-4"
-            name="time"
-            value={formikAdd.values.time}
-            onChange={formikAdd.handleChange}
-            onBlur={formikAdd.handleBlur}
-            placeholder="Enter time"
-          />
-          {formikAdd.touched.time && formikAdd.errors.time ? (
-            <div className="text-red-500">{formikAdd.errors.time}</div>
-          ) : null}
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-            Add
-          </button>
-        </form>
-      </Modal> */}
     </>
   );
 }

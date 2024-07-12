@@ -7,6 +7,7 @@ import SlotCard from "../../components/user/SlotCard";
 import { useGetExpertSlotsQuery } from "../../slices/api/userApiSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import { formatTimeTo12Hour } from "../../lib/utils";
 
 
 function Slots() {
@@ -44,7 +45,7 @@ function Slots() {
                         slotData.map((slot) => (
                             <SlotCard
                                 key={slot._id}
-                                time={slot.time}
+                                startTime={formatTimeTo12Hour(slot.startTime)}
                                 date={slot.date}
                                 price={slot.price}
                                 slotId={slot._id}

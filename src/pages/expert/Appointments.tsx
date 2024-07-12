@@ -1,3 +1,6 @@
+// frontend\src\pages\expert\Appointments.tsx
+
+import { formatTimeTo12Hour } from "../../lib/utils";
 import { useGetAppointmentsDataQuery } from "../../slices/api/expertApiSlice";
 
 export default function Appointments() {
@@ -26,7 +29,7 @@ export default function Appointments() {
                                     <span className="font-medium">Date:</span> {appointment.date}
                                 </div>
                                 <div className="text-gray-800 text-lg">
-                                    <span className="font-medium">Time:</span> {appointment.time}
+                                    <span className="font-medium">Time:</span> {formatTimeTo12Hour(appointment.startTime)}
                                 </div>
                                 <div className="text-gray-800 text-lg">
                                     <span className="font-medium">User Name:</span> {appointment.userName}
@@ -77,7 +80,7 @@ export default function Appointments() {
 //                             </div>
 //                             <div className="flex mb-2">
 //                                 <div className="w-24 text-gray-600 font-medium">Time:</div>
-//                                 <div className="ml-2 text-gray-800 text-lg">{appointment.time}</div>
+//                                 <div className="ml-2 text-gray-800 text-lg">{appointment.startTime}</div>
 //                             </div>
 //                             <div className="flex mb-2">
 //                                 <div className="w-24 text-gray-600 font-medium">User Name:</div>

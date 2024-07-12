@@ -20,8 +20,13 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     path: '/expert/schedule',
     icon: <Icon icon="akar-icons:schedule" width="24" height="24" />,
   },
+  {
+    title: 'Profile',
+    path: '/expert/profile',
+    icon: <Icon icon="gg:profile" width="24" height="24" />,
+  },
   // {
-  //   title: 'Expert',
+    //   title: 'Expert',
   //   path: '/expert/experts',
   //   icon: <Icon icon="carbon:user-expert" width="24" height="24" />,
   //   submenu: true,
@@ -58,18 +63,24 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
   // //   icon: <Icon icon="lucide:settings" width="24" height="24" />,
   // //   submenu: true,
   // //   subMenuItems: [
-  // //     { title: 'Account', path: '/expert/settings/account' },
-  // //     { title: 'Privacy', path: '/expert/settings/privacy' },
-  // //   ],
-  // // },
-  // // {
-  // //   title: 'Help',
-  // //   path: '/expert/help',
-  // //   icon: <Icon icon="lucide:help-circle" width="24" height="24" />,
-  // // },
-  // {
-  //   title: 'Logout',
-  //   path: '/expert/logout',
-  //   icon: <Icon icon="material-symbols:logout" width="24" height="24" />,
-  // },
-];
+    // //     { title: 'Account', path: '/expert/settings/account' },
+    // //     { title: 'Privacy', path: '/expert/settings/privacy' },
+    // //   ],
+    // // },
+    // // {
+      // //   title: 'Help',
+      // //   path: '/expert/help',
+      // //   icon: <Icon icon="lucide:help-circle" width="24" height="24" />,
+      // // },
+      // {
+        //   title: 'Logout',
+        //   path: '/expert/logout',
+        //   icon: <Icon icon="material-symbols:logout" width="24" height="24" />,
+        // },
+        // {
+        //   title: 'Wallet',
+        //   path: '/expert/wallet',
+        //   icon: <Icon icon="simple-line-icons:wallet" width="24" height="24" />,
+        // },
+      ];
+      
