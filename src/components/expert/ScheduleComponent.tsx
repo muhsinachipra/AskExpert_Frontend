@@ -7,7 +7,7 @@ interface ScheduleComponentProps {
 
 const ScheduleComponent = ({ date, startTime, endTime, onCancel }: ScheduleComponentProps) => {
     return (
-        <section className="py-5 px-6 bg-white rounded-3xl w-full mb-4 shadow-md">
+        <section className="py-5 px-6 bg-white rounded-3xl w-full mb-4 shadow-md hover:shadow-lg transition-shadow duration-300">
             <div className="flex justify-between items-center">
                 <div className="mt-2">
                     <div className="text-sm font-medium text-gray-400">Date</div>

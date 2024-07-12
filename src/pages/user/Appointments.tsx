@@ -25,6 +25,7 @@ function Appointments() {
                             <AppointmentsCard
                                 key={appointment._id}
                                 startTime={formatTimeTo12Hour(appointment.startTime)}
+                                endTime={formatTimeTo12Hour(appointment.endTime)}
                                 date={appointment.date}
                                 expertName={appointment.expertName}
                                 expertCategory={appointment.expertCategory}

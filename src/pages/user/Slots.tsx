@@ -46,6 +46,7 @@ function Slots() {
                             <SlotCard
                                 key={slot._id}
                                 startTime={formatTimeTo12Hour(slot.startTime)}
+                                endTime={formatTimeTo12Hour(slot.endTime)}
                                 date={slot.date}
                                 price={slot.price}
                                 slotId={slot._id}
