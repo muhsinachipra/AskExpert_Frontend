@@ -3,11 +3,11 @@
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
 import CategoryCard from "../../../components/CategoryCard";
-import { useGetCategoryDataQuery } from "../../../slices/api/adminApiSlice";
+import { useUserGetCategoryDataQuery } from "../../../slices/api/userApiSlice";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-    const { data, error, isLoading } = useGetCategoryDataQuery({ page: 1, limit: 100 });
+    const { data, error, isLoading } = useUserGetCategoryDataQuery({ page: 1, limit: 100 });
     const navigate = useNavigate();
 
     const categoryData = data?.data;

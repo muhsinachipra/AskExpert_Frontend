@@ -2,7 +2,7 @@
 // import Header from "../../components/Header";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import {  Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGoogleAuthMutation, useLoginMutation } from "../../../slices/api/userApiSlice";
 import { useState } from "react";
 import { MyError } from "../../../validation/validationTypes";
@@ -36,11 +36,13 @@ export default function Login() {
         onSubmit: async (values) => {
             try {
                 setIsLoading(true);
-                const res = await login(values).unwrap();
-                dispatch(setCredential({ ...res.data }));
+                const userData = await login(values).unwrap();
+                // dispatch(setCredential({ ...userData }));
+                // dispatch(setCredential({ user:{...userData.data}, accessToken: userData.token }));
+                dispatch(setCredential({ ...userData.data, accessToken: userData.token }));
                 navigate('/home');
                 // navigate(from, { replace: true });
-                toast.success(res.message);
+                toast.success(userData.message);
             } catch (err) {
                 toast.error((err as MyError)?.data?.message || (err as MyError)?.error);
             } finally {
@@ -104,9 +106,9 @@ export default function Login() {
                                             }
 
                                             try {
-                                                const res = await googleAuth({ name, email, password }).unwrap();
-                                                dispatch(setCredential({ ...res.data }));
-                                                toast.success(res.message);
+                                                const userData = await googleAuth({ name, email, password }).unwrap();
+                                                dispatch(setCredential({ ...userData.data, accessToken: userData.token }));
+                                                toast.success(userData.message);
                                                 navigate('/home');
                                                 // navigate('/')
                                             } catch (err) {

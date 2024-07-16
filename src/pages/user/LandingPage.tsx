@@ -6,7 +6,7 @@ import { TbPoint } from "react-icons/tb";
 import TestimonialCard from "../../components/TestimonialCard";
 import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
-import { useGetCategoryDataQuery } from "../../slices/api/adminApiSlice";
+import { useUserGetCategoryDataQuery } from "../../slices/api/userApiSlice";
 
 function Hero() {
     return (
@@ -29,7 +29,7 @@ function Hero() {
 }
 
 function Category() {
-    const { data, error, isLoading } = useGetCategoryDataQuery({ page: 1, limit: 100 });
+    const { data, error, isLoading } = useUserGetCategoryDataQuery({ page: 1, limit: 100 });
 
     const categoryData = data?.data;
 

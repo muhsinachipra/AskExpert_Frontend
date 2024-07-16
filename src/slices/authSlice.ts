@@ -1,63 +1,6 @@
 // frontend\src\slices\authSlice.ts
 
-import { createSlice, createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
-import { userApiSlice } from "./api/userApiSlice";
-import { expertApiSlice } from "./api/expertApiSlice";
-import { adminApiSlice } from "./api/adminApiSlice";
-
-
-const getUserData = userApiSlice.endpoints.getUserData.initiate()
-export const fetchUserData = createAsyncThunk(
-    'auth/fetchUserData',
-    async (_, { dispatch, rejectWithValue }) => {
-        try {
-            // console.log('asyncthunk fetchUserData called.....')
-            const { data } = await dispatch(getUserData);
-            // console.log('data in asyncthunk fetchUserData : ', data)
-            if (data) {
-                return data?.data;
-            } else {
-                throw new Error('Data not found');
-            }
-        } catch (error) {
-            return rejectWithValue(error);
-        }
-    }
-)
-
-const getExpertData = expertApiSlice.endpoints.getExpertData.initiate()
-export const fetchExpertData = createAsyncThunk(
-    'auth/fetchExpertData',
-    async (_, { dispatch, rejectWithValue }) => {
-        try {
-            const { data } = await dispatch(getExpertData);
-            if (data) {
-                return data?.data;
-            } else {
-                throw new Error('Data not found');
-            }
-        } catch (error) {
-            return rejectWithValue(error);
-        }
-    }
-)
-
-const getAdminData = adminApiSlice.endpoints.getAdminData.initiate()
-export const fetchAdminData = createAsyncThunk(
-    'auth/fetchAdminData',
-    async (_, { dispatch, rejectWithValue }) => {
-        try {
-            const { data } = await dispatch(getAdminData);
-            if (data) {
-                return data?.data;
-            } else {
-                throw new Error('Data not found');
-            }
-        } catch (error) {
-            return rejectWithValue(error);
-        }
-    }
-)
+import { createSlice, Dispatch } from "@reduxjs/toolkit";
 
 export type AsyncThunkConfig = {
     /** return type for `thunkApi.getState` */
@@ -102,19 +45,21 @@ export type ExpertInfo = {
     category?: string;
     experience?: number;
     profilePic?: string;
-    // profilePicUrl?: string;
     resume?: string;
     isVerified?: boolean;
     rate?: number;
     createdAt?: string
 }
 
-type initialState = {
+type InitialState = {
     userInfo: UserInfo | null;
+    userToken: string | null;
     userStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
     adminInfo: AdminInfo | null;
+    adminToken: string | null;
     adminStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
     expertInfo: ExpertInfo | null;
+    expertToken: string | null;
     expertStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
     registerInfo: UserInfo | null;
     expertRegisterInfo: ExpertInfo | null;
@@ -123,12 +68,15 @@ type initialState = {
 const registerInfoFromLocalStorage = localStorage.getItem("registerInfo");
 const expertRegisterInfoFromLocalStorage = localStorage.getItem("expertRegisterInfo");
 
-const initialState: initialState = {
+const initialState: InitialState = {
     userInfo: null,
+    userToken: null,
     userStatus: 'idle',
     adminInfo: null,
+    adminToken: null,
     adminStatus: 'idle',
     expertInfo: null,
+    expertToken: null,
     expertStatus: 'idle',
     registerInfo: registerInfoFromLocalStorage ? JSON.parse(registerInfoFromLocalStorage) : null,
     expertRegisterInfo: expertRegisterInfoFromLocalStorage ? JSON.parse(expertRegisterInfoFromLocalStorage) : null,
@@ -140,7 +88,11 @@ const authSlice = createSlice({
     reducers: {
         // user
         setCredential: (state, action) => {
-            state.userInfo = action.payload;
+            const { accessToken, ...userInfo } = action.payload
+            console.log('action.payload from setCredential : ', action.payload)
+            state.userInfo = userInfo;
+            console.log('state.userInfo from setCredential : ', state.userInfo);
+            state.userToken = accessToken;
             localStorage.setItem('isUserLoggedIn', 'true');
             state.userStatus = 'succeeded';
         },
@@ -154,12 +106,15 @@ const authSlice = createSlice({
         },
         userLogout: (state) => {
             state.userInfo = null;
+            state.userToken = null
             localStorage.removeItem('isUserLoggedIn');
         },
 
         // expert
         setExpertCredential: (state, action) => {
-            state.expertInfo = action.payload;
+            const { accessToken, ...expertInfo } = action.payload
+            state.expertInfo = expertInfo;
+            state.expertToken = accessToken;
             localStorage.setItem('isExpertLoggedIn', 'true');
             state.expertStatus = 'succeeded';
         },
@@ -173,94 +128,27 @@ const authSlice = createSlice({
         },
         expertLogout: (state) => {
             state.expertInfo = null;
+            state.expertToken = null;
             localStorage.removeItem('isExpertLoggedIn');
         },
 
         // admin
         setAdminCredential: (state, action) => {
-            state.adminInfo = action.payload;
+            const { accessToken, ...adminInfo } = action.payload
+            state.adminInfo = adminInfo;
+            state.adminToken = accessToken
             localStorage.setItem('isAdminLoggedIn', 'true');
             state.adminStatus = 'succeeded';
         },
         adminLogout: (state) => {
             state.adminInfo = null;
+            state.adminToken = null;
             localStorage.removeItem("isAdminLoggedIn");
         },
     },
     extraReducers: (builder) => {
         builder
-            // user
-            .addCase(fetchUserData.pending, (state) => {
-                state.userStatus = 'loading';
-            })
-            .addCase(fetchUserData.fulfilled, (state, action) => {
-                state.userInfo = action.payload;
-                state.userStatus = 'succeeded';
-            })
-            .addCase(fetchUserData.rejected, (state) => {
-                state.userStatus = 'failed';
-            })
-            // expert 
-            .addCase(fetchExpertData.pending, (state) => {
-                state.expertStatus = 'loading';
-            })
-            .addCase(fetchExpertData.fulfilled, (state, action) => {
-                state.expertInfo = action.payload;
-                state.expertStatus = 'succeeded';
-            })
-            .addCase(fetchExpertData.rejected, (state) => {
-                state.expertStatus = 'failed';
-            })
-            // admin
-            .addCase(fetchAdminData.pending, (state) => {
-                state.adminStatus = 'loading';
-            })
-            .addCase(fetchAdminData.fulfilled, (state, action) => {
-                state.adminInfo = action.payload;
-                state.adminStatus = 'succeeded';
-            })
-            .addCase(fetchAdminData.rejected, (state) => {
-                state.adminStatus = 'failed';
-            });
     },
-    // extraReducers: (builder) => {
-    //     builder
-    //         // user
-    //         .addCase(fetchUserData.pending, (state) => {
-    //             state.status = 'loading';
-    //         })
-    //         .addCase(fetchUserData.fulfilled, (state, action) => {
-    //             // console.log('setting data to redux.....')
-    //             // console.log('action.payload to redux : ', action.payload)
-    //             state.userInfo = action.payload;
-    //             state.status = 'succeeded';
-    //         })
-    //         .addCase(fetchUserData.rejected, (state) => {
-    //             state.status = 'failed';
-    //         })
-    //         // expert 
-    //         .addCase(fetchExpertData.pending, (state) => {
-    //             state.status = 'loading';
-    //         })
-    //         .addCase(fetchExpertData.fulfilled, (state, action) => {
-    //             state.expertInfo = action.payload;
-    //             state.status = 'succeeded';
-    //         })
-    //         .addCase(fetchExpertData.rejected, (state) => {
-    //             state.status = 'failed';
-    //         })
-    //         // admin
-    //         .addCase(fetchAdminData.pending, (state) => {
-    //             state.status = 'loading';
-    //         })
-    //         .addCase(fetchAdminData.fulfilled, (state, action) => {
-    //             state.adminInfo = action.payload;
-    //             state.status = 'succeeded';
-    //         })
-    //         .addCase(fetchAdminData.rejected, (state) => {
-    //             state.status = 'failed';
-    //         });
-    // },
 })
 
 export const {
@@ -284,167 +172,11 @@ export const {
 export default authSlice.reducer
 
 
-// // frontend\src\slices\authSlice.ts
+export const selectCurrentUser = (state: { auth: InitialState }) => state.auth.userInfo;
+export const selectCurrentUserToken = (state: { auth: InitialState }) => state.auth.userToken;
 
-// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import { userApiSlice } from "./api/userApiSlice";
+export const selectCurrentExpert = (state: { auth: InitialState }) => state.auth.expertInfo;
+export const selectCurrentExpertToken = (state: { auth: InitialState }) => state.auth.expertToken;
 
-
-// const getUserData = userApiSlice.endpoints.getUserData.initiate()
-// export const fetchUserData = createAsyncThunk(
-//     'auth/fetchUserData',
-//     async (_, { dispatch, rejectWithValue }) => {
-//         try {
-//             const { data } = await dispatch(getUserData);
-//             if (data) {
-//                 return data?.data;
-//             } else {
-//                 throw new Error('Data not found');
-//             }
-//         } catch (error) {
-//             return rejectWithValue(error);
-//         }
-//     }
-// )
-
-// export type AdminInfo = {
-//     _id?: string;
-//     email: string;
-//     name: string;
-//     password: string;
-// }
-
-// export type UserInfo = {
-//     _id?: string;
-//     email: string;
-//     name: string;
-//     mobile?: string;
-//     password?: string;
-//     createdAt?: string
-// }
-
-// export type ExpertInfo = {
-//     _id?: string;
-//     name: string;
-//     email: string;
-//     password?: string;
-//     category?: string;
-//     experience?: number;
-//     profilePic?: string;
-//     // profilePicUrl?: string;
-//     resume?: string;
-//     isVerified?: boolean;
-//     rate?: number;
-//     createdAt?: string
-// }
-
-// type initialState = {
-//     userInfo: UserInfo | null;
-//     status: 'idle' | 'loading' | 'succeeded' | 'failed';
-//     adminInfo: AdminInfo | null;
-//     expertInfo: ExpertInfo | null;
-//     registerInfo: UserInfo | null;
-//     expertRegisterInfo: ExpertInfo | null;
-// }
-
-// const adminInfoFromLocalStorage = localStorage.getItem('adminInfo');
-// const expertInfoFromLocalStorage = localStorage.getItem('expertInfo');
-// const registerInfoFromLocalStorage = localStorage.getItem("registerInfo");
-// const expertRegisterInfoFromLocalStorage = localStorage.getItem("expertRegisterInfo");
-
-// const initialState: initialState = {
-//     userInfo: null,
-//     status: 'idle',
-//     adminInfo: adminInfoFromLocalStorage ? JSON.parse(adminInfoFromLocalStorage) : null,
-//     expertInfo: expertInfoFromLocalStorage ? JSON.parse(expertInfoFromLocalStorage) : null,
-//     registerInfo: registerInfoFromLocalStorage ? JSON.parse(registerInfoFromLocalStorage) : null,
-//     expertRegisterInfo: expertRegisterInfoFromLocalStorage ? JSON.parse(expertRegisterInfoFromLocalStorage) : null,
-// }
-
-// const authSlice = createSlice({
-//     name: "auth",
-//     initialState,
-//     reducers: {
-//         // user
-//         setCredential: (state, action) => {
-//             state.userInfo = action.payload;
-//             // sessionStorage.setItem("userInfo", JSON.stringify(action.payload));
-//         },
-//         setRegister: (state, action) => {
-//             state.registerInfo = action.payload;
-//             localStorage.setItem("registerInfo", JSON.stringify(action.payload));
-//         },
-//         clearRegister: (state) => {
-//             state.registerInfo = null;
-//             localStorage.removeItem("registerInfo");
-//         },
-//         userLogout: (state) => {
-//             state.userInfo = null;
-//             localStorage.removeItem('isUserLoggedIn');
-//             sessionStorage.removeItem("userInfo");
-//         },
-
-//         // expert
-//         setExpertCredential: (state, action) => {
-//             state.expertInfo = action.payload;
-//             localStorage.setItem("expertInfo", JSON.stringify(action.payload));
-//         },
-//         setExpertRegister: (state, action) => {
-//             state.expertRegisterInfo = action.payload;
-//             localStorage.setItem("expertRegisterInfo", JSON.stringify(action.payload));
-//         },
-//         clearExpertRegister: (state) => {
-//             state.expertRegisterInfo = null;
-//             localStorage.removeItem("expertRegisterInfo");
-//         },
-//         expertLogout: (state) => {
-//             state.expertInfo = null;
-//             localStorage.removeItem("expertInfo");
-//         },
-
-//         // admin
-//         setAdminCredential: (state, action) => {
-//             state.adminInfo = action.payload;
-//             localStorage.setItem("adminInfo", JSON.stringify(action.payload));
-//         },
-//         adminLogout: (state) => {
-//             state.adminInfo = null;
-//             localStorage.removeItem("adminInfo");
-//         },
-//     },
-//     extraReducers: (builder) => {
-//         builder
-//             .addCase(fetchUserData.pending, (state) => {
-//                 state.status = 'loading';
-//             })
-//             .addCase(fetchUserData.fulfilled, (state, action) => {
-//                 state.userInfo = action.payload;
-//                 console.log('refetched user data from server')
-//                 // sessionStorage.setItem("userInfo", JSON.stringify(action.payload));
-//                 state.status = 'succeeded';
-//             })
-//             .addCase(fetchUserData.rejected, (state) => {
-//                 state.status = 'failed';
-//             });
-//     },
-// })
-
-// export const {
-//     // user
-//     setCredential,
-//     setRegister,
-//     clearRegister,
-//     userLogout,
-
-//     // expert
-//     setExpertCredential,
-//     setExpertRegister,
-//     clearExpertRegister,
-//     expertLogout,
-
-//     // admin
-//     setAdminCredential,
-//     adminLogout,
-// } = authSlice.actions;
-
-// export default authSlice.reducer
+export const selectCurrentAdmin = (state: { auth: InitialState }) => state.auth.adminInfo;
+export const selectCurrentAdminToken = (state: { auth: InitialState }) => state.auth.adminToken;

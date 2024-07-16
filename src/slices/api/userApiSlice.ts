@@ -1,5 +1,6 @@
 // frontend\src\slices\api\userApiSlice.ts
 
+import { ICategory } from "../../types/domain";
 import { GetAppointmentDataResponse, GetExpertDataResponse, GetSingleExpertDataResponse, GetUserDataForStateResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
@@ -137,6 +138,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['Expert'],
         }),
+
+        userGetCategoryData: builder.query<{ data: ICategory[], total: number }, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${USER_URL}/categories?page=${page}&limit=${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['Category'],
+        }),
     }),
 });
 
@@ -157,4 +166,5 @@ export const {
     usePaymentMutation,
     useGetUserAppointmentsQuery,
     useUserGetExpertDataQuery,
+    useUserGetCategoryDataQuery,
 } = userApiSlice;
