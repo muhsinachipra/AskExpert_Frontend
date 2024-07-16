@@ -77,10 +77,10 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
         //   path: '/expert/logout',
         //   icon: <Icon icon="material-symbols:logout" width="24" height="24" />,
         // },
-        // {
-        //   title: 'Wallet',
-        //   path: '/expert/wallet',
-        //   icon: <Icon icon="simple-line-icons:wallet" width="24" height="24" />,
-        // },
+        {
+          title: 'Wallet',
+          path: '/expert/wallet',
+          icon: <Icon icon="simple-line-icons:wallet" width="24" height="24" />,
+        },
       ];
       

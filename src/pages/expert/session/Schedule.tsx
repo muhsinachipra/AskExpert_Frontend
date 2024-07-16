@@ -27,6 +27,7 @@ export default function Schedule() {
       date: '',
       startTime: '',
       endTime: '',
+      price: 0,
       recurrence: '',
     },
     validationSchema: addScheduleSchema,
@@ -111,6 +112,7 @@ export default function Schedule() {
           date={schedule.date}
           startTime={formatTimeTo12Hour(schedule.startTime)}
           endTime={formatTimeTo12Hour(schedule.endTime)}
+          price={schedule.price}
           onCancel={() => handleCancel(schedule._id)}
         />
       ))}
@@ -162,6 +164,21 @@ export default function Schedule() {
           />
           {formikAdd.touched.endTime && formikAdd.errors.endTime ? (
             <div className="text-red-500">{formikAdd.errors.endTime}</div>
+          ) : null}
+
+          <label htmlFor="price" className="block text-gray-700">Price</label>
+          <input
+            type="number"
+            id="price"
+            className="border p-2 w-full mb-4"
+            name="price"
+            value={formikAdd.values.price}
+            onChange={formikAdd.handleChange}
+            onBlur={formikAdd.handleBlur}
+            placeholder="Enter price"
+          />
+          {formikAdd.touched.price && formikAdd.errors.price ? (
+            <div className="text-red-500">{formikAdd.errors.price}</div>
           ) : null}
 
 

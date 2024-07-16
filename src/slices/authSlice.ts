@@ -104,8 +104,9 @@ export type ExpertInfo = {
     profilePic?: string;
     // profilePicUrl?: string;
     resume?: string;
+    wallet?: number;
     isVerified?: boolean;
-    rate?: number;
+    mobile?: string;
     createdAt?: string
 }
 
@@ -334,7 +335,7 @@ export default authSlice.reducer
 //     // profilePicUrl?: string;
 //     resume?: string;
 //     isVerified?: boolean;
-//     rate?: number;
+//     mobile?: number;
 //     createdAt?: string
 // }
 

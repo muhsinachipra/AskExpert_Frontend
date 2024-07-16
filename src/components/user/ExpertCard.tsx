@@ -6,12 +6,11 @@ type ExpertCardProps = {
     name: string;
     experience: number;
     rating: number;
-    fee: number;
     image: string;
     expertId: string;
 };
 
-const ExpertListCard = ({ name, experience, rating, fee, image, expertId }: ExpertCardProps) => {
+const ExpertListCard = ({ name, experience, rating, image, expertId }: ExpertCardProps) => {
     return (
         <div className="flex items-center border p-4 rounded-lg shadow-md">
             <img src={image} alt={name} className="w-24 h-24 rounded-full mr-4" />
@@ -26,7 +25,6 @@ const ExpertListCard = ({ name, experience, rating, fee, image, expertId }: Expe
                         <span key={i} className="text-gray-300">&#9733;</span>
                     ))}
                 </div>
-                <div className="text-gray-800 font-semibold">{fee}/Session</div>
             </div>
             <div className="flex flex-col space-y-2">
                 <Link to={`/slots/${expertId}`} className="bg-green-500 text-white px-4 py-2 rounded">Take Appointment</Link>

@@ -60,7 +60,7 @@ const VerifyExperts = () => {
             </td>
             <td className="p-2">{expert.category}</td>
             <td className="p-2">{expert.experience} years</td>
-            <td className="p-2">{expert.rate}</td>
+            <td className="p-2">{expert.mobile}</td>
             <td className="p-2">
                 <button
                     onClick={() => handleButtonClick(expert._id, expert.isVerified)}
@@ -156,7 +156,7 @@ export default VerifyExperts;
 //             </td>
 //             <td className="p-2">{expert.category}</td>
 //             <td className="p-2">{expert.experience} years</td>
-//             <td className="p-2">{expert.rate}</td>
+//             <td className="p-2">{expert.mobile}</td>
 //             <td className="p-2">
 //                 <button
 //                     onClick={() => handleVerificationToggle(expert._id, expert.isVerified)}
@@ -253,7 +253,7 @@ export default VerifyExperts;
 //             </td>
 //             <td className="p-2">{expert.category}</td>
 //             <td className="p-2">{expert.experience} years</td>
-//             <td className="p-2">{expert.rate}</td>
+//             <td className="p-2">{expert.mobile}</td>
 //             <td className="p-2">
 //                 <button
 //                     onClick={() => handleVerificationToggle(expert._id, expert.isVerified)}

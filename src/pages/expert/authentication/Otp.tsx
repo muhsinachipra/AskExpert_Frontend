@@ -64,7 +64,7 @@ export default function Otp() {
                 // const profilePic = expertRegisterInfo?.profilePicUrl;
                 const resume = expertRegisterInfo?.resume;
                 const category = expertRegisterInfo?.category;
-                const rate = expertRegisterInfo?.rate;
+                const mobile = expertRegisterInfo?.mobile;
                 const experience = expertRegisterInfo?.experience;
 
                 // console.log('expertRegisterInfo in the otp page: ', expertRegisterInfo)
@@ -74,7 +74,7 @@ export default function Otp() {
                 // profilePic,
                 // resume,
                 // category,
-                // rate,
+                // mobile,
                 // experience)
                 
                 await register({
@@ -84,7 +84,7 @@ export default function Otp() {
                     profilePic,
                     resume,
                     category,
-                    rate,
+                    mobile,
                     experience
                 }).unwrap();
                 dispatch(clearExpertRegister());

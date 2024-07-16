@@ -24,7 +24,7 @@ export default function ExpertProfile() {
 
     const initialValues = {
         name: expertInfo?.name,
-        rate: expertInfo?.rate,
+        mobile: expertInfo?.mobile,
         experience: expertInfo?.experience,
     };
 
@@ -127,19 +127,19 @@ export default function ExpertProfile() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="rate">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mobile">
                             Rate
                         </label>
                         <input
                             type="text"
-                            id="rate"
-                            name="rate"
-                            value={values.rate}
+                            id="mobile"
+                            name="mobile"
+                            value={values.mobile}
                             onChange={handleChange}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
                         />
-                        {errors.rate && touched.rate && (
-                            <div className="text-red-500">{errors.rate}</div>
+                        {errors.mobile && touched.mobile && (
+                            <div className="text-red-500">{errors.mobile}</div>
                         )}
                     </div>
                     <div className="mb-4">

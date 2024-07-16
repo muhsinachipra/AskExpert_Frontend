@@ -8,7 +8,7 @@ export interface IExpert {
     experience: number;
     profilePic: string;
     resume: string;
-    rate: number;
+    mobile: string;
     rating: number;
     wallet: number;
     isVerified: boolean;

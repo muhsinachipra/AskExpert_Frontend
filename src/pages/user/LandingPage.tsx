@@ -5,8 +5,8 @@ import Header from "../../components/Header";
 import { TbPoint } from "react-icons/tb";
 import TestimonialCard from "../../components/TestimonialCard";
 import Footer from "../../components/Footer";
-import { Link } from "react-router-dom";
-import { useGetCategoryDataQuery } from "../../slices/api/adminApiSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserGetCategoryDataQuery } from "../../slices/api/userApiSlice";
 
 function Hero() {
     return (
@@ -29,7 +29,12 @@ function Hero() {
 }
 
 function Category() {
-    const { data, error, isLoading } = useGetCategoryDataQuery({ page: 1, limit: 100 });
+    const { data, error, isLoading } = useUserGetCategoryDataQuery({ page: 1, limit: 100 });
+    const navigate = useNavigate();
+
+    const handleCategoryClick = (categoryName: string) => {
+        navigate(`/experts/${categoryName}`);
+    };
 
     const categoryData = data?.data;
 
@@ -51,7 +56,7 @@ function Category() {
                     [...Array(Math.ceil(data.total / 3))].map((_, rowIndex) => (
                         <div key={rowIndex} className="flex flex-row justify-center items-center max-md:flex-wrap">
                             {categoryData.slice(rowIndex * 3, rowIndex * 3 + 3).map((category, index) => (
-                                <CategoryCard key={index} imageSrc={category.categoryImage} title={category.categoryName} />
+                                <CategoryCard key={index} imageSrc={category.categoryImage} title={category.categoryName} onClick={() => handleCategoryClick(category.categoryName)} /> 
                             ))}
                         </div>
                     ))

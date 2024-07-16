@@ -2,10 +2,11 @@ interface ScheduleComponentProps {
     date: string;
     startTime: string;
     endTime: string;
+    price: number;
     onCancel: () => void;
 }
 
-const ScheduleComponent = ({ date, startTime, endTime, onCancel }: ScheduleComponentProps) => {
+const ScheduleComponent = ({ date, startTime, endTime, price, onCancel }: ScheduleComponentProps) => {
     return (
         <section className="py-5 px-6 bg-white rounded-3xl w-full mb-4 shadow-md hover:shadow-lg transition-shadow duration-300">
             <div className="flex justify-between items-center">
@@ -28,6 +29,14 @@ const ScheduleComponent = ({ date, startTime, endTime, onCancel }: ScheduleCompo
                         <div className="text-sm font-medium text-gray-400">End</div>
                         <div className="text-sm md:text-3xl font-semibold text-gray-800">
                             <time>{endTime}</time>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center">
+                    <div className="mt-2">
+                        <div className="text-sm font-medium text-gray-400">Price</div>
+                        <div className="text-sm md:text-3xl font-semibold text-gray-800">
+                            <time>{price}</time>
                         </div>
                     </div>
                 </div>

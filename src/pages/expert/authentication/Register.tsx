@@ -14,7 +14,7 @@ import { storage } from "../../../app/firebase/config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid"
 import { Link } from "react-router-dom";
-import { useGetCategoryDataQuery } from "../../../slices/api/adminApiSlice";
+import { useExpertGetCategoryDataQuery } from "../../../slices/api/expertApiSlice";
 
 export default function Register() {
 
@@ -22,7 +22,7 @@ export default function Register() {
     const dispatch = useDispatch()
     const [isSumbit, setSubmit] = useState(false)
     const navigate = useNavigate()
-    const { data: categoryData } = useGetCategoryDataQuery({ page: 1, limit: 100 });
+    const { data: categoryData } = useExpertGetCategoryDataQuery({ page: 1, limit: 100 });
     const categories = categoryData?.data || [];
 
 
@@ -36,7 +36,7 @@ export default function Register() {
         cpassword: '',
         email: '',
         category: '',
-        rate: '',
+        mobile: '',
         experience: ''
     }
 
@@ -180,10 +180,10 @@ export default function Register() {
                                     )}
                                 </div>
                                 <div>
-                                    <label htmlFor="rate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rate Per Session</label>
-                                    <input type="text" name="rate" value={values.rate} onChange={handleChange} id="rate" placeholder="Enter a Amount" className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
-                                    {errors.rate && touched.rate && (
-                                        <div className="text-red-500">{errors.rate}</div>
+                                    <label htmlFor="mobile" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile</label>
+                                    <input type="tel" name="mobile" value={values.mobile} onChange={handleChange} id="mobile" placeholder="Enter a Mobile Number" className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
+                                    {errors.mobile && touched.mobile && (
+                                        <div className="text-red-500">{errors.mobile}</div>
                                     )}
                                 </div>
                                 <div>

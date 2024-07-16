@@ -1,6 +1,6 @@
 // frontend\src\slices\api\expertApiSlice.ts
 
-import { IAppointment } from "../../types/domain";
+import { IAppointment, ICategory } from "../../types/domain";
 import { GetAppointmentDataResponse, GetExpertDataForStateResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
@@ -103,7 +103,23 @@ export const expertApiSlice = apiSlice.injectEndpoints({
                 method: 'GET',
             }),
             providesTags: ['Appointment'],
-        })
+        }),
+
+        expertGetCategoryData: builder.query<{ data: ICategory[], total: number }, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${EXPERT_URL}/categories?page=${page}&limit=${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['Category'],
+        }),
+
+        getWalletData: builder.query<GetAppointmentDataResponse, void>({
+            query: () => ({
+                url: `${EXPERT_URL}/getWalletData`,
+                method: 'GET',
+            }),
+            providesTags: ['Appointment'],
+        }),
 
     }),
 });
@@ -119,5 +135,7 @@ export const {
     useGetSchedulesQuery,
     useAddScheduleMutation,
     useCancelScheduleMutation,
-    useGetAppointmentsDataQuery
+    useGetAppointmentsDataQuery,
+    useExpertGetCategoryDataQuery,
+    useGetWalletDataQuery,
 } = expertApiSlice;

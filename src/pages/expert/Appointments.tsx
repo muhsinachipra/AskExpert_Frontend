@@ -43,6 +43,12 @@ export default function Appointments() {
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-center">
+                                    <div className="text-sm font-medium text-gray-400">Price</div>
+                                    <div className="text-sm md:text-2xl font-semibold text-gray-800">
+                                        <time>{appointment.price}</time>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col items-center">
                                     <div className="text-sm font-medium text-gray-400">User Name</div>
                                     <div className="text-sm md:text-2xl font-semibold text-gray-800">
                                         <time>{appointment.userName}</time>

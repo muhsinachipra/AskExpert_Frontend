@@ -54,7 +54,6 @@ function SelectExpert() {
                             name={expert.name}
                             experience={expert.experience}
                             rating={expert.rating}
-                            fee={expert.rate}
                             image={expert.profilePic}
                             expertId={expert._id}
                         />
