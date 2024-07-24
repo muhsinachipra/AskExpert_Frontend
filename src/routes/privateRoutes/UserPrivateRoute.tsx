@@ -13,15 +13,15 @@ const UserPrivateRoute = () => {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
     if (userStatus === 'loading' || userStatus === 'idle') {
-        console.log('userStatus in loading or idle', userStatus);
+        // console.log('userStatus in loading or idle', userStatus);
         return <Spinner />;
     }
     if (userStatus === 'succeeded' && userInfo) {
-        console.log('userStatus in succeeded', userStatus);
+        // console.log('userStatus in succeeded', userStatus);
         return <Outlet />;
     }
     if (userStatus === 'failed' || !userInfo) {
-        console.log('userStatus in failed or no userInfo', userStatus);
+        // console.log('userStatus in failed or no userInfo', userStatus);
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
     return null; // This ensures that nothing is rendered until status is determined

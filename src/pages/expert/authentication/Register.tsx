@@ -187,7 +187,7 @@ export default function Register() {
                                     )}
                                 </div>
                                 <div>
-                                    <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profile Pic</label>
+                                    <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profile Picture</label>
                                     <input type="file" name="profilePicture" id="profilePicture" onChange={(event) => {
                                         const files = event.currentTarget.files;
                                         if (files && files.length > 0) {

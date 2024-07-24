@@ -17,6 +17,7 @@ import Success from '../pages/user/Success'
 import Appointments from '../pages/user/Appointments'
 import { useSelector } from 'react-redux'
 import { RootState } from '../app/store'
+import ChatPage from '../pages/user/ChatPage'
 
 
 export function UserRoutes() {
@@ -38,6 +39,7 @@ export function UserRoutes() {
                 <Route path='slots/:expertId' element={<Slots />} />
                 <Route path='success' element={<Success />} />
                 <Route path='appointments' element={<Appointments />} />
+                <Route path='chat' element={<ChatPage />} />
             </Route>
             <Route path='/test' element={<MyComponent />} />
         </Routes>

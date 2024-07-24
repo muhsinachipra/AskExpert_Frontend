@@ -10,6 +10,9 @@ import { useState } from "react";
 import Spinner from "../../../components/Spinner";
 import { useSendOtpToEmailMutation } from "../../../slices/api/userApiSlice";
 import { toast } from "react-toastify";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid"
+import { storage } from "../../../app/firebase/config";
 
 export default function SignUp() {
 
@@ -17,6 +20,9 @@ export default function SignUp() {
     const dispatch = useDispatch()
     const [isSubmit, setSubmit] = useState(false)
     const Navigate = useNavigate()
+    const [profilePicture, setProfilePic] = useState<File | null>(null);
+    const [fileErrors, setFileErrors] = useState({ profilePicture: '' });
+
 
     const initialValues = {
         name: '',
@@ -26,13 +32,46 @@ export default function SignUp() {
         email: ''
     }
 
+    const validateFiles = () => {
+        let valid = true;
+        const errors = { profilePicture: '' };
+
+        if (profilePicture) {
+            if (!['image/jpeg', 'image/png'].includes(profilePicture.type)) {
+                errors.profilePicture = 'Unsupported file format for profile picture';
+                valid = false;
+            }
+            if (profilePicture.size > 2000000) { // 2MB
+                errors.profilePicture = 'Profile picture file size is too large';
+                valid = false;
+            }
+        }
+
+        setFileErrors(errors);
+        return valid;
+    };
+
     const { values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: userRegisterSchema,
         onSubmit: async (values) => {
-            dispatch(setRegister({ ...values }))
+            if (!validateFiles()) {
+                return;
+            }
             setSubmit(true)
             try {
+
+                // Upload profile picture and resume to Firebase Storage
+                const profilePicRef = ref(storage, `expert/profilePics/${uuidv4()}-${profilePicture?.name}`);
+
+                const [profilePicSnapshot] = await Promise.all([
+                    profilePicture && uploadBytes(profilePicRef, profilePicture),
+                ]);
+
+                const profilePic = profilePicSnapshot ? await getDownloadURL(profilePicRef) : null;
+
+                dispatch(setRegister({ ...values, profilePic }))
+
                 const { name, email } = values;
                 const res = await sendOtpToEmail({ name, email }).unwrap();
                 Navigate('/otp')
@@ -83,6 +122,20 @@ export default function SignUp() {
                                     <div className="text-red-500">{errors.mobile}</div>
                                 )}
                             </div>
+
+                            <div>
+                                <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profile Picture</label>
+                                <input type="file" name="profilePicture" id="profilePicture" onChange={(event) => {
+                                    const files = event.currentTarget.files;
+                                    if (files && files.length > 0) {
+                                        setProfilePic(files[0]);
+                                    }
+                                }} className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
+                                {fileErrors.profilePicture && (
+                                    <div className="text-red-500">{fileErrors.profilePicture}</div>
+                                )}
+                            </div>
+
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                 <input type="password" name="password" value={values.password} onChange={handleChange} id="password" placeholder="••••••••" className="bg-neutral-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />

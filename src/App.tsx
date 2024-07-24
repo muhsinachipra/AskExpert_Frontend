@@ -62,7 +62,7 @@ export default function App() {
             const isLoggedIn = localStorage.getItem(key);
             if (isLoggedIn && !info) {
                 try {
-                    console.log(`refetching useEffect...`)
+                    // console.log(`refetching useEffect...`)
                     await dispatch(fetchAction());
                     // console.log(`after dispatch(fetchAction()) in useEffect...`)
                 } catch (error) {

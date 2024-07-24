@@ -13,15 +13,15 @@ const AdminPrivateRoute = () => {
     return <Navigate to="/admin/login" state={{ from: location }} replace />;
   }
   if (adminStatus === 'loading' || adminStatus === 'idle') {
-    console.log('adminStatus in loading or idle', adminStatus);
+    // console.log('adminStatus in loading or idle', adminStatus);
     return <Spinner />;
   }
   if (adminStatus === 'succeeded' && adminInfo) {
-    console.log('adminStatus in succeeded', adminStatus);
+    // console.log('adminStatus in succeeded', adminStatus);
     return <Outlet />;
   }
   if (adminStatus === 'failed' || !adminInfo) {
-    console.log('adminStatus in failed or no adminInfo', adminStatus);
+    // console.log('adminStatus in failed or no adminInfo', adminStatus);
     return <Navigate to="/admin/login" state={{ from: location }} replace />;
   }
   return null; // This ensures that nothing is rendered until status is determined

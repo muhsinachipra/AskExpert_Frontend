@@ -90,6 +90,7 @@ export type UserInfo = {
     email: string;
     name: string;
     mobile?: string;
+    profilePic?: string;
     password?: string;
     createdAt?: string
 }
