@@ -2,7 +2,7 @@
 // import Header from "../../components/Header";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import {  Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGoogleAuthMutation, useLoginMutation } from "../../../slices/api/userApiSlice";
 import { useState } from "react";
 import { MyError } from "../../../validation/validationTypes";
@@ -52,6 +52,7 @@ export default function Login() {
     interface DecodedCredential {
         name: string;
         email: string;
+        picture: string;
     }
 
     return (
@@ -93,7 +94,7 @@ export default function Login() {
                                                 credentialResponse.credential
                                             ) as DecodedCredential;
 
-                                            const { name, email } = credentialResponseDecoded;
+                                            const { name, email, picture } = credentialResponseDecoded;
 
                                             const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
                                             let password = '';
@@ -104,7 +105,7 @@ export default function Login() {
                                             }
 
                                             try {
-                                                const res = await googleAuth({ name, email, password }).unwrap();
+                                                const res = await googleAuth({ name, email, password, profilePic: picture }).unwrap();
                                                 dispatch(setCredential({ ...res.data }));
                                                 toast.success(res.message);
                                                 navigate('/home');

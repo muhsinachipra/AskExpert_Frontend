@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
 dotenv.config()
 
-const { BASE_URL } = process.env;
+const { VITE_BASE_URL } = process.env;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,7 +12,7 @@ export default defineConfig({
     port: 5000,
     proxy: {
       '/api': {
-        target: BASE_URL,
+        target: VITE_BASE_URL,
         changeOrigin: true,
       }
     }

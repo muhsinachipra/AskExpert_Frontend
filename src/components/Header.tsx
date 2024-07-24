@@ -3,15 +3,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { RootState } from "../app/store";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useGetUserAppointmentsQuery, useUserLogoutMutation } from "../slices/api/userApiSlice";
 import { useExpertLogoutMutation } from "../slices/api/expertApiSlice";
 import { expertLogout, userLogout } from "../slices/authSlice";
-import { CgProfile } from "react-icons/cg";
-import { IoMdSettings } from "react-icons/io";
-import { RiLogoutBoxFill } from "react-icons/ri";
+// import { CgProfile } from "react-icons/cg";
+// import { IoMdSettings } from "react-icons/io";
+// import { RiLogoutBoxFill } from "react-icons/ri";
 
 const MySwal = withReactContent(Swal);
 
@@ -29,6 +29,7 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const name = isExpertPage ? expertLoggedIn?.name : userLoggedIn?.name;
     const email = isExpertPage ? expertLoggedIn?.email : userLoggedIn?.email;
+    // const profilePic = isExpertPage ? expertLoggedIn?.profilePic : userLoggedIn?.profilePic;
     const dispatch = useDispatch();
 
     const [userLogoutMutation] = useUserLogoutMutation();
@@ -37,7 +38,8 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
     const navItems = [
         { label: "Home", href: isExpertPage ? '/expert/home' : '/home', current: false },
         { label: "Appointments", href: "/appointments", current: false, count: appointmentCount },
-        { label: "About Us", href: "/contact", current: false },
+        { label: "Chat", href: "/chat", current: false },
+        // { label: "About Us", href: "/contact", current: false },
     ];
 
     const handleLogout = async () => {
@@ -79,6 +81,19 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
         }
     };
 
+    const handleClickOutside = useCallback((event: MouseEvent) => {
+        if (isOpen && event.target instanceof Element && !event.target.closest('#menuButton') && !event.target.closest('#menuDropdown')) {
+            setIsOpen(false);
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [handleClickOutside]);
+
     return (
         <header className="bg-neutral-200 py-4 flex gap-5 justify-between self-center w-full max-md:flex-wrap relative z-10">
             <div className="flex gap-3 ml-2 px-5 my-auto text-3xl font-semibold leading-8 text-black whitespace-nowrap">
@@ -97,12 +112,12 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
                     </Link>
                 ))}
 
-                <div className="relative">
-                    <button type="button" onClick={toggleDropdown} className="justify-center mr-4 px-5 py-2 rounded-full font-semibold text-white capitalize bg-indigo-500 hover:bg-indigo-600 max-md:px-9">
+                {/* <div className="relative">
+                    <button type="button" id="menuButton" onClick={toggleDropdown} className="justify-center mr-4 px-5 py-2 rounded-full font-semibold text-white capitalize bg-indigo-500 hover:bg-indigo-600 max-md:px-9">
                         {(userLoggedIn && !isExpertPage) || (expertLoggedIn && isExpertPage) ? "Profile" : "Log in"}
                     </button>
                     {((userLoggedIn && !isExpertPage) || (expertLoggedIn && isExpertPage)) && isOpen && (
-                        <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none z-20">
+                        <div id="menuDropdown" className="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none z-20">
                             <div className="py-1">
                                 <button type="button" className="flex items-center text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                     <span className="mr-3"><CgProfile className="text-teal-500" /></span>
@@ -119,7 +134,57 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
                             </div>
                         </div>
                     )}
+                </div> */}
+
+                <div className="relative">
+                    <button
+                        type="button"
+                        id="menuButton"
+                        onClick={toggleDropdown}
+                        className="justify-center mr-4 px-5 py-2 rounded-full font-semibold text-white capitalize bg-indigo-500 hover:bg-indigo-600 max-md:px-9"
+                    >
+                        {(userLoggedIn && !isExpertPage) || (expertLoggedIn && isExpertPage) ? "Profile" : "Log in"}
+                    </button>
+                    {((userLoggedIn && !isExpertPage) || (expertLoggedIn && isExpertPage)) && isOpen && (
+                        <div id="menuDropdown" className="absolute right-5 mt-2 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:bg-gray-700 dark:divide-gray-600 z-20">
+                            <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                                {/* <img className="w-8 h-8 rounded-full" src={profilePic} alt="user photo" /> */}
+                                <div>{name}</div>
+                                <div className="font-medium truncate">{email}</div>
+                            </div>
+                            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="menuButton">
+                                <li>
+                                    <button
+                                        type="button"
+                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                                        onClick={handleEditProfile}
+                                    >
+                                        Edit profile
+                                    </button>
+                                </li>
+                                {/* <li>
+                                    <button
+                                        type="button"
+                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                                        onClick={handleLogout}
+                                    >
+                                        Log out
+                                    </button>
+                                </li> */}
+                            </ul>
+                            <div className="py-2">
+                                <button
+                                    type="button"
+                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full text-left"
+                                    onClick={handleLogout}
+                                >
+                                    Log out
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
+
             </nav>
         </header>
     );

@@ -82,5 +82,10 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
           path: '/expert/wallet',
           icon: <Icon icon="simple-line-icons:wallet" width="24" height="24" />,
         },
+        {
+          title: 'Chat',
+          path: '/expert/chat',
+          icon: <Icon icon="material-symbols:chat-outline" width="24" height="24" />,
+        },
       ];
       

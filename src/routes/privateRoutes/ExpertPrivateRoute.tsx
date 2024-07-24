@@ -39,15 +39,15 @@ const ExpertPrivateRoute = () => {
         return <Navigate to="/expert/login" state={{ from: location }} replace />;
     }
     if (expertStatus === 'loading' || expertStatus === 'idle') {
-        console.log('expertStatus in loading or idle', expertStatus);
+        // console.log('expertStatus in loading or idle', expertStatus);
         return <Spinner />;
     }
     if (expertStatus === 'succeeded' && expertInfo) {
-        console.log('expertStatus in succeeded', expertStatus);
+        // console.log('expertStatus in succeeded', expertStatus);
         return <Outlet />;
     }
     if (expertStatus === 'failed' || !expertInfo) {
-        console.log('expertStatus in failed or no expertInfo', expertStatus);
+        // console.log('expertStatus in failed or no expertInfo', expertStatus);
         return <Navigate to="/expert/login" state={{ from: location }} replace />;
     }
     return null; // This ensures that nothing is rendered until status is determined

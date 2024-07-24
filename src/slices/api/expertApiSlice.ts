@@ -1,7 +1,7 @@
 // frontend\src\slices\api\expertApiSlice.ts
 
 import { IAppointment, ICategory } from "../../types/domain";
-import { GetAppointmentDataResponse, GetExpertDataForStateResponse } from "../../types/response";
+import { GetAppointmentDataResponse, GetExpertDataForStateResponse, GetSingleUserDataResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const EXPERT_URL = "/api/expert";
@@ -121,6 +121,15 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             providesTags: ['Appointment'],
         }),
 
+        expertGetUserData: builder.query<GetSingleUserDataResponse, string>({
+            query: (userId) => ({
+                url: `${EXPERT_URL}/getUserData/${userId}`,
+                method: 'GET',
+            }),
+            providesTags: ['User'],
+        }),
+
+
     }),
 });
 
@@ -138,4 +147,5 @@ export const {
     useGetAppointmentsDataQuery,
     useExpertGetCategoryDataQuery,
     useGetWalletDataQuery,
+    useExpertGetUserDataQuery,
 } = expertApiSlice;

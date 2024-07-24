@@ -30,6 +30,7 @@ export interface IUser {
     name: string;
     email: string;
     mobile: string;
+    profilePic: string;
     isBlocked: boolean;
     createdAt: string;
     updatedAt: string;
@@ -56,6 +57,26 @@ export interface IAppointment {
     paymentStatus: string;
     paymentId: string;
     appointmentStatus: string;
+    createdAt: Date;
+    updatedAt: Date;
+    __v: number;
+}
+
+export interface IConversation {
+    _id: string;
+    members: string[];
+    createdAt: Date;
+    updatedAt: Date;
+    __v: number;
+}
+
+export interface IMessage {
+    _id: string;
+    conversationId: string;
+    senderId: string;
+    receiverId: string;
+    text: string;
+    status: boolean;
     createdAt: Date;
     updatedAt: Date;
     __v: number;

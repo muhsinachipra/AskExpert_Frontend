@@ -18,6 +18,7 @@ import { RootState } from '../app/store'
 import Unverified from '../pages/expert/Unverified'
 import Profile from '../pages/expert/Profile'
 import Wallet from '../pages/expert/Wallet'
+import ChatPage from '../pages/expert/chat/ChatPage'
 
 export function ExpertRoutes() {
     const { expertInfo } = useSelector((state: RootState) => state.auth);
@@ -34,14 +35,15 @@ export function ExpertRoutes() {
             <Route path='not-verify' element={<Unverified />} />
             <Route element={<ExpertPrivateRoute />}>
                 <Route element={<ExpertLayout />}>
-                    <Route path='/home' element={<Home />} />
-                    <Route path='/schedule' element={<Schedule />} />
+                    <Route path='home' element={<Home />} />
+                    <Route path='schedule' element={<Schedule />} />
                     <Route path='appointments' element={<Appointments />} />
                     <Route path='profile' element={<Profile />} />
                     <Route path='wallet' element={<Wallet />} />
                 </Route>
+                <Route path='chat' element={<ChatPage />} />
                 <Route path='profile2' element={<ExpertProfile />} />
             </Route>
         </Routes>
     )
-} 
+}

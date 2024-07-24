@@ -1,6 +1,9 @@
 // frontend\src\components\user\ExpertCard.tsx
 
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { RootState } from "../../app/store";
+import { useCreateConversationMutation } from "../../slices/api/chatApiSlice";
 
 type ExpertCardProps = {
     name: string;
@@ -11,6 +14,26 @@ type ExpertCardProps = {
 };
 
 const ExpertListCard = ({ name, experience, rating, image, expertId }: ExpertCardProps) => {
+
+    const [conversation] = useCreateConversationMutation();
+    const { userInfo } = useSelector((state: RootState) => state.auth);
+    const navigate = useNavigate();
+
+    const handleChat = async (receiverId: string) => {
+        try {
+            const res = await conversation({
+                senderId: userInfo?._id,
+                receiverId,
+            }).unwrap();
+            console.log('currentConversation in ExpertCard: ', res.newConversation)
+            navigate("/chat", {
+                state: { currentConversation: res.newConversation },
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="flex items-center border p-4 rounded-lg shadow-md">
             <img src={image} alt={name} className="w-24 h-24 rounded-full mr-4" />
@@ -28,10 +51,10 @@ const ExpertListCard = ({ name, experience, rating, image, expertId }: ExpertCar
             </div>
             <div className="flex flex-col space-y-2">
                 <Link to={`/slots/${expertId}`} className="bg-green-500 text-white px-4 py-2 rounded">Take Appointment</Link>
+                <button onClick={() => handleChat(expertId)} className="bg-green-500 text-white px-4 py-2 rounded">Chat with Expert</button>
             </div>
         </div>
     );
 };
-
 
 export default ExpertListCard
