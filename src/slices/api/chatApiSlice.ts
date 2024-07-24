@@ -21,7 +21,7 @@ export const chatApiSlice = apiSlice.injectEndpoints({
                 url: `${CHAT_URL}/conversation`,
                 method: "POST",
                 body: data,
-                // credentials: "include",
+                credentials: "include",
             }),
             invalidatesTags: ['Conversation', 'Message']
         }),
@@ -30,18 +30,19 @@ export const chatApiSlice = apiSlice.injectEndpoints({
             query: (userId) => ({
                 url: `${CHAT_URL}/conversation`,
                 params: { userId },
-                // credentials: "include",
+                credentials: "include",
             }),
-            providesTags: ['Conversation']
+            providesTags: ['Conversation'],
         }),
 
         getMessage: builder.query<GetMessageResponse, { conversationId: string }>({
             query: ({ conversationId }) => ({
                 url: `${CHAT_URL}/message`,
                 params: { conversationId },
-                // credentials: "include",
+                credentials: "include",
             }),
             providesTags: ['Message'],
+            keepUnusedDataFor: 0,
         }),
 
         // Create message
@@ -50,9 +51,9 @@ export const chatApiSlice = apiSlice.injectEndpoints({
                 url: `${CHAT_URL}/message`,
                 method: "POST",
                 body: data,
-                // credentials: "include",
+                credentials: "include",
             }),
-            invalidatesTags: ['Message']
+            invalidatesTags: ['Message'],
         }),
 
 
@@ -62,7 +63,7 @@ export const chatApiSlice = apiSlice.injectEndpoints({
                 url: `${CHAT_URL}/viewMessages`,
                 method: "PATCH",
                 body: data,
-                // credentials: "include",
+                credentials: "include",
             }),
         }),
 
@@ -72,7 +73,7 @@ export const chatApiSlice = apiSlice.injectEndpoints({
                 url: `${CHAT_URL}/getUnReadMessages`,
                 method: "GET",
                 params: { id },
-                // credentials: "include",
+                credentials: "include",
             }),
         }),
 

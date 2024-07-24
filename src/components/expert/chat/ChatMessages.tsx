@@ -1,19 +1,19 @@
-// frontend\src\components\user\chat\ChatMessages.tsx
+// frontend\src\components\expert\chat\ChatMessages.tsx
 
 import moment from 'moment';
-import { UserInfo } from '../../../slices/authSlice';
-import { IExpert, IMessage } from '../../../types/domain';
+import { ExpertInfo } from '../../../slices/authSlice';
+import { IMessage, IUser } from '../../../types/domain';
 
 interface ChatMessagesProps {
     message: IMessage;
-    userInfo: UserInfo | null;
-    expertData: IExpert | undefined;
+    expertInfo: ExpertInfo | null;
+    userData: IUser | undefined;
 }
 
-const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
-    const isSender = message.senderId === userInfo?._id;
-    const avatarSrc = isSender ? userInfo?.profilePic : expertData?.profilePic;
-    const avatarAlt = isSender ? 'User Avatar' : 'Expert Avatar';
+const ChatMessages = ({ message, expertInfo, userData }: ChatMessagesProps) => {
+    const isSender = message.senderId === expertInfo?._id;
+    const avatarSrc = isSender ? expertInfo?.profilePic : userData?.profilePic;
+    const avatarAlt = isSender ? 'Expert Avatar' : 'User Avatar';
     const messageClass = isSender ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800';
     const timeClass = isSender ? 'text-gray-300' : 'text-gray-500';
     

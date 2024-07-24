@@ -15,6 +15,12 @@ export interface GetSingleExpertDataResponse {
     message: string;
 }
 
+export interface GetSingleUserDataResponse {
+    success: boolean;
+    data: IUser;
+    message: string;
+}
+
 export interface GetUserDataResponse {
     success: boolean;
     data: IUser[];
