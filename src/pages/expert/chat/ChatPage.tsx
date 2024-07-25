@@ -1,12 +1,13 @@
 // frontend\src\pages\expert\chat\ChatPage.tsx
 
 import { useLocation } from "react-router-dom";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
 import { IConversation } from "../../../types/domain";
 import { useGetMessageQuery, useGetConversationQuery } from "../../../slices/api/chatApiSlice";
 import { useExpertGetUserDataQuery } from "../../../slices/api/expertApiSlice";
+import useSocket from "../../../hooks/useSocket";
 
 import ChatHeader from "../../../components/expert/chat/ChatHeader";
 import ChatInput from "../../../components/expert/chat/ChatInput";
@@ -14,6 +15,7 @@ import ChatMessages from "../../../components/expert/chat/ChatMessages";
 import ContactList from "../../../components/expert/chat/ContactList";
 
 const ChatPage = () => {
+    const socket = useSocket();
     const location = useLocation();
     const currentConversation: IConversation = location.state?.currentConversation || {} as IConversation;
     const { expertInfo } = useSelector((state: RootState) => state.auth);
@@ -22,8 +24,15 @@ const ChatPage = () => {
     const { data: conversationData } = useGetConversationQuery(expertId);
     const expertConversations = conversationData?.newConversation || [];
 
-    const { data: messageData } = useGetMessageQuery({ conversationId: currentConversation._id || '000000' });
-    const messages = useMemo(() => messageData?.message || [], [messageData]);
+    const { data: messageData, refetch: refetchMessages } = useGetMessageQuery({ conversationId: currentConversation._id || '000000' });
+    // const messages = useMemo(() => messageData?.message || [], [messageData]);
+    console.log('messageData?.message: ', messageData?.message || []);
+    const [chatMessages, setChatMessages] = useState(messageData?.message || []);
+    console.log('chatMessages: ', chatMessages);
+
+    useEffect(() => {
+        setChatMessages(messageData?.message || []);
+    }, [socket, messageData]);
 
     const userId = currentConversation.members?.find((m) => m !== expertId) || '';
     const { data: userD } = useExpertGetUserDataQuery(userId);
@@ -35,7 +44,24 @@ const ChatPage = () => {
             scrollRef.current.style.scrollBehavior = "smooth";
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
-    }, [messages]);
+    }, [chatMessages]);
+
+    useEffect(() => {
+        socket?.emit("addUser", expertId);
+
+        socket?.on("getMessage", (data) => {
+            // console.log('getMessage data: ', data) // output: senderId:"669a887e1d5d819618713890"text:"sa"
+            // using this senderid i check if it is the userId if it is then add it to the setChatMessages otherwise not 
+            if (data.senderId === userId) {
+                setChatMessages((prevMessages) => [...prevMessages, data]);
+                refetchMessages();
+            }
+        });
+
+        return () => {
+            socket?.off("getMessage");
+        };
+    }, [socket, expertId, refetchMessages, userId]);
 
     return (
         <div className="h-screen flex">
@@ -59,7 +85,7 @@ const ChatPage = () => {
                             <h1 className="text-2xl font-semibold">{userData?.name || "Expert_Name"}</h1>
                         </div>
                         <div className="flex-grow overflow-y-scroll p-3 bg-zinc-200" ref={scrollRef}>
-                            {messages.map((message) => (
+                            {chatMessages.map((message) => (
                                 <ChatMessages key={message._id} message={message} expertInfo={expertInfo} userData={userData} />
                             ))}
                         </div>

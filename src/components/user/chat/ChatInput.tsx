@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSendMessageMutation } from "../../../slices/api/chatApiSlice";
 import { UserInfo } from "../../../slices/authSlice";
 import { IConversation } from "../../../types/domain";
+import useSocket from "../../../hooks/useSocket";
 
 interface ChatInputProps {
     userInfo: UserInfo | null;
@@ -11,6 +12,7 @@ interface ChatInputProps {
 }
 
 const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
+    const socket = useSocket();
     const [sendMessage] = useSendMessageMutation();
     const [chatText, setChatText] = useState("");
 
@@ -26,12 +28,19 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
         }
 
         try {
-            await sendMessage({
+            const message = {
                 conversationId: currentConversation._id,
                 senderId: userInfo._id,
                 receiverId,
                 text: chatText,
-            }).unwrap();
+            };
+
+            // Send message through API
+            await sendMessage(message).unwrap();
+
+            // Emit message through socket
+            socket?.emit("sendMessage", message);
+
             setChatText("");
         } catch (error) {
             console.error("Error sending message:", error);
