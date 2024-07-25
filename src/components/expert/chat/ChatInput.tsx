@@ -5,6 +5,8 @@ import { useSendMessageMutation } from "../../../slices/api/chatApiSlice";
 import { ExpertInfo } from "../../../slices/authSlice";
 import { IConversation } from "../../../types/domain";
 import useSocket from "../../../hooks/useSocket";
+import EmojiPicker from 'emoji-picker-react';
+import { BsEmojiGrin } from "react-icons/bs";
 
 interface ChatInputProps {
     expertInfo: ExpertInfo | null;
@@ -15,6 +17,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
     const socket = useSocket();
     const [sendMessage] = useSendMessageMutation();
     const [chatText, setChatText] = useState("");
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
     const sendChat = async () => {
         if (!expertInfo || !currentConversation._id) {
@@ -47,8 +50,25 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
         }
     };
 
+    const handleEmojiClick = (emojiObject: { emoji: string; }) => {
+        const { emoji } = emojiObject;
+        setChatText((prevText) => prevText + emoji);
+        setShowEmojiPicker(false);
+    };
+
     return (
         <div className="flex items-center">
+            <div className="relative">
+                <BsEmojiGrin
+                    className="text-[24px] mr-3 text-[#9BA3AF]"
+                    onClick={() => setShowEmojiPicker((val) => !val)}
+                />
+                {showEmojiPicker && (
+                    <div className="absolute bottom-full mb-2">
+                        <EmojiPicker onEmojiClick={handleEmojiClick} />
+                    </div>
+                )}
+            </div>
             <input
                 type="text"
                 placeholder="Type a message..."
