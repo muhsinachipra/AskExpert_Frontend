@@ -1,7 +1,7 @@
 // frontend\src\components\user\chat\ChatInput.tsx
 
 import { useState } from "react";
-import { useSendMessageMutation } from "../../../slices/api/chatApiSlice";
+import { useSendMessageMutation, useUploadImageMutation } from "../../../slices/api/chatApiSlice";
 import { UserInfo } from "../../../slices/authSlice";
 import { IConversation } from "../../../types/domain";
 import useSocket from "../../../hooks/useSocket";
@@ -16,10 +16,14 @@ interface ChatInputProps {
 const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
     const socket = useSocket();
     const [sendMessage] = useSendMessageMutation();
+    const [uploadImage] = useUploadImageMutation();
     const [chatText, setChatText] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const sendChat = async () => {
+        console.log('inside sendChat')
+
         if (!userInfo || !currentConversation._id) {
             console.error("User info or conversation ID is missing");
             return;
@@ -33,10 +37,20 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
         try {
             const message = {
                 conversationId: currentConversation._id,
-                senderId: userInfo._id,
+                senderId: userInfo._id || '',
                 receiverId,
                 text: chatText,
+                imageName: '',
             };
+
+            if (selectedFile) {
+                console.log('inside selectedFile')
+                const formData = new FormData();
+                formData.append('image', selectedFile);
+                const response = await uploadImage(formData).unwrap();
+                message.imageName = response.imageName;
+                setSelectedFile(null);
+            }
 
             // Send message through API
             await sendMessage(message).unwrap();
@@ -54,6 +68,12 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
         const { emoji } = emojiObject;
         setChatText((prevText) => prevText + emoji);
         setShowEmojiPicker(false);
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setSelectedFile(e.target.files[0]);
+        }
     };
 
     return (
@@ -76,7 +96,18 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
                 onChange={(e) => setChatText(e.target.value)}
                 value={chatText}
             />
-            <button onClick={sendChat} className="ml-3 bg-indigo-600 text-white px-4 py-2 rounded-lg" disabled={!chatText.trim()}>
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden"
+                id="image"
+                name="image"
+            />
+            <label htmlFor="image" className="ml-3 bg-indigo-600 text-white px-4 py-2 rounded-lg cursor-pointer">
+                {selectedFile ? selectedFile.name : "Upload Image"}
+            </label>
+            <button onClick={sendChat} className="ml-3 bg-indigo-600 text-white px-4 py-2 rounded-lg" disabled={!chatText.trim() && !selectedFile}>
                 Send
             </button>
         </div>

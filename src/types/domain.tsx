@@ -76,6 +76,7 @@ export interface IMessage {
     senderId: string;
     receiverId: string;
     text: string;
+    imageName?: string;
     status: boolean;
     createdAt: Date;
     updatedAt: Date;

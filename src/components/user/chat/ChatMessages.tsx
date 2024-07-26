@@ -3,6 +3,8 @@
 import moment from 'moment';
 import { UserInfo } from '../../../slices/authSlice';
 import { IExpert, IMessage } from '../../../types/domain';
+import { useEffect } from 'react';
+import { useGetImageUrlQuery } from '../../../slices/api/chatApiSlice';
 
 interface ChatMessagesProps {
     message: IMessage;
@@ -16,7 +18,18 @@ const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
     const avatarAlt = isSender ? 'User Avatar' : 'Expert Avatar';
     const messageClass = isSender ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800';
     const timeClass = isSender ? 'text-gray-300' : 'text-gray-500';
-    
+
+    const { data: presignedUrl, refetch } = useGetImageUrlQuery(message.imageName || '', {
+        skip: !message.imageName,
+    });
+
+    useEffect(() => {
+        if (message.imageName) {
+            refetch();
+        }
+    }, [message.imageName, refetch]);
+
+
     const renderAvatar = (src: string | undefined, alt: string) => (
         <div className="w-10 h-10 bg-gray-300 rounded-full mx-2">
             <img src={src} alt={alt} className="w-10 h-10 rounded-full" />
@@ -28,6 +41,9 @@ const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
             {!isSender && renderAvatar(avatarSrc, avatarAlt)}
             <div className={`p-3 rounded-lg max-w-xs ${messageClass}`}>
                 <p>{message.text}</p>
+                {presignedUrl && (
+                    <img src={presignedUrl.url} alt="Sent image" className="mt-2 max-h-60 object-contain" />
+                )}
                 <small className={`text-xs ${timeClass}`}>
                     {moment(message.createdAt).fromNow()}
                 </small>
