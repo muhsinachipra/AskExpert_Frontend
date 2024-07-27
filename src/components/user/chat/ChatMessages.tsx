@@ -4,7 +4,7 @@ import moment from 'moment';
 import { UserInfo } from '../../../slices/authSlice';
 import { IExpert, IMessage } from '../../../types/domain';
 import { useEffect } from 'react';
-import { useGetImageUrlQuery } from '../../../slices/api/chatApiSlice';
+import { useGetFileUrlQuery } from '../../../slices/api/chatApiSlice';
 
 interface ChatMessagesProps {
     message: IMessage;
@@ -19,15 +19,15 @@ const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
     const messageClass = isSender ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800';
     const timeClass = isSender ? 'text-gray-300' : 'text-gray-500';
 
-    const { data: presignedUrl, refetch } = useGetImageUrlQuery(message.imageName || '', {
-        skip: !message.imageName,
+    const { data: presignedUrl, refetch } = useGetFileUrlQuery(message.imageName || message.videoName || '', {
+        skip: !(message.imageName || message.videoName),
     });
 
     useEffect(() => {
-        if (message.imageName) {
+        if (message.imageName || message.videoName) {
             refetch();
         }
-    }, [message.imageName, refetch]);
+    }, [message.imageName, message.videoName, refetch]);
 
 
     const renderAvatar = (src: string | undefined, alt: string) => (
@@ -36,14 +36,26 @@ const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
         </div>
     );
 
+    const handleMediaClick = () => {
+        if (presignedUrl) {
+            window.open(presignedUrl.url, '_blank');
+        }
+    };
+
     return (
         <div className={`flex items-start mb-4 ${isSender ? 'justify-end' : ''}`}>
             {!isSender && renderAvatar(avatarSrc, avatarAlt)}
-            <div className={`p-3 rounded-lg max-w-xs ${messageClass}`}>
-                <p>{message.text}</p>
-                {presignedUrl && (
-                    <img src={presignedUrl.url} alt="Sent image" className="mt-2 max-h-60 object-contain" />
+            <div className={`p-2 rounded-lg max-w-xs ${messageClass}`}>
+                {message.imageName && presignedUrl && (
+                    <img src={presignedUrl.url} onClick={handleMediaClick} alt="Sent image" className="mt-2 max-h-60 object-contain" />
                 )}
+                {message.videoName && presignedUrl && (
+                    <video controls className="mt-2 max-h-60 object-contain">
+                        <source src={presignedUrl.url} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                )}
+                <p>{message.text}</p>
                 <small className={`text-xs ${timeClass}`}>
                     {moment(message.createdAt).fromNow()}
                 </small>

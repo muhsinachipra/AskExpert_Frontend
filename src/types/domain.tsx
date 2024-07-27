@@ -77,6 +77,7 @@ export interface IMessage {
     receiverId: string;
     text: string;
     imageName?: string;
+    videoName?: string;
     status: boolean;
     createdAt: Date;
     updatedAt: Date;

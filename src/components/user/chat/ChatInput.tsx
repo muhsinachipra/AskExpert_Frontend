@@ -1,12 +1,16 @@
 // frontend\src\components\user\chat\ChatInput.tsx
 
 import { useState } from "react";
-import { useSendMessageMutation, useUploadImageMutation } from "../../../slices/api/chatApiSlice";
+import { useSendMessageMutation, useUploadFileMutation } from "../../../slices/api/chatApiSlice";
 import { UserInfo } from "../../../slices/authSlice";
 import { IConversation } from "../../../types/domain";
 import useSocket from "../../../hooks/useSocket";
 import EmojiPicker from 'emoji-picker-react';
 import { BsEmojiGrin } from "react-icons/bs";
+import Spinner from "../../Spinner";
+
+const MAX_FILE_SIZE_MB = 8; // Maximum file size in MB
+const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024; // Convert to bytes
 
 interface ChatInputProps {
     userInfo: UserInfo | null;
@@ -16,14 +20,14 @@ interface ChatInputProps {
 const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
     const socket = useSocket();
     const [sendMessage] = useSendMessageMutation();
-    const [uploadImage] = useUploadImageMutation();
+    const [uploadFile, { isLoading: isUploading }] = useUploadFileMutation();
     const [chatText, setChatText] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [isImage, setIsImage] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     const sendChat = async () => {
-        console.log('inside sendChat')
-
         if (!userInfo || !currentConversation._id) {
             console.error("User info or conversation ID is missing");
             return;
@@ -41,14 +45,18 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
                 receiverId,
                 text: chatText,
                 imageName: '',
+                videoName: '',
             };
 
             if (selectedFile) {
-                console.log('inside selectedFile')
                 const formData = new FormData();
-                formData.append('image', selectedFile);
-                const response = await uploadImage(formData).unwrap();
-                message.imageName = response.imageName;
+                formData.append('file', selectedFile);
+                const response = await uploadFile(formData).unwrap();
+                if (isImage) {
+                    message.imageName = response.fileName;
+                } else {
+                    message.videoName = response.fileName;
+                }
                 setSelectedFile(null);
             }
 
@@ -72,7 +80,20 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setSelectedFile(e.target.files[0]);
+            const file = e.target.files[0];
+            if (file.size > MAX_FILE_SIZE_BYTES) {
+                setError(`File size exceeds ${MAX_FILE_SIZE_MB}MB limit.`);
+                setSelectedFile(null);
+                return;
+            }
+            if (!['image/jpeg', 'image/png', 'video/mp4'].includes(file.type)) {
+                setError('Unsupported file format.');
+                setSelectedFile(null);
+                return;
+            }
+            setError(null); // Clear any previous error
+            setSelectedFile(file);
+            setIsImage(file.type.startsWith('image/'));
         }
     };
 
@@ -98,17 +119,20 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
             />
             <input
                 type="file"
-                accept="image/*"
+                accept="image/*,video/*"
                 onChange={handleFileChange}
                 className="hidden"
-                id="image"
-                name="image"
+                id="file"
+                name="file"
             />
-            <label htmlFor="image" className="ml-3 bg-indigo-600 text-white px-4 py-2 rounded-lg cursor-pointer">
-                {selectedFile ? selectedFile.name : "Upload Image"}
+            <label htmlFor="file" className="ml-3 bg-indigo-600 text-white px-4 py-2 rounded-lg cursor-pointer">
+                {selectedFile ? selectedFile.name : "Upload Media"}
             </label>
-            <button onClick={sendChat} className="ml-3 bg-indigo-600 text-white px-4 py-2 rounded-lg" disabled={!chatText.trim() && !selectedFile}>
-                Send
+            {error && (
+                <div className="text-red-500 ml-3">{error}</div>
+            )}
+            <button onClick={sendChat} className="ml-3 min-w-[70px] max-h-[40px] bg-indigo-600 text-white px-4 py-2 rounded-lg" disabled={!chatText.trim() && !selectedFile}>
+                {isUploading ? <Spinner /> : "Send"}
             </button>
         </div>
     );

@@ -143,3 +143,15 @@ export const addScheduleSchema = Yup.object({
     date: Yup.string().required('Date is required'),
     recurrence: Yup.string().required('Recurrence is required'),
 });
+
+// export const fileUploadSchema = Yup.object().shape({
+//     file: Yup
+//         .mixed()
+//         .required('A file is required')
+//         .test('fileSize', 'File is too large', (value) => {
+//             return value && value.size <= 5 * 1024 * 1024; // 5MB limit
+//         })
+//         .test('fileType', 'Unsupported File Format', (value) => {
+//             return value && ['image/jpeg', 'image/png', 'video/mp4'].includes(value.type);
+//         }),
+// });

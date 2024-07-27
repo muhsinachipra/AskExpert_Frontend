@@ -13,7 +13,7 @@ export interface GetMessageResponse {
     message: IMessage[];
 }
 
-export interface GetImageUrlResponse {
+export interface GetFileUrlResponse {
     url: string;
 }
 
@@ -81,18 +81,18 @@ export const chatApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        // uploadImage: builder.mutation<UploadImageResponse, FormData>({
-        uploadImage: builder.mutation({
+        // uploadFile: builder.mutation<UploadFileResponse, FormData>({
+        uploadFile: builder.mutation({
             query: (formData) => ({
-                url: `${CHAT_URL}/uploadImage`,
+                url: `${CHAT_URL}/uploadFile`,
                 method: 'POST',
                 body: formData,
             }),
         }),
 
-        getImageUrl: builder.query<GetImageUrlResponse, string>({
+        getFileUrl: builder.query<GetFileUrlResponse, string>({
             query: (key: string) => ({
-                url: `${CHAT_URL}/getImageUrl/${key}`,
+                url: `${CHAT_URL}/getFileUrl/${key}`,
             })
         })
 
@@ -106,6 +106,6 @@ export const {
     useSendMessageMutation,
     useViewMessagesMutation,
     useGetUnReadMessagesMutation,
-    useUploadImageMutation,
-    useGetImageUrlQuery,
+    useUploadFileMutation,
+    useGetFileUrlQuery,
 } = chatApiSlice
