@@ -19,16 +19,15 @@ const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
     const messageClass = isSender ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800';
     const timeClass = isSender ? 'text-gray-300' : 'text-gray-500';
 
-    const { data: presignedUrl, refetch } = useGetFileUrlQuery(message.imageName || message.videoName || '', {
-        skip: !(message.imageName || message.videoName),
+    const { data: presignedUrl, refetch } = useGetFileUrlQuery(message.imageName || message.videoName || message.audioName || '', {
+        skip: !(message.imageName || message.videoName || message.audioName),
     });
 
     useEffect(() => {
-        if (message.imageName || message.videoName) {
+        if (message.imageName || message.videoName || message.audioName) {
             refetch();
         }
-    }, [message.imageName, message.videoName, refetch]);
-
+    }, [message.imageName, message.videoName, message.audioName, refetch]);
 
     const renderAvatar = (src: string | undefined, alt: string) => (
         <div className="w-10 h-10 bg-gray-300 rounded-full mx-2">
@@ -54,6 +53,12 @@ const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
                         <source src={presignedUrl.url} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
+                )}
+                {message.audioName && presignedUrl && (
+                    <audio controls className="mt-2">
+                        <source src={presignedUrl.url} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
                 )}
                 <p>{message.text}</p>
                 <small className={`text-xs ${timeClass}`}>
