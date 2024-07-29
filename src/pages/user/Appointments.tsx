@@ -29,6 +29,8 @@ function Appointments() {
                                 date={appointment.date}
                                 expertName={appointment.expertName}
                                 expertCategory={appointment.expertCategory}
+                                appointmentId={appointment._id}
+                                appointmentStatus={appointment.appointmentStatus}
                             />
                         ))
                     ) : (

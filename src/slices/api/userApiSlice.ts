@@ -146,6 +146,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['Category'],
         }),
+
+        cancelAppointment: builder.mutation({
+            query: (appointmentId) => ({
+                url: `${USER_URL}/cancelAppointment/${appointmentId}`,
+                method: 'PATCH',
+            }),
+            invalidatesTags: ['Appointment'],
+        }),
         
     }),
 });
@@ -168,4 +176,5 @@ export const {
     useGetUserAppointmentsQuery,
     useUserGetExpertDataQuery,
     useUserGetCategoryDataQuery,
+    useCancelAppointmentMutation
 } = userApiSlice;
