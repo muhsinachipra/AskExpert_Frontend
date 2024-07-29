@@ -32,6 +32,7 @@ export interface IUser {
     mobile: string;
     profilePic: string;
     isBlocked: boolean;
+    wallet: number;
     createdAt: string;
     updatedAt: string;
     __v: number;
