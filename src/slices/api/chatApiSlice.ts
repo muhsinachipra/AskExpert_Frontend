@@ -13,6 +13,10 @@ export interface GetMessageResponse {
     message: IMessage[];
 }
 
+export interface GetFileUrlResponse {
+    url: string;
+}
+
 export const chatApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
 
@@ -77,6 +81,21 @@ export const chatApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
+        // uploadFile: builder.mutation<UploadFileResponse, FormData>({
+        uploadFile: builder.mutation({
+            query: (formData) => ({
+                url: `${CHAT_URL}/uploadFile`,
+                method: 'POST',
+                body: formData,
+            }),
+        }),
+
+        getFileUrl: builder.query<GetFileUrlResponse, string>({
+            query: (key: string) => ({
+                url: `${CHAT_URL}/getFileUrl/${key}`,
+            })
+        })
+
     })
 })
 
@@ -87,4 +106,6 @@ export const {
     useSendMessageMutation,
     useViewMessagesMutation,
     useGetUnReadMessagesMutation,
+    useUploadFileMutation,
+    useGetFileUrlQuery,
 } = chatApiSlice
