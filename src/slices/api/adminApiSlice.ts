@@ -1,7 +1,7 @@
 // frontend\src\slices\api\adminApiSlice.ts
 
 import { ICategory } from "../../types/domain";
-import { GetAdminDataForStateResponse, GetExpertDataResponse, GetUserDataResponse } from "../../types/response";
+import { GetAdminDataForStateResponse, GetAppointmentDataResponse, GetExpertDataResponse, GetUserDataResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const ADMIN_URL = "/api/admin";
@@ -108,6 +108,13 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['Expert'],
         }),
 
+        adminGetAppointmentData: builder.query<GetAppointmentDataResponse, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${ADMIN_URL}/appointmentData?page=${page}&limit=${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['Appointment'],
+        }),
     }),
 })
 
@@ -123,4 +130,5 @@ export const {
     useAdminGetUserDataQuery,
     useToggleUserBlockedStatusMutation,
     useToggleExpertBlockedStatusMutation,
+    useAdminGetAppointmentDataQuery,
 } = adminApiSlice

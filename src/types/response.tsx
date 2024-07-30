@@ -38,6 +38,7 @@ export interface GetAppointmentDataResponse {
     success: boolean;
     data: IAppointment[];
     message: string;
+    total?: number;
     status?: number;
 }
 

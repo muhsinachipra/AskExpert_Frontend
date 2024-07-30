@@ -12,6 +12,7 @@ import AllExperts from '../pages/admin/expert/page'
 import VerifyExperts from '../pages/admin/expert/verifyExperts/page'
 import Category from '../pages/admin/category/page'
 import AllUsers from '../pages/admin/user/page'
+import Payments from '../pages/admin/payments/page'
 import { useSelector } from 'react-redux'
 import { RootState } from '../app/store'
 
@@ -31,6 +32,7 @@ export function AdminRoutes() {
                     <Route path='/verify-experts' element={<VerifyExperts />} />
                     <Route path='/category' element={<Category />} />
                     <Route path='/users' element={<AllUsers />} />
+                    <Route path='payments' element={<Payments />} />
                 </Route>
             </Route>
         </Routes>
