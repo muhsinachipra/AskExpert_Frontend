@@ -111,7 +111,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `${USER_URL}/getExpertSlots/${expertId}`,
                 method: 'GET',
             }),
-            providesTags: ['Expert'],
+            providesTags: ['Schedule'],
         }),
 
         payment: builder.mutation({
@@ -154,7 +154,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Appointment'],
         }),
-        
+
+        walletPayment: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/walletPayment`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['Appointment', 'Schedule', 'User'],
+        }),
     }),
 });
 
@@ -176,5 +184,6 @@ export const {
     useGetUserAppointmentsQuery,
     useUserGetExpertDataQuery,
     useUserGetCategoryDataQuery,
-    useCancelAppointmentMutation
+    useCancelAppointmentMutation,
+    useWalletPaymentMutation,
 } = userApiSlice;

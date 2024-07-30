@@ -133,6 +133,19 @@ export default function UserProfile() {
                         />
                     </div>
                     <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="wallet">
+                            Wallet
+                        </label>
+                        <input
+                            type="number"
+                            id="wallet"
+                            name="wallet"
+                            value={userInfo?.wallet}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                            readOnly
+                        />
+                    </div>
+                    <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mobile">
                             Mobile
                         </label>
