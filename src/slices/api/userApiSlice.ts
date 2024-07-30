@@ -152,7 +152,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `${USER_URL}/cancelAppointment/${appointmentId}`,
                 method: 'PATCH',
             }),
-            invalidatesTags: ['Appointment'],
+            invalidatesTags: ['Appointment', 'Schedule'],
         }),
 
         walletPayment: builder.mutation({
