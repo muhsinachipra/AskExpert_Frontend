@@ -6,7 +6,7 @@ import { RootState } from "../app/store";
 import { useCallback, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { useGetUserAppointmentsQuery, useUserLogoutMutation } from "../slices/api/userApiSlice";
+import { useGetAppointmentsCountQuery, useUserLogoutMutation } from "../slices/api/userApiSlice";
 import { useExpertLogoutMutation } from "../slices/api/expertApiSlice";
 import { expertLogout, userLogout } from "../slices/authSlice";
 // import { CgProfile } from "react-icons/cg";
@@ -21,8 +21,8 @@ interface HeaderProps {
 
 export default function Header({ isExpertPage = false }: HeaderProps) {
 
-    const { data } = useGetUserAppointmentsQuery();
-    const appointmentCount = data?.data.length;
+    const { data } = useGetAppointmentsCountQuery();
+    const appointmentCount = data?.data || 0;
     const navigate = useNavigate();
     const userLoggedIn = useSelector((state: RootState) => state.auth.userInfo);
     const expertLoggedIn = useSelector((state: RootState) => state.auth.expertInfo);

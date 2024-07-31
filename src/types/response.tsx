@@ -42,6 +42,13 @@ export interface GetAppointmentDataResponse {
     status?: number;
 }
 
+export interface GetAppointmentsCountResponse {
+    success: boolean;
+    data: number;
+    message: string;
+    status?: number;
+}
+
 export interface GetUserDataForStateResponse {
     success: boolean;
     data: IUser;

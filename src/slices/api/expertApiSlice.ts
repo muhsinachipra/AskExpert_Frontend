@@ -129,6 +129,14 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             providesTags: ['User'],
         }),
 
+        expertUpdateAppointmentStatus: builder.mutation({
+            query: ({ appointmentId, status }) => ({
+                url: `${EXPERT_URL}/updateAppointmentStatus/${appointmentId}`,
+                method: 'PATCH',
+                body: { status },
+            }),
+            invalidatesTags: ['Appointment', 'Schedule'],
+        }),
 
     }),
 });
@@ -148,4 +156,5 @@ export const {
     useExpertGetCategoryDataQuery,
     useGetWalletDataQuery,
     useExpertGetUserDataQuery,
+    useExpertUpdateAppointmentStatusMutation,
 } = expertApiSlice;

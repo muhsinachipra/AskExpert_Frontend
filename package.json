@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.2.4",
     "@stripe/stripe-js": "^4.0.0",
     "@types/react-router-dom": "^5.3.3",
+    "@zegocloud/zego-uikit-prebuilt": "^2.6.1",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -40,7 +41,8 @@
     "sweetalert2-react-content": "^5.0.7",
     "tailwind-merge": "^2.3.0",
     "uuid": "^9.0.1",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "zego-zim-web": "^2.9.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
