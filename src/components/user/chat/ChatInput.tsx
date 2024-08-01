@@ -65,7 +65,6 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
                 }
                 setSelectedFile(null);
             }
-
             // Send message through API
             await sendMessage(message).unwrap();
 
