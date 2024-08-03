@@ -4,6 +4,7 @@ import { useState } from "react";
 import Spinner from "../../../components/Spinner";
 import { useAdminGetAppointmentDataQuery } from "../../../slices/api/adminApiSlice";
 import { IAppointment } from "../../../types/domain";
+import Pagination from "../../../components/Pagination";
 
 function Payments() {
     const [page, setPage] = useState(1);
@@ -11,19 +12,7 @@ function Payments() {
     const { data, error, isLoading } = useAdminGetAppointmentDataQuery({ page, limit });
     const payments = data?.data ?? [];
     const total = data?.total ?? 0;
-
-
-    const handleNextPage = () => {
-        if (page * limit < total) {
-            setPage(page + 1);
-        }
-    };
-
-    const handlePreviousPage = () => {
-        if (page > 1) {
-            setPage(page - 1);
-        }
-    };
+    const totalPages = Math.ceil(total / limit);
 
     const tableHeaders = ["Payment Id", "User", "Expert", "Method", "Status", "Amount"];
 
@@ -72,11 +61,7 @@ function Payments() {
                     </table>
                 </div>
             </div>
-            <div className="flex justify-between items-center mt-4">
-                <button onClick={handlePreviousPage} disabled={page === 1} className="py-1 px-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded disabled:bg-gray-300">Previous</button>
-                <span>Page {page}</span>
-                <button onClick={handleNextPage} disabled={page * limit >= total} className="py-1 px-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded disabled:bg-gray-300">Next</button>
-            </div>
+            <Pagination page={page} totalPages={totalPages} setPage={setPage} />
         </>
     )
 }

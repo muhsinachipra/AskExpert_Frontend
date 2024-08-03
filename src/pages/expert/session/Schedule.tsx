@@ -13,10 +13,15 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RRule } from 'rrule';
 import { formatTimeTo12Hour } from '../../../lib/utils';
+import Pagination from '../../../components/Pagination';
 const MySwal = withReactContent(Swal);
 
 export default function Schedule() {
-  const { data, error, isLoading } = useGetSchedulesQuery();
+  const [page, setPage] = useState(1);
+  const [limit] = useState(4);
+  const { data, error, isLoading } = useGetSchedulesQuery({page, limit});
+  const total = data?.total || 0;
+  const totalPages = Math.ceil(total / limit);
   const schedules = useMemo(() => data?.data, [data]);
   const [addSchedule] = useAddScheduleMutation();
   const [cancelSchedule] = useCancelScheduleMutation();
@@ -124,6 +129,7 @@ export default function Schedule() {
           onCancel={() => handleCancel(schedule._id)}
         />
       ))}
+      <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       <Modal isOpen={isAddModalOpen} onClose={handleAddModalClose}>
         <h2 className="text-2xl mb-4">Add Schedule</h2>
         <form onSubmit={formikAdd.handleSubmit}>

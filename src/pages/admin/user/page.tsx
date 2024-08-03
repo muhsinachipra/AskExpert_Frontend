@@ -7,6 +7,7 @@ import { useToggleUserBlockedStatusMutation } from "../../../slices/api/adminApi
 import Spinner from "../../../components/Spinner";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../slices/authSlice";
+import Pagination from "../../../components/Pagination";
 
 const getStatusClassName = (isBlocked: boolean): string => {
     return isBlocked ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600';
@@ -19,6 +20,7 @@ const AllUsers = () => {
     const [toggleUserBlockedStatus] = useToggleUserBlockedStatusMutation();
     const users = data?.data ?? [];
     const total = data?.total ?? 0;
+    const totalPages = Math.ceil(total / limit);
     const dispatch = useDispatch()
 
     const handleButtonClick = async (userId: string, isBlocked: boolean) => {
@@ -33,17 +35,7 @@ const AllUsers = () => {
         }
     };
 
-    const handleNextPage = () => {
-        if (page * limit < total) {
-            setPage(page + 1);
-        }
-    };
 
-    const handlePreviousPage = () => {
-        if (page > 1) {
-            setPage(page - 1);
-        }
-    };
 
     const tableHeaders = ["Name", "Email", "Mobile", "Action"];
 
@@ -95,11 +87,7 @@ const AllUsers = () => {
                     </table>
                 </div>
             </div>
-            <div className="flex justify-between items-center mt-4">
-                <button onClick={handlePreviousPage} disabled={page === 1} className="py-1 px-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded disabled:bg-gray-300">Previous</button>
-                <span>Page {page}</span>
-                <button onClick={handleNextPage} disabled={page * limit >= total} className="py-1 px-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded disabled:bg-gray-300">Next</button>
-            </div>
+            <Pagination page={page} totalPages={totalPages} setPage={setPage} />
         </>
     );
 };

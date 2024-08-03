@@ -7,9 +7,10 @@ import { setExpertCredential } from "../../../../slices/authSlice";
 import { IExpert } from "../../../../types/domain";
 import AdminTable from "../../../../components/admin/Table";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../components/Pagination";
 
 const getStatusClassName = (isVerified: boolean): string => {
-  return isVerified ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600';
+    return isVerified ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600';
 };
 
 const VerifyExperts = () => {
@@ -21,6 +22,7 @@ const VerifyExperts = () => {
     const dispatch = useDispatch();
     const experts = data?.data ?? [];
     const total = data?.total ?? 0;
+    const totalPages = Math.ceil(total / limit);
 
     const handleButtonClick = async (expertId: string, isVerified: boolean) => {
         try {
@@ -32,18 +34,6 @@ const VerifyExperts = () => {
             }
         } catch (error) {
             console.error("Failed to update expert verification status", error);
-        }
-    };
-
-    const handleNextPage = () => {
-        if (page * limit < total) {
-            setPage(page + 1);
-        }
-    };
-
-    const handlePreviousPage = () => {
-        if (page > 1) {
-            setPage(page - 1);
         }
     };
 
@@ -83,11 +73,7 @@ const VerifyExperts = () => {
                 tableHeaders={tableHeaders}
                 renderRow={renderRow}
             />
-            <div className="flex justify-between items-center mt-4">
-                <button onClick={handlePreviousPage} disabled={page === 1} className="py-1 px-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded disabled:bg-gray-300">Previous</button>
-                <span>Page {page}</span>
-                <button onClick={handleNextPage} disabled={page * limit >= total} className="py-1 px-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded disabled:bg-gray-300">Next</button>
-            </div>
+            <Pagination page={page} totalPages={totalPages} setPage={setPage} />
         </>
     );
 };

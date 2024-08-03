@@ -6,10 +6,16 @@ import WalletBalance from "../../components/expert/WalletBalance";
 import Spinner from "../../components/Spinner";
 import { useGetWalletDataQuery } from "../../slices/api/expertApiSlice";
 import { RootState } from "../../app/store";
+import { useState } from "react";
+import Pagination from "../../components/Pagination";
 
 export default function Wallet() {
     const { expertInfo } = useSelector((state: RootState) => state.auth);
-    const { data, error, isLoading } = useGetWalletDataQuery();
+    const [page, setPage] = useState(1);
+    const [limit] = useState(4);
+    const { data, error, isLoading } = useGetWalletDataQuery({ page, limit });
+    const total = data?.total || 0;
+    const totalPages = Math.ceil(total / limit);
     const walletData = data?.data;
 
     console.log('walletData in expert page: ', walletData);
@@ -24,6 +30,7 @@ export default function Wallet() {
                 <>
                     <WalletBalance balance={expertInfo?.wallet || 0} />
                     <TransactionList walletData={walletData} />
+                    <Pagination page={page} totalPages={totalPages} setPage={setPage} />
                 </>
             )}
         </div>

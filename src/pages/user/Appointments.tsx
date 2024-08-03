@@ -1,16 +1,20 @@
 // frontend\src\pages\user\Appointments.tsx
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Spinner from "../../components/Spinner";
 import AppointmentsCard from "../../components/user/AppointmentsCard";
 import { useGetUserAppointmentsQuery } from "../../slices/api/userApiSlice";
+import Pagination from "../../components/Pagination";
 
 function Appointments() {
-
-    const { data, error, isLoading, refetch } = useGetUserAppointmentsQuery();
+    const [page, setPage] = useState(1);
+    const [limit] = useState(4);
+    const { data, error, isLoading, refetch } = useGetUserAppointmentsQuery({ page, limit });
     const appointmentData = data?.data
+    const total = data?.total || 0;
+    const totalPages = Math.ceil(total / limit)
 
     // Use refetch when the component mounts
     useEffect(() => {
@@ -36,6 +40,7 @@ function Appointments() {
                         <div className="pt-5 text-3xl font-bold mb-6">No Appointments</div>
                     )}
                 </div>
+                <Pagination page={page} totalPages={totalPages} setPage={setPage} />
             </div>
             <Footer />
         </>

@@ -106,9 +106,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
             providesTags: ['Expert'],
         }),
 
-        getExpertSlots: builder.query<GetAppointmentDataResponse, string>({
-            query: (expertId) => ({
-                url: `${USER_URL}/getExpertSlots/${expertId}`,
+        getExpertSlots: builder.query<GetAppointmentDataResponse, { expertId: string, page: number, limit: number }>({
+            query: ({ expertId, page, limit }) => ({
+                url: `${USER_URL}/getExpertSlots/${expertId}/${page}/${limit}`,
                 method: 'GET',
             }),
             providesTags: ['Schedule'],
@@ -123,9 +123,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['Appointment', 'Schedule'],
         }),
 
-        getUserAppointments: builder.query<GetAppointmentDataResponse, void>({
-            query: () => ({
-                url: `${USER_URL}/getUserAppointments`,
+        getUserAppointments: builder.query<GetAppointmentDataResponse, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${USER_URL}/getUserAppointments?page=${page}&limit=${limit}`,
                 method: 'GET',
             }),
             providesTags: ['Appointment'],

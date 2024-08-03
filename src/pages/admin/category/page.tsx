@@ -12,6 +12,7 @@ import { MyError } from "../../../validation/validationTypes";
 import { storage } from "../../../app/firebase/config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import Pagination from "../../../components/Pagination";
 
 
 const Category = () => {
@@ -22,6 +23,7 @@ const Category = () => {
     const [editCategory] = useEditCategoryMutation();
     const categories = data?.data ?? [];
     const total = data?.total ?? 0;
+    const totalPages = Math.ceil(total / limit);
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -105,27 +107,15 @@ const Category = () => {
         setIsEditModalOpen(false);
     };
 
-    const handleNextPage = () => {
-        if (page * limit < total) {
-            setPage(page + 1);
-        }
-    };
-
-    const handlePreviousPage = () => {
-        if (page > 1) {
-            setPage(page - 1);
-        }
-    };
-
     return (
         <>
-            <span className="font-bold text-4xl">Category Management</span>
-            <button
-                className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-                onClick={() => setIsAddModalOpen(true)}
-            >
-                Add Category
-            </button>
+            <div className="flex justify-between items-center py-1 px-2">
+                <span className="font-bold text-4xl">Category Management</span>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4" onClick={() => setIsAddModalOpen(true)}>
+                    Add Category
+                </button>
+            </div>
+
             {isLoading && <Spinner />}
             {error && <div>Error loading categories</div>}
             {!isLoading && !error && (
@@ -172,11 +162,7 @@ const Category = () => {
                 </div>
             )}
 
-            <div className="flex justify-between items-center mt-4">
-                <button onClick={handlePreviousPage} disabled={page === 1} className="py-1 px-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded disabled:bg-gray-300">Previous</button>
-                <span>Page {page}</span>
-                <button onClick={handleNextPage} disabled={page * limit >= total} className="py-1 px-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded disabled:bg-gray-300">Next</button>
-            </div>
+            <Pagination page={page} totalPages={totalPages} setPage={setPage} />
 
             <Modal isOpen={isAddModalOpen} onClose={handleAddModalClose}>
                 <h2 className="text-2xl mb-4">Add Category</h2>
@@ -249,7 +235,7 @@ const Category = () => {
                     {formikEdit.touched.categoryDescription && formikEdit.errors.categoryDescription ? (
                         <div className="text-red-500">{formikEdit.errors.categoryDescription}</div>
                     ) : null}
-                     <input
+                    <input
                         type="file"
                         placeholder="Category Image"
                         accept="image/*"

@@ -8,6 +8,9 @@ import { useGetExpertSlotsQuery } from "../../slices/api/userApiSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { formatTimeTo12Hour } from "../../lib/utils";
+import { useState } from "react";
+import Spinner from "../../components/Spinner";
+import Pagination from "../../components/Pagination";
 
 
 function Slots() {
@@ -18,10 +21,13 @@ function Slots() {
 
 
     const { expertId } = useParams();
-    const { data, error, isLoading } = useGetExpertSlotsQuery(expertId || '');
+    const [page, setPage] = useState(1);
+    const [limit] = useState(4);
 
-    const slotData = data?.data
-    console.log(slotData)
+    const { data, error, isLoading } = useGetExpertSlotsQuery({ expertId: expertId || '', page, limit });
+    const slotData = data?.data;
+    const total = data?.total || 0;
+    const totalPages = Math.ceil(total / limit);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -31,16 +37,14 @@ function Slots() {
         return <div>Error loading experts</div>;
     }
 
-    if (!slotData) {
-        return <div>No slots available</div>;
-    }
-
     return (
         <>
             <Header />
             <div className="container mx-auto mt-10 min-h-[100vh]">
                 <div className="text-4xl font-bold mb-6">Slots</div>
                 <div className="space-y-4">
+                    {error && <div className="pt-5 text-2xl font-bold mb-6">Error loading Data</div>}
+                    {isLoading && <Spinner />}
                     {slotData && slotData.length > 0 ? (
                         slotData.map((slot) => (
                             <SlotCard
@@ -58,6 +62,7 @@ function Slots() {
                         <div className="pt-5 text-3xl font-bold mb-6">No slots available</div>
                     )}
                 </div>
+                <Pagination page={page} totalPages={totalPages} setPage={setPage} />
             </div>
             <Footer />
         </>
