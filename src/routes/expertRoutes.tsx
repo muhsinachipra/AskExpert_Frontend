@@ -19,6 +19,7 @@ import Unverified from '../pages/expert/Unverified'
 import Profile from '../pages/expert/Profile'
 import Wallet from '../pages/expert/Wallet'
 import ChatPage from '../pages/expert/chat/ChatPage'
+import Ratings from '../pages/expert/Ratings'
 
 export function ExpertRoutes() {
     const { expertInfo } = useSelector((state: RootState) => state.auth);
@@ -38,6 +39,7 @@ export function ExpertRoutes() {
                     <Route path='home' element={<Home />} />
                     <Route path='schedule' element={<Schedule />} />
                     <Route path='appointments' element={<Appointments />} />
+                    <Route path='rating' element={<Ratings />} />
                     <Route path='profile' element={<Profile />} />
                     <Route path='wallet' element={<Wallet />} />
                 </Route>

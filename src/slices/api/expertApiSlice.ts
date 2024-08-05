@@ -1,7 +1,7 @@
 // frontend\src\slices\api\expertApiSlice.ts
 
 import { IAppointment, ICategory } from "../../types/domain";
-import { GetAppointmentDataResponse, GetExpertDataForStateResponse, GetSingleUserDataResponse } from "../../types/response";
+import { GetAppointmentDataResponse, GetExpertDataForStateResponse, GetReviewDataResponse, GetSingleUserDataResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const EXPERT_URL = "/api/expert";
@@ -135,7 +135,15 @@ export const expertApiSlice = apiSlice.injectEndpoints({
                 method: 'PATCH',
                 body: { status },
             }),
-            invalidatesTags: ['Appointment', 'Schedule'],
+            invalidatesTags: ['Appointment', 'Schedule','Review'],
+        }),
+
+        expertGetReviews: builder.query<GetReviewDataResponse, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${EXPERT_URL}/review/${page}/${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['Review'],
         }),
 
     }),
@@ -157,4 +165,5 @@ export const {
     useGetWalletDataQuery,
     useExpertGetUserDataQuery,
     useExpertUpdateAppointmentStatusMutation,
+    useExpertGetReviewsQuery,
 } = expertApiSlice;

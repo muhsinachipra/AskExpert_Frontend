@@ -104,7 +104,7 @@ const testimonialData = [
         imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/f035b502e5e329fe20236ea8fc8903b1b5919d6fabfffdeffe5775d9765b7e5b?apiKey=62cb0e3201dd4b038734137173080a0d&",
         name: "John Doe",
         role: "Software Engineer",
-        rating: 3,
+        averageRating: 3,
         testimonial:
             "Expert Consult helped me immensely in resolving a complex coding issue. The expert I consulted provided clear explanations and valuable insights. I highly recommend this platform to anyone seeking professional advice.",
     },
@@ -112,7 +112,7 @@ const testimonialData = [
         imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/f55989522d27d5a327c95a0190690fef912b5f6c2554e4f5ddd2e1350d8ed431?apiKey=62cb0e3201dd4b038734137173080a0d&",
         name: "Alice Smith",
         role: "Business Analyst",
-        rating: 4,
+        averageRating: 4,
         testimonial:
             "I had a legal query regarding a contract negotiation, and Expert Consult connected me with a knowledgeable lawyer who provided excellent guidance. The platform is user-friendly, and the expert was responsive and helpful.",
     },
@@ -120,7 +120,7 @@ const testimonialData = [
         imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/3b442835c561cbb7c7582c1b8e0a38f9ec5cbeff1deca5d009922e5594ed8b9a?apiKey=62cb0e3201dd4b038734137173080a0d&",
         name: "Michael Johnson",
         role: "Medical Doctor",
-        rating: 5,
+        averageRating: 5,
         testimonial:
             "I needed medical advice on managing a chronic condition, and Expert Consult connected me with a specialist who provided comprehensive guidance. The platform is a valuable resource for accessing expertise from the comfort of home.",
     },
@@ -128,7 +128,7 @@ const testimonialData = [
         imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/e4939d453edf50a307e83b840364cc5c75ae87a71e3f3845dc9af4ada4d7f411?apiKey=62cb0e3201dd4b038734137173080a0d&",
         name: "Sarah Brown",
         role: "Financial Advisor",
-        rating: 5,
+        averageRating: 5,
         testimonial:
             "I consulted an expert on Expert Consult regarding investment strategies, and I was impressed by the depth of knowledge and professionalism. The platform offers a convenient way to access expert advice tailored to individual needs.",
     },
@@ -151,7 +151,7 @@ function Testimonial() {
                         imageSrc={testimonial.imageSrc}
                         name={testimonial.name}
                         role={testimonial.role}
-                        stars={testimonial.rating}
+                        stars={testimonial.averageRating}
                         testimonial={testimonial.testimonial}
                     />
                 ))}

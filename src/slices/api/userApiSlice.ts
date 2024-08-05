@@ -1,7 +1,7 @@
 // frontend\src\slices\api\userApiSlice.ts
 
 import { ICategory } from "../../types/domain";
-import { GetAppointmentDataResponse, GetAppointmentsCountResponse, GetExpertDataResponse, GetSingleExpertDataResponse, GetUserDataForStateResponse } from "../../types/response";
+import { GetAppointmentDataResponse, GetAppointmentsCountResponse, GetExpertDataResponse, GetSingleAppointmentDataResponse, GetSingleExpertDataResponse, GetUserDataForStateResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const USER_URL = "/api/user";
@@ -180,6 +180,22 @@ export const userApiSlice = apiSlice.injectEndpoints({
             providesTags: ['Appointment'],
         }),
 
+        getSingleAppointmentData: builder.query<GetSingleAppointmentDataResponse, string>({
+            query: (appointmentId) => ({
+                url: `${USER_URL}/getSingleAppointment/${appointmentId}`,
+                method: 'GET',
+            }),
+            providesTags: ['Appointment'],
+        }),
+
+        review: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/review`,
+                method: "POST",
+                body: data,
+            }),
+        }),
+
     }),
 });
 
@@ -205,4 +221,6 @@ export const {
     useWalletPaymentMutation,
     useUpdateAppointmentStatusMutation,
     useGetAppointmentsCountQuery,
+    useGetSingleAppointmentDataQuery,
+    useReviewMutation,
 } = userApiSlice;

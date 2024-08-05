@@ -49,7 +49,7 @@ const AllExperts = () => {
             <td className="p-2">{expert.name}</td>
             <td className="p-2">{expert.email}</td>
             <td className="p-2">{expert.category}</td>
-            <td className="p-2">{expert.rating}</td>
+            <td className="p-2">{expert.averageRating}</td>
             <td className="p-2">{expert.wallet}</td>
             <td className="p-2">
                 <button

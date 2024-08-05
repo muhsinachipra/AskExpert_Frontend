@@ -9,7 +9,7 @@ export interface IExpert {
     profilePic: string;
     resume: string;
     mobile: string;
-    rating: number;
+    averageRating: number;
     wallet: number;
     isVerified: boolean;
     isBlocked: boolean;
@@ -84,4 +84,21 @@ export interface IMessage {
     createdAt: Date;
     updatedAt: Date;
     __v: number;
+}
+
+export interface IReview {
+    _id?: string
+    userId: {
+        _id: string;
+        name: string;
+    };
+    expertId: string;
+    appointmentId: {
+        _id: string;
+        date: Date;
+    };
+    rating: number;
+    feedback?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

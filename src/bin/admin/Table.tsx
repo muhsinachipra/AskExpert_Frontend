@@ -62,7 +62,7 @@
 //                                     </td>
 //                                     <td className="p-2">{expert.category}</td>
 //                                     <td className="p-2">{expert.experience} years</td>
-//                                     <td className="p-2">{expert.rating}</td>
+//                                     <td className="p-2">{expert.averageRating}</td>
 //                                     <td className="p-2">
 //                                         <button
 //                                             className={`inline-block px-2 py-1 rounded ${getStatusClassName(expert.isVerified)}`}

@@ -151,7 +151,7 @@
 //                     <img
 //                         loading="lazy"
 //                         src={ratingImageSrc}
-//                         alt={`${name}'s rating`}
+//                         alt={`${name}'s averageRating`}
 //                         className="max-w-full aspect-[4.76] w-[121px]"
 //                     />
 //                 </div>

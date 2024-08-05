@@ -40,7 +40,7 @@ function SelectExpert() {
                             key={index}
                             name={expert.name}
                             experience={expert.experience}
-                            rating={expert.rating}
+                            averageRating={expert.averageRating}
                             fee={expert.fee}
                             image={expert.image}
                         />
@@ -53,7 +53,7 @@ function SelectExpert() {
                             key={expert._id}
                             name={expert.name}
                             experience={expert.experience}
-                            rating={expert.rating}
+                            averageRating={expert.averageRating}
                             image={expert.profilePic}
                             expertId={expert._id}
                         />
