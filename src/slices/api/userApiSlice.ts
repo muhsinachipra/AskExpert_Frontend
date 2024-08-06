@@ -152,7 +152,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `${USER_URL}/cancelAppointment/${appointmentId}`,
                 method: 'PATCH',
             }),
-            invalidatesTags: ['Appointment', 'Schedule'],
+            invalidatesTags: ['Appointment', 'Schedule', 'User'],
         }),
 
         walletPayment: builder.mutation({
@@ -206,6 +206,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['Report'],
         }),
 
+        getUserWalletData: builder.query<GetAppointmentDataResponse, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${USER_URL}/getWalletData/${page}/${limit}`,
+            }),
+            providesTags: ['Appointment'],
+        }),
     }),
 });
 
@@ -234,4 +240,5 @@ export const {
     useGetSingleAppointmentDataQuery,
     useReviewMutation,
     useReportMutation,
+    useGetUserWalletDataQuery,
 } = userApiSlice;
