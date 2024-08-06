@@ -194,6 +194,16 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
+            invalidatesTags: ['Review'],
+        }),
+
+        report: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/report`,
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ['Report'],
         }),
 
     }),
@@ -223,4 +233,5 @@ export const {
     useGetAppointmentsCountQuery,
     useGetSingleAppointmentDataQuery,
     useReviewMutation,
+    useReportMutation,
 } = userApiSlice;

@@ -1,6 +1,6 @@
 // frontend\src\types\response.tsx
 
-import { IAdmin, IAppointment, IExpert, IReview, IUser } from "./domain";
+import { IAdmin, IAppointment, IExpert, IReview, IUser, IReport } from "./domain";
 
 export interface GetExpertDataResponse {
     success: boolean;
@@ -77,6 +77,13 @@ export interface GetAdminDataForStateResponse {
 export interface GetReviewDataResponse {
     success: boolean;
     data: IReview[];
+    total: number;
+    message: string;
+}
+
+export interface GetReportDataResponse {
+    success: boolean;
+    data: IReport[];
     total: number;
     message: string;
 }

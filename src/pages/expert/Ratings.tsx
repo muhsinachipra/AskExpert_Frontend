@@ -19,7 +19,7 @@ function Ratings() {
 
   const renderRow = (review: IReview) => (
     <tr key={review._id} className="border-b hover:bg-gray-50">
-      <td className="p-2">{format(review.appointmentId.date, 'yyyy-MM-dd')}</td>
+      <td className="p-2">{review.appointmentId ? format(new Date(review.appointmentId.date), 'yyyy-MM-dd') : 'N/A'}</td>
       <td className="p-2">{review.userId.name}</td>
       <td className="p-2">{review.rating}</td>
       <td className="p-2">{review.feedback}</td>

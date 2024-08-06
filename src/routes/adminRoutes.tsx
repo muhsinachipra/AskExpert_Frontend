@@ -15,6 +15,8 @@ import AllUsers from '../pages/admin/user/page'
 import Payments from '../pages/admin/payments/page'
 import { useSelector } from 'react-redux'
 import { RootState } from '../app/store'
+import Report from '../pages/admin/report/page'
+import ReportDetails from '../pages/admin/report/ReportDetails'
 
 
 export function AdminRoutes() {
@@ -33,6 +35,8 @@ export function AdminRoutes() {
                     <Route path='/category' element={<Category />} />
                     <Route path='/users' element={<AllUsers />} />
                     <Route path='payments' element={<Payments />} />
+                    <Route path='report' element={<Report />} />
+                    <Route path='report/:expertId' element={<ReportDetails />} />
                 </Route>
             </Route>
         </Routes>

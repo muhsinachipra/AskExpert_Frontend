@@ -1,7 +1,7 @@
 // frontend\src\slices\api\adminApiSlice.ts
 
 import { ICategory } from "../../types/domain";
-import { GetAdminDataForStateResponse, GetAppointmentDataResponse, GetExpertDataResponse, GetUserDataResponse } from "../../types/response";
+import { GetAdminDataForStateResponse, GetAppointmentDataResponse, GetExpertDataResponse, GetUserDataResponse, GetReportDataResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const ADMIN_URL = "/api/admin";
@@ -115,12 +115,30 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['Appointment'],
         }),
+
+        getReportsByExpertId: builder.query<GetReportDataResponse, { expertId: string, page: number; limit: number }>({
+            query: ({ expertId, page, limit }) => ({
+                url: `${ADMIN_URL}/report/${expertId}?page=${page}&limit=${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['Report'],
+        }),
+
+        adminGetExpertDataSortByReport: builder.query<GetExpertDataResponse, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${ADMIN_URL}/expertDataReport?page=${page}&limit=${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['Expert'],
+        }),
+
     }),
 })
 
 export const {
     useAdminLoginMutation,
     useAdminGetExpertDataQuery,
+    useAdminGetExpertDataSortByReportQuery,
     useUpdateExpertVerificationMutation,
     useAdminLogoutMutation,
     useSendVerifiedEmailMutation,
@@ -131,4 +149,5 @@ export const {
     useToggleUserBlockedStatusMutation,
     useToggleExpertBlockedStatusMutation,
     useAdminGetAppointmentDataQuery,
+    useGetReportsByExpertIdQuery,
 } = adminApiSlice

@@ -140,7 +140,7 @@ export const expertApiSlice = apiSlice.injectEndpoints({
 
         expertGetReviews: builder.query<GetReviewDataResponse, { page: number; limit: number }>({
             query: ({ page, limit }) => ({
-                url: `${EXPERT_URL}/review/${page}/${limit}`,
+                url: `${EXPERT_URL}/review?page=${page}&limit=${limit}`,
                 method: 'GET',
             }),
             providesTags: ['Review'],

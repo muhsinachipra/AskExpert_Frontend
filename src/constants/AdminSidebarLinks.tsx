@@ -38,6 +38,11 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     icon: <Icon icon="lucide:user" width="24" height="24" />,
   },
   {
+    title: 'Reports',
+    path: '/admin/report',
+    icon: <Icon icon="material-symbols:report-outline" width="24" height="24" />,
+  },
+  {
     title: 'Payments',
     path: '/admin/payments',
     icon: <Icon icon="ic:round-payment" width="24" height="24" />,

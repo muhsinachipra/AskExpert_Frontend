@@ -10,6 +10,7 @@ export interface IExpert {
     resume: string;
     mobile: string;
     averageRating: number;
+    reports: number;
     wallet: number;
     isVerified: boolean;
     isBlocked: boolean;
@@ -101,4 +102,20 @@ export interface IReview {
     feedback?: string;
     createdAt?: Date;
     updatedAt?: Date;
+}
+
+export interface IReport {
+    _id: string;
+    userId: {
+        _id: string;
+        name: string;
+    };
+    expertId: {
+        _id: string;
+        name: string;
+    };
+    reason: string;
+    createdAt: Date;
+    updatedAt: Date;
+    __v: number;
 }
