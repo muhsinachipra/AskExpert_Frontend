@@ -70,19 +70,19 @@ export default function Profile() {
             <div className="bg-white p-8 rounded shadow-md w-full max-w-4xl">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">Edit Profile</h2>
                 <div className="flex justify-center mb-6">
-                    <div className="relative">
+
+                    <div className="group relative w-32 h-32 mx-auto">
                         <img
-                            className="w-24 h-24 rounded-full"
-                            src={profilePic ? URL.createObjectURL(profilePic) : expertInfo?.profilePic || 'https://via.placeholder.com/150'}
-                            alt="Avatar"
+                            src={profilePic ? URL.createObjectURL(profilePic) : expertInfo?.profilePic}
+                            alt="Profile Picture"
+                            className="w-32 h-32 rounded-full mx-auto object-cover"
                         />
                         <button
-                            type='button'
-                            className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full focus:outline-none"
+                            type="button"
                             onClick={handleProfilePicClick}
-                            title="Change profile picture"
+                            className="absolute inset-0 bg-gray-800 bg-opacity-50 text-white text-xl font-bold rounded-full flex items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24"><path fill="currentColor" d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z"></path></svg>
+                            Change
                         </button>
                         <input
                             type="file"
@@ -92,9 +92,10 @@ export default function Profile() {
                             onChange={handleProfilePicChange}
                             ref={fileInputRef}
                             className="hidden"
-                            title="Choose a profile picture"
+                            placeholder="change your profile pic"
                         />
                     </div>
+
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
