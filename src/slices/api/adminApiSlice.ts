@@ -1,7 +1,7 @@
 // frontend\src\slices\api\adminApiSlice.ts
 
 import { ICategory } from "../../types/domain";
-import { GetAdminDataForStateResponse, GetAppointmentDataResponse, GetExpertDataResponse, GetUserDataResponse, GetReportDataResponse } from "../../types/response";
+import { GetAdminDataForStateResponse, GetAppointmentDataResponse, GetExpertDataResponse, GetUserDataResponse, GetReportDataResponse, GetDashboardDataResponse, GetExpertsByCategoryDataResponse, GetUserCountDataResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
 const ADMIN_URL = "/api/admin";
@@ -132,6 +132,24 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             providesTags: ['Expert'],
         }),
 
+        dashboardData: builder.query<GetDashboardDataResponse, void>({
+            query: () => ({
+                url: `${ADMIN_URL}/dashboard`,
+            }),
+        }),
+
+        expertsByCategoryData: builder.query<GetExpertsByCategoryDataResponse, void>({
+            query: () => ({
+                url: `${ADMIN_URL}/expertsByCategory`,
+            }),
+        }),
+
+        userCountFilter: builder.query<GetUserCountDataResponse, void>({
+            query: () => ({
+                url: `${ADMIN_URL}/userCount`,
+            }),
+        }),
+
     }),
 })
 
@@ -150,4 +168,8 @@ export const {
     useToggleExpertBlockedStatusMutation,
     useAdminGetAppointmentDataQuery,
     useGetReportsByExpertIdQuery,
+    useGetAdminDataQuery,
+    useDashboardDataQuery,
+    useExpertsByCategoryDataQuery,
+    useUserCountFilterQuery,
 } = adminApiSlice

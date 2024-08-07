@@ -60,15 +60,17 @@ export default function Otp() {
                 const name = registerInfo?.name;
                 const password = registerInfo?.password;
                 const mobile = registerInfo?.mobile;
+                const profilePic = registerInfo?.profilePic;
                 await register({
                     name,
                     email,
                     mobile,
                     password,
+                    profilePic,
                 }).unwrap();
                 dispatch(clearRegister());
                 toast.success("Successfully Registered");
-                navigate('/');
+                navigate('/login');
             }
         } catch (err) {
             toast.error((err as MyError)?.data?.message || (err as MyError)?.error);
