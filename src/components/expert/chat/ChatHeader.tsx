@@ -25,7 +25,7 @@ const ChatHeader = () => {
 
     return (
         <header className="p-4 border-b border-gray-300 flex justify-between items-center bg-indigo-600 text-white">
-            <Link to="/expert/home" className="text-2xl font-semibold">Exit</Link>
+            <Link to="/expert/appointments" className="text-2xl font-semibold">Exit</Link>
             <div className="relative">
                 <button type='button' id="menuButton" className="focus:outline-none" onClick={toggleMenu} aria-label="Toggle menu">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-100" viewBox="0 0 20 20" fill="currentColor">

@@ -36,7 +36,7 @@ export default function Header({ isExpertPage = false }: HeaderProps) {
     const [expertLogoutMutation] = useExpertLogoutMutation();
 
     const navItems = [
-        { label: "Home", href: isExpertPage ? '/expert/home' : '/home', current: false },
+        { label: "Home", href: isExpertPage ? '/expert/appointments' : '/home', current: false },
         { label: "Appointments", href: "/appointments", current: false, count: appointmentCount },
         { label: "Chat", href: "/chat", current: false },
         // { label: "About Us", href: "/contact", current: false },

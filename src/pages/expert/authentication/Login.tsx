@@ -35,7 +35,7 @@ export default function Login() {
                 setIsLoading(true);
                 const res = await login(values).unwrap();
                 dispatch(setExpertCredential({ ...res.data }));
-                navigate('/expert/home')
+                navigate('/expert/appointments')
                 // navigate(from, { replace: true });
                 toast.success(res.message);
             } catch (err) {

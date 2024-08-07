@@ -6,11 +6,6 @@ import { SideNavItem } from '../types/sideNavItem';
 
 export const SIDENAV_ITEMS: SideNavItem[] = [
   {
-    title: 'Home',
-    path: '/expert/home',
-    icon: <Icon icon="akar-icons:home" width="24" height="24" />,
-  },
-  {
     title: 'Appointments',
     path: '/expert/appointments',
     icon: <Icon icon="teenyicons:appointments-outline" width="24" height="24" />,

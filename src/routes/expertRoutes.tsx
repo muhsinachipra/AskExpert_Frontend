@@ -10,7 +10,6 @@ import Appointments from '../pages/expert/Appointments'
 import ExpertPrivateRoute from './privateRoutes/ExpertPrivateRoute'
 import ForgotPassword from '../pages/expert/authentication/ForgotPassword'
 import ResetPassword from '../pages/expert/authentication/ResetPassword'
-import Home from '../pages/expert/home/Home'
 import Schedule from '../pages/expert/session/Schedule'
 import ExpertLayout from '../pages/expert/Layout'
 import { useSelector } from 'react-redux'
@@ -26,7 +25,7 @@ export function ExpertRoutes() {
 
     return (
         <Routes>
-            <Route path='/login' element={expertInfo ? <Navigate to="/expert/home" /> : <Login />} />
+            <Route path='/login' element={expertInfo ? <Navigate to="/expert/appointments" /> : <Login />} />
             {/* <Route path='/login' element={<Login />} /> */}
             <Route index element={<Landing />} />
             <Route path='/register' element={<Register />} />
@@ -36,7 +35,6 @@ export function ExpertRoutes() {
             <Route path='not-verify' element={<Unverified />} />
             <Route element={<ExpertPrivateRoute />}>
                 <Route element={<ExpertLayout />}>
-                    <Route path='home' element={<Home />} />
                     <Route path='schedule' element={<Schedule />} />
                     <Route path='appointments' element={<Appointments />} />
                     <Route path='rating' element={<Ratings />} />
