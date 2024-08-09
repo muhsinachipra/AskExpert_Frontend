@@ -61,22 +61,11 @@ export default function Otp() {
                 const name = expertRegisterInfo?.name;
                 const password = expertRegisterInfo?.password;
                 const profilePic = expertRegisterInfo?.profilePic;
-                // const profilePic = expertRegisterInfo?.profilePicUrl;
                 const resume = expertRegisterInfo?.resume;
                 const category = expertRegisterInfo?.category;
                 const mobile = expertRegisterInfo?.mobile;
                 const experience = expertRegisterInfo?.experience;
 
-                // console.log('expertRegisterInfo in the otp page: ', expertRegisterInfo)
-                // console.log('register data in the otp page: ', name,
-                // email,
-                // password,
-                // profilePic,
-                // resume,
-                // category,
-                // mobile,
-                // experience)
-                
                 await register({
                     name,
                     email,

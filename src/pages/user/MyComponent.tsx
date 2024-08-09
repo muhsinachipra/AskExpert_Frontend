@@ -705,7 +705,7 @@
 //     logoSrc: string;
 // }
 
-// const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
+// const UserHeader: React.FC<HeaderProps> = ({ logoSrc }) => {
 //     return (
 //         <header className="flex justify-center items-center px-16 py-9 w-full text-white bg-neutral-700 max-md:px-5 max-md:max-w-full">
 //             <div className="flex gap-5 justify-between pr-4 max-w-full w-[1220px] max-md:flex-wrap">
@@ -856,7 +856,7 @@
 // }) => {
 //     return (
 //         <div className="flex flex-col bg-white">
-//             <Header logoSrc={headerLogoSrc} />
+//             <UserHeader logoSrc={headerLogoSrc} />
 //             <main>
 //                 <LoginPage />
 //             </main>
@@ -884,7 +884,7 @@
 //   logoSrc: string;
 // }
 
-// const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
+// const UserHeader: React.FC<HeaderProps> = ({ logoSrc }) => {
 //   return (
 //     <header className="flex justify-center items-center px-16 py-9 w-full text-white bg-neutral-700 max-md:px-5 max-md:max-w-full">
 //       <div className="flex gap-5 justify-between pr-4 max-w-full w-[1220px] max-md:flex-wrap">
@@ -1026,7 +1026,7 @@
 
 //   return (
 //     <div className="flex flex-col bg-white">
-//       <Header logoSrc="askexperts-logo.png" />
+//       <UserHeader logoSrc="askexperts-logo.png" />
 //       <main>
 //         <RegisterForm />
 //       </main>

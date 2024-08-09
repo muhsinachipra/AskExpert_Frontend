@@ -1,7 +1,7 @@
 // frontend\src\pages\user\home\Home.tsx
 
 import Footer from "../../../components/Footer";
-import Header from "../../../components/Header";
+import UserHeader from "../../../components/user/UserHeader";
 import CategoryCard from "../../../components/CategoryCard";
 import { useUserGetCategoryDataQuery } from "../../../slices/api/userApiSlice";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ function Home() {
 
     return (
         <>
-            <Header />
+            <UserHeader />
             <div className="min-h-[100vh]">
                 <div className="flex justify-center max-md:mx-4 text-center mt-10 text-5xl font-bold">
                     What category are you seeking help with?

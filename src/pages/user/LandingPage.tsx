@@ -1,7 +1,7 @@
 // frontend\src\pages\user\LandingPage.tsx
 
 import CategoryCard from "../../components/CategoryCard";
-import Header from "../../components/Header";
+import UserHeader from "../../components/user/UserHeader";
 import { TbPoint } from "react-icons/tb";
 import TestimonialCard from "../../components/TestimonialCard";
 import Footer from "../../components/Footer";
@@ -164,7 +164,7 @@ function Testimonial() {
 export default function Landing() {
     return (
         <div className="flex flex-col">
-            <Header />
+            <UserHeader />
             <Hero />
             <Category />
             <HowItWorks />

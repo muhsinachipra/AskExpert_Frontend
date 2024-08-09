@@ -1,5 +1,4 @@
 // frontend\src\pages\user\Login.tsx
-// import Header from "../../components/Header";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -57,7 +56,6 @@ export default function Login() {
 
     return (
         <>
-            {/* <Header /> */}
             <section className="bg-neutral-200 dark:bg-gray-900">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">

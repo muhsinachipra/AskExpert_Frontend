@@ -5,7 +5,7 @@ import { MdVerifiedUser } from "react-icons/md";
 import { BiSolidConversation } from "react-icons/bi";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import Header from "../../components/Header";
+import ExpertHeader from "../../components/expert/ExpertHeader";
 
 const expertData = [
     {
@@ -98,7 +98,7 @@ function ExpertCommunity() {
 export default function Landing() {
     return (
         <div className="flex flex-col">
-            <Header isExpertPage={true} />
+            <ExpertHeader/>
             <JoinExpert />
             <ExpertCommunity />
             <AreYouAnExpert />

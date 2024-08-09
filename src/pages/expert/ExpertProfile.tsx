@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import Footer from "../../components/Footer";
-import Header from "../../components/Header";
+import ExpertHeader from "../../components/expert/ExpertHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { expertUpdateProfileSchema } from '../../validation/yupValidation';
@@ -66,7 +66,7 @@ export default function ExpertProfile() {
 
     return (
         <>
-            <Header isExpertPage={true} />
+            <ExpertHeader/>
             <div className="container mx-auto my-10 p-5 max-w-lg">
                 <h1 className="text-3xl font-bold text-center mb-6">Edit Profile</h1>
                 <form onSubmit={handleSubmit} className="bg-neutral-200 p-6 rounded-lg shadow-md">

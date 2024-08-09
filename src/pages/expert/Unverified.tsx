@@ -1,13 +1,13 @@
 // frontend\src\pages\expert\Unverified.tsx
 
 import Footer from "../../components/Footer";
-import Header from "../../components/Header";
+import ExpertHeader from "../../components/expert/ExpertHeader";
 
 export default function Unverified() {
 
     return (
         <div className="flex flex-col">
-            <Header isExpertPage={true} />
+            <ExpertHeader/>
             <UnverifiedMessage />
             <Footer />
         </div>

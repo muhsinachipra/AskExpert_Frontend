@@ -2,7 +2,7 @@
 
 import { useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
-import Header from "../../components/Header";
+import UserHeader from "../../components/user/UserHeader";
 import SlotCard from "../../components/user/SlotCard";
 import { useGetExpertSlotsQuery } from "../../slices/api/userApiSlice";
 import { useSelector } from "react-redux";
@@ -39,7 +39,7 @@ function Slots() {
 
     return (
         <>
-            <Header />
+            <UserHeader />
             <div className="container mx-auto mt-10 min-h-[100vh]">
                 <div className="text-4xl font-bold mb-6">Slots</div>
                 <div className="space-y-4">

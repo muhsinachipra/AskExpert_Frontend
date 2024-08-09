@@ -25,8 +25,6 @@ const ChatPage = () => {
     const userConversations = conversationData?.newConversation || [];
 
     const { data: messageData, refetch: refetchMessages } = useGetMessageQuery({ conversationId: currentConversation._id || '000000' });
-    // const messages = useMemo(() => messageData?.message || [], [messageData]);
-    // const [messages, setMessages] = useState(messageData?.message || []);
     console.log('messageData?.message: ', messageData?.message || []);
     const [chatMessages, setChatMessages] = useState(messageData?.message || []);
     console.log('chatMessages: ', chatMessages);
