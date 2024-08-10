@@ -197,7 +197,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
         <div className="text-red-500 mt-2 text-sm">{error}</div>
       )}
       {selectedFile && (
-        <div className="mt-2 text-sm text-gray-600">
+        <div className="mt-1 text-sm text-gray-600">
           File selected: {selectedFile.name}
         </div>
       )}
