@@ -5,6 +5,7 @@ import { ExpertInfo } from '../../../slices/authSlice';
 import { IMessage, IUser } from '../../../types/domain';
 import { useGetFileUrlQuery } from '../../../slices/api/chatApiSlice';
 import { useEffect } from 'react';
+import CustomAudioPlayer from '../../CustomAudioPlayer';
 
 interface ChatMessagesProps {
     message: IMessage;
@@ -16,12 +17,14 @@ const ChatMessages = ({ message, expertInfo, userData }: ChatMessagesProps) => {
     const isSender = message.senderId === expertInfo?._id;
     const avatarSrc = isSender ? expertInfo?.profilePic : userData?.profilePic;
     const avatarAlt = isSender ? 'Expert Avatar' : 'User Avatar';
-    const messageClass = isSender ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800';
-    const timeClass = isSender ? 'text-gray-300' : 'text-gray-500';
+    const messageClass = isSender ? 'bg-indigo-200 text-black' : 'bg-white text-gray-800';
+    const timeClass = isSender ? 'text-gray-600' : 'text-gray-500';
 
     const { data: presignedUrl, refetch } = useGetFileUrlQuery(message.imageName || message.videoName || message.audioName || '', {
         skip: !(message.imageName || message.videoName || message.audioName),
     });
+
+    console.log('presignedUrl in frontend: ', presignedUrl)
 
     useEffect(() => {
         if (message.imageName || message.videoName || message.audioName) {
@@ -47,21 +50,29 @@ const ChatMessages = ({ message, expertInfo, userData }: ChatMessagesProps) => {
         <div className={`flex items-end mb-4 ${isSender ? 'justify-end' : ''}`}>
             {!isSender && renderAvatar(avatarSrc, avatarAlt)}
             <div className={`p-2 rounded-lg max-w-[75%] sm:max-w-md ${messageClass} shadow-sm`}>
+
                 {message.imageName && presignedUrl && (
                     <img src={presignedUrl.url} onClick={handleMediaClick} alt="Sent image" className="mt-2 max-h-40 sm:max-h-60 object-contain" />
                 )}
+
                 {message.videoName && presignedUrl && (
                     <video controls className="mt-2 max-h-40 sm:max-h-60 object-contain">
                         <source src={presignedUrl.url} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 )}
-                {message.audioName && presignedUrl && (
+
+                {/* {message.audioName && presignedUrl && (
                     <audio controls className="mt-2">
                         <source src={presignedUrl.url} type="audio/mpeg" />
                         Your browser does not support the audio element.
                     </audio>
+                )} */}
+
+                {message.audioName && presignedUrl && (
+                    <CustomAudioPlayer audioSrc={presignedUrl.url} />
                 )}
+
                 <p className="text-sm sm:text-base break-words">{message.text}</p>
                 <small className={`text-xs ${timeClass} mt-1 block`}>
                     {moment(message.createdAt).fromNow()}

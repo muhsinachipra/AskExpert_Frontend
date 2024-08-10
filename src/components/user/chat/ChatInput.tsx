@@ -144,7 +144,7 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
     return (
         <div className="bg-white border-t p-3">
             <div className="flex items-center bg-gray-100 rounded-full p-2">
-                <div className="relative mr-2">
+                <div className="relative mr-3">
                     <button type="button"
                         className="text-gray-500 hover:text-indigo-600 transition-colors"
                         onClick={() => setShowEmojiPicker((val) => !val)}
@@ -167,13 +167,13 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
                     name="file"
                     title="select a file"
                 />
-                <label htmlFor="file" className="mr-2 text-gray-500 hover:text-indigo-600 transition-colors cursor-pointer">
+                <label htmlFor="file" className="mr-3 text-gray-500 hover:text-indigo-600 transition-colors cursor-pointer">
                     <BsPaperclip size={20} />
                 </label>
 
                 <button
                     onClick={isRecording ? stopRecording : startRecording}
-                    className={`mr-2 ${isRecording ? 'text-red-600' : 'text-gray-500 hover:text-indigo-600'} transition-colors`}
+                    className={`mr-3 ${isRecording ? 'text-red-600' : 'text-gray-500 hover:text-indigo-600'} transition-colors`}
                 >
                     {isRecording ? <BsStopFill size={20} /> : <BsMic size={20} />}
                 </button>

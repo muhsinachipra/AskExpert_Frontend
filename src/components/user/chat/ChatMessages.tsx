@@ -5,6 +5,7 @@ import { UserInfo } from '../../../slices/authSlice';
 import { IExpert, IMessage } from '../../../types/domain';
 import { useEffect } from 'react';
 import { useGetFileUrlQuery } from '../../../slices/api/chatApiSlice';
+import CustomAudioPlayer from '../../CustomAudioPlayer';
 
 interface ChatMessagesProps {
     message: IMessage;
@@ -16,8 +17,8 @@ const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
     const isSender = message.senderId === userInfo?._id;
     const avatarSrc = isSender ? userInfo?.profilePic : expertData?.profilePic;
     const avatarAlt = isSender ? 'User Avatar' : 'Expert Avatar';
-    const messageClass = isSender ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800';
-    const timeClass = isSender ? 'text-gray-300' : 'text-gray-500';
+    const messageClass = isSender ? 'bg-indigo-200 text-black' : 'bg-white text-gray-800';
+    const timeClass = isSender ? 'text-gray-600' : 'text-gray-500';
 
     const { data: presignedUrl, refetch } = useGetFileUrlQuery(message.imageName || message.videoName || message.audioName || '', {
         skip: !(message.imageName || message.videoName || message.audioName),
@@ -54,11 +55,14 @@ const ChatMessages = ({ message, userInfo, expertData }: ChatMessagesProps) => {
                         Your browser does not support the video tag.
                     </video>
                 )}
-                {message.audioName && presignedUrl && (
+                {/* {message.audioName && presignedUrl && (
                     <audio controls className="mt-2">
                         <source src={presignedUrl.url} type="audio/mpeg" />
                         Your browser does not support the audio element.
                     </audio>
+                )} */}
+                {message.audioName && presignedUrl && (
+                    <CustomAudioPlayer audioSrc={presignedUrl.url} />
                 )}
                 <p className="text-sm sm:text-base break-words">{message.text}</p>
                 <small className={`text-xs ${timeClass} mt-1 block`}>

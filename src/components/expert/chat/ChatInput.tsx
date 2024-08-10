@@ -51,16 +51,19 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
         videoName: '',
         audioName: '',
       };
-
+      console.log('message in frontend: ', message)
       if (selectedFile) {
         const formData = new FormData();
         formData.append('file', selectedFile);
         const response = await uploadFile(formData).unwrap();
         if (fileType === 'image') {
+          console.log('image response.fileName: ', response.fileName)
           message.imageName = response.fileName;
         } else if (fileType === 'video') {
+          console.log('video response.fileName: ', response.fileName)
           message.videoName = response.fileName;
         } else if (fileType === 'audio') {
+          console.log('audio response.fileName: ', response.fileName)
           message.audioName = response.fileName;
         }
         setSelectedFile(null);
@@ -186,7 +189,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
           onChange={(e) => setChatText(e.target.value)}
           value={chatText}
         />
-        
+
         <button
           onClick={sendChat}
           className="ml-2 text-white bg-indigo-600 rounded-full p-2 hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
