@@ -6,7 +6,7 @@ import { UserInfo } from "../../../slices/authSlice";
 import { IConversation } from "../../../types/domain";
 import useSocket from "../../../hooks/useSocket";
 import EmojiPicker from 'emoji-picker-react';
-import { BsEmojiGrin, BsMic, BsStopFill } from "react-icons/bs";
+import { BsEmojiSmile, BsPaperclip, BsMic, BsStopFill, BsSend } from "react-icons/bs";
 import Spinner from "../../Spinner";
 
 const MAX_FILE_SIZE_MB = 8; // Maximum file size in MB
@@ -142,48 +142,67 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
     };
 
     return (
-        <div className="flex items-center">
-            <div className="relative">
-                <BsEmojiGrin
-                    className="text-[24px] mr-3 text-[#9BA3AF]"
-                    onClick={() => setShowEmojiPicker((val) => !val)}
+        <div className="bg-white border-t p-3">
+            <div className="flex items-center bg-gray-100 rounded-full p-2">
+                <div className="relative mr-2">
+                    <button type="button"
+                        className="text-gray-500 hover:text-indigo-600 transition-colors"
+                        onClick={() => setShowEmojiPicker((val) => !val)}
+                        title="Toggle Emoji Picker"
+                    >
+                        <BsEmojiSmile size={20} />
+                    </button>
+                    {showEmojiPicker && (
+                        <div className="absolute bottom-full mb-2 left-0">
+                            <EmojiPicker onEmojiClick={handleEmojiClick} />
+                        </div>
+                    )}
+                </div>
+                <input
+                    type="file"
+                    accept="image/*,video/*,audio/*"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    id="file"
+                    name="file"
+                    title="select a file"
                 />
-                {showEmojiPicker && (
-                    <div className="absolute bottom-full mb-2">
-                        <EmojiPicker onEmojiClick={handleEmojiClick} />
-                    </div>
-                )}
+                <label htmlFor="file" className="mr-2 text-gray-500 hover:text-indigo-600 transition-colors cursor-pointer">
+                    <BsPaperclip size={20} />
+                </label>
+
+                <button
+                    onClick={isRecording ? stopRecording : startRecording}
+                    className={`mr-2 ${isRecording ? 'text-red-600' : 'text-gray-500 hover:text-indigo-600'} transition-colors`}
+                >
+                    {isRecording ? <BsStopFill size={20} /> : <BsMic size={20} />}
+                </button>
+
+                <input
+                    type="text"
+                    placeholder="Type a message..."
+                    className="flex-grow px-4 py-2 bg-transparent focus:outline-none"
+                    onChange={(e) => setChatText(e.target.value)}
+                    value={chatText}
+                />
+
+                <button
+                    onClick={sendChat}
+                    className="ml-2 text-white bg-indigo-600 rounded-full p-2 hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!chatText.trim() && !selectedFile}
+                >
+                    {isUploading ? <Spinner /> : <BsSend size={20} />}
+                </button>
+
             </div>
-            <input
-                type="text"
-                placeholder="Type a message..."
-                className="flex-1 px-4 py-2 border border-gray-300 bg-zinc-200 rounded-lg focus:outline-none focus:border-indigo-600"
-                onChange={(e) => setChatText(e.target.value)}
-                value={chatText}
-            />
-            <input
-                type="file"
-                accept="image/*,video/*,audio/*"
-                onChange={handleFileChange}
-                className="hidden"
-                id="file"
-                name="file"
-            />
-            <label htmlFor="file" className="ml-3 bg-indigo-600 text-white px-4 py-2 rounded-lg cursor-pointer">
-                {selectedFile ? selectedFile.name : "Upload Media"}
-            </label>
             {error && (
-                <div className="text-red-500 ml-3">{error}</div>
+                <div className="text-red-500 mt-2 text-sm">{error}</div>
             )}
-            <button
-                onClick={isRecording ? stopRecording : startRecording}
-                className="ml-3 bg-red-600 text-white px-4 py-2 rounded-lg"
-            >
-                {isRecording ? <BsStopFill /> : <BsMic />}
-            </button>
-            <button onClick={sendChat} className="ml-3 min-w-[70px] max-h-[50px] bg-indigo-600 text-white px-4 py-2 rounded-lg" disabled={!chatText.trim() && !selectedFile}>
-                {isUploading ? <Spinner /> : "Send"}
-            </button>
+            {selectedFile && (
+                <div className="mt-1 text-sm text-gray-600">
+                    File selected: {selectedFile.name}
+                </div>
+            )}
         </div>
     );
 };

@@ -65,7 +65,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
         }
         setSelectedFile(null);
       }
-      
+
       // Send message through API
       await sendMessage(message).unwrap();
 
@@ -141,7 +141,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
       mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
     }
   };
-  
+
   return (
     // frontend\src\components\expert\chat\ChatInput.tsx
     <div className="bg-white border-t p-3">
@@ -172,6 +172,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
         <label htmlFor="file" className="mr-2 text-gray-500 hover:text-indigo-600 transition-colors cursor-pointer">
           <BsPaperclip size={20} />
         </label>
+
         <button
           onClick={isRecording ? stopRecording : startRecording}
           className={`mr-2 ${isRecording ? 'text-red-600' : 'text-gray-500 hover:text-indigo-600'} transition-colors`}
@@ -185,6 +186,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
           onChange={(e) => setChatText(e.target.value)}
           value={chatText}
         />
+        
         <button
           onClick={sendChat}
           className="ml-2 text-white bg-indigo-600 rounded-full p-2 hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"

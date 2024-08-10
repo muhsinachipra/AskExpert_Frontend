@@ -92,7 +92,6 @@ const ChatPage = () => {
             <div className={`${showContactList ? 'hidden' : 'flex'} md:flex flex-col w-full md:w-3/4 h-full transition-all duration-300 ease-in-out`}>
                 {currentConversation._id ? (
                     <>
-
                         <div className="flex gap-4 items-center bg-white p-3 border-b">
                             <button type="button" onClick={toggleContactList} className="md:hidden" title="Back button">
                                 <IoIosArrowBack />
@@ -115,7 +114,6 @@ const ChatPage = () => {
                         <img src={selectConversationImage} alt="Select a Conversation" className="w-1/2 h-auto mb-4" />
                         <p className="text-lg font-semibold text-gray-600">Select a conversation to start chatting</p>
                     </div>
-                    // <h1 className="flex items-center justify-center h-full text-lg font-semibold">Select a conversation</h1>
                 )}
             </div>
         </div>
