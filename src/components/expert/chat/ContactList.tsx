@@ -1,3 +1,5 @@
+// frontend\src\components\expert\chat\ContactList.tsx
+
 import { useNavigate } from "react-router-dom";
 import { IConversation } from "../../../types/domain";
 import { useCreateConversationMutation } from "../../../slices/api/chatApiSlice";
@@ -27,9 +29,10 @@ const ContactList = ({ conversation, currentExpertId, onSelectConversation }: { 
     };
 
     return (
+        // frontend\src\components\expert\chat\ContactList.tsx
         <div
             key={conversation._id}
-            className="flex items-center mb-4 cursor-pointer hover:bg-gray-100 p-2 rounded-md transition-all duration-200"
+            className="flex items-center mb-2 cursor-pointer hover:bg-gray-100 p-3 rounded-md transition-all duration-200 relative"
             onClick={() => handleChat(userData?._id || '')}
         >
             <div className="relative w-14 h-14 sm:w-12 sm:h-12 bg-gray-300 rounded-full mr-3 flex-shrink-0">

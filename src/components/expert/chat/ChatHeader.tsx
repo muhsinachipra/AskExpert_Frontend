@@ -1,32 +1,37 @@
 // frontend\src\components\expert\chat\ChatHeader.tsx
 
-import { useState, useEffect, useCallback } from 'react';
+// import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { IoIosArrowBack } from "react-icons/io";
 
 const ChatHeader = () => {
-    const [menuVisible, setMenuVisible] = useState(false);
+    // const [menuVisible, setMenuVisible] = useState(false);
 
-    const toggleMenu = () => {
-        setMenuVisible(!menuVisible);
-    };
+    // const toggleMenu = () => {
+    //     setMenuVisible(!menuVisible);
+    // };
 
-    const handleClickOutside = useCallback((event: MouseEvent) => {
-        if (menuVisible && event.target instanceof Element && !event.target.closest('#menuButton') && !event.target.closest('#menuDropdown')) {
-            setMenuVisible(false);
-        }
-    }, [menuVisible]);
+    // const handleClickOutside = useCallback((event: MouseEvent) => {
+    //     if (menuVisible && event.target instanceof Element && !event.target.closest('#menuButton') && !event.target.closest('#menuDropdown')) {
+    //         setMenuVisible(false);
+    //     }
+    // }, [menuVisible]);
 
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside);
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, [handleClickOutside]);
+    // useEffect(() => {
+    //     document.addEventListener('click', handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside);
+    //     };
+    // }, [handleClickOutside]);
 
     return (
-        <header className="p-4 border-b border-gray-300 flex justify-between items-center bg-indigo-600 text-white">
-            <Link to="/expert/appointments" className="text-xl sm:text-2xl font-semibold">Exit</Link>
-            <div className="relative">
+        // frontend\src\components\expert\chat\ChatHeader.tsx
+        <header className="px-4 py-4 border-b border-gray-200 flex justify-between items-center bg-white text-gray-800 shadow-sm">
+            <Link to="/expert/appointments" className="text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition-colors">
+                <IoIosArrowBack className="inline-block mr-2 mb-1" /> Exit
+            </Link>
+
+            {/* <div className="relative">
                 <button
                     type="button"
                     id="menuButton"
@@ -52,7 +57,8 @@ const ChatHeader = () => {
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> */}
+
         </header>
     );
 };

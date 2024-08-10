@@ -65,7 +65,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
         }
         setSelectedFile(null);
       }
-
+      
       // Send message through API
       await sendMessage(message).unwrap();
 
@@ -141,10 +141,11 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
       mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
     }
   };
-
+  
   return (
-    <div className="bg-white border-t p-2">
-      <div className="flex items-center">
+    // frontend\src\components\expert\chat\ChatInput.tsx
+    <div className="bg-white border-t p-3">
+      <div className="flex items-center bg-gray-100 rounded-full p-2">
         <div className="relative mr-2">
           <button type="button"
             className="text-gray-500 hover:text-indigo-600 transition-colors"
@@ -180,7 +181,7 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
         <input
           type="text"
           placeholder="Type a message..."
-          className="flex-grow px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+          className="flex-grow px-4 py-2 bg-transparent focus:outline-none"
           onChange={(e) => setChatText(e.target.value)}
           value={chatText}
         />
