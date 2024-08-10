@@ -41,9 +41,9 @@ function Slots() {
         <>
             <UserHeader />
             <div className="container mx-auto mt-10 min-h-[100vh]">
-                <div className="text-4xl font-bold mb-6">Slots</div>
+                <div className="text-4xl ml-3 md:ml-0 font-bold mb-6">Slots</div>
                 <div className="space-y-4">
-                    {error && <div className="pt-5 text-2xl font-bold mb-6">Error loading Data</div>}
+                    {error && <div className="pt-5 ml-3 md:ml-0 text-2xl font-bold mb-6">Error loading Data</div>}
                     {isLoading && <Spinner />}
                     {slotData && slotData.length > 0 ? (
                         slotData.map((slot) => (
@@ -59,7 +59,7 @@ function Slots() {
                             />
                         ))
                     ) : (
-                        <div className="pt-5 text-3xl font-bold mb-6">No slots available</div>
+                        <div className="pt-5 ml-3 md:ml-0 text-3xl font-bold mb-6">No slots available</div>
                     )}
                 </div>
                 <Pagination page={page} totalPages={totalPages} setPage={setPage} />

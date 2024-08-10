@@ -14,12 +14,12 @@ import withReactContent from 'sweetalert2-react-content';
 import { RRule } from 'rrule';
 import { formatTimeTo12Hour } from '../../../lib/utils';
 import Pagination from '../../../components/Pagination';
-const MySwal = withReactContent(Swal);
 
+const MySwal = withReactContent(Swal);
 export default function Schedule() {
   const [page, setPage] = useState(1);
   const [limit] = useState(4);
-  const { data, error, isLoading } = useGetSchedulesQuery({page, limit});
+  const { data, error, isLoading } = useGetSchedulesQuery({ page, limit });
   const total = data?.total || 0;
   const totalPages = Math.ceil(total / limit);
   const schedules = useMemo(() => data?.data, [data]);
@@ -104,15 +104,12 @@ export default function Schedule() {
 
   return (
     <>
-      {/* <div className="flex justify-between items-center py-4 px-6 bg-gray-800 rounded-lg shadow-md">
-        <span className="font-bold text-4xl text-white">Schedule</span>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-200" onClick={() => setIsAddModalOpen(true)}>
-          Add Schedule
-        </button>
-      </div> */}
-      <div className="flex justify-between items-center py-1 px-2">
-        <span className="font-bold text-4xl">Schedule</span>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4" onClick={() => setIsAddModalOpen(true)}>
+      <div className=" py-1 px-2 flex flex-col sm:flex-row justify-between items-center mb-4">
+        <span className="font-bold text-2xl sm:text-4xl mb-2 sm:mb-0">Schedule</span>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded w-full sm:w-auto"
+          onClick={() => setIsAddModalOpen(true)}
+        >
           Add Schedule
         </button>
       </div>
@@ -130,6 +127,7 @@ export default function Schedule() {
         />
       ))}
       <Pagination page={page} totalPages={totalPages} setPage={setPage} />
+
       <Modal isOpen={isAddModalOpen} onClose={handleAddModalClose}>
         <h2 className="text-2xl mb-4">Add Schedule</h2>
         <form onSubmit={formikAdd.handleSubmit}>

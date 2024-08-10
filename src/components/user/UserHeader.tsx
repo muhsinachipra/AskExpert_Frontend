@@ -124,7 +124,7 @@ export default function UserHeader() {
                                 type="button"
                                 id="menuButton"
                                 onClick={toggleDropdown}
-                                className="justify-center px-5 py-2 rounded-full font-semibold text-white capitalize bg-indigo-500 hover:bg-indigo-600"
+                                className="w-full justify-center px-5 py-2 rounded-lg font-semibold text-white capitalize bg-indigo-500 hover:bg-indigo-600"
                             >
                                 {userLoggedIn ? "Profile" : "Log in"}
                             </button>

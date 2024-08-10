@@ -1,6 +1,3 @@
-// frontend\src\components\expert\AppointmentCard.tsx
-
-// import { useNavigate } from "react-router-dom";
 import { formatTimeTo12Hour } from "../../lib/utils";
 import { IAppointment } from "../../types/domain";
 
@@ -15,7 +12,7 @@ const AppointmentCard = ({ appointment }: { appointment: IAppointment }) => {
 
     const invalidateAppointments = useInvalidateAppointments();
     const [updateAppointmentStatus] = useExpertUpdateAppointmentStatusMutation();
-    const appointmentId = appointment._id
+    const appointmentId = appointment._id;
 
     const userID = appointment.expertId || '';
     const userName = appointment.expertName || '';
@@ -48,7 +45,6 @@ const AppointmentCard = ({ appointment }: { appointment: IAppointment }) => {
                 }
             },
 
-            // The caller will receive the notification through this callback when the callee accepts the call invitation. 
             onOutgoingCallAccepted: async () => {
                 try {
                     await updateAppointmentStatus({ appointmentId, status: "completed" }).unwrap();
@@ -57,7 +53,6 @@ const AppointmentCard = ({ appointment }: { appointment: IAppointment }) => {
                     console.error("Failed to update appointment status:", error);
                 }
             },
-
         });
 
         try {
@@ -72,46 +67,42 @@ const AppointmentCard = ({ appointment }: { appointment: IAppointment }) => {
         }
     }
 
-
-
-
     return (
-        <div className="p-6 mb-4 border border-gray-200 rounded-xl shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
-            <div className="flex justify-between items-center">
-                <div className="flex flex-col items-center">
-                    <div className="text-sm font-medium text-gray-400">Date</div>
-                    <div className="text-sm md:text-2xl font-semibold text-gray-800">
+        <div className="p-4 mb-4 border border-gray-200 rounded-lg shadow-sm bg-white hover:shadow-md transition-shadow duration-300">
+            <div className="grid grid-cols-2 gap-y-2 md:flex md:flex-row md:justify-between md:items-center md:space-x-4">
+                <div className="flex flex-col">
+                    <div className="text-xs font-medium text-gray-400">Date</div>
+                    <div className="text-sm md:text-lg font-semibold text-gray-800">
                         <time>{appointment.date}</time>
                     </div>
                 </div>
-                <div className="flex flex-col items-center">
-                    <div className="text-sm font-medium text-gray-400">Start Time</div>
-                    <div className="text-sm md:text-2xl font-semibold text-gray-800">
+                <div className="flex flex-col">
+                    <div className="text-xs font-medium text-gray-400">Start Time</div>
+                    <div className="text-sm md:text-lg font-semibold text-gray-800">
                         <time>{formatTimeTo12Hour(appointment.startTime)}</time>
                     </div>
                 </div>
-                <div className="flex flex-col items-center">
-                    <div className="text-sm font-medium text-gray-400">End Time</div>
-                    <div className="text-sm md:text-2xl font-semibold text-gray-800">
+                <div className="flex flex-col">
+                    <div className="text-xs font-medium text-gray-400">End Time</div>
+                    <div className="text-sm md:text-lg font-semibold text-gray-800">
                         <time>{formatTimeTo12Hour(appointment.endTime)}</time>
                     </div>
                 </div>
-                <div className="flex flex-col items-center">
-                    <div className="text-sm font-medium text-gray-400">Price</div>
-                    <div className="text-sm md:text-2xl font-semibold text-gray-800">
+                <div className="flex flex-col">
+                    <div className="text-xs font-medium text-gray-400">Price</div>
+                    <div className="text-sm md:text-lg font-semibold text-gray-800">
                         <time>{appointment.price}</time>
                     </div>
                 </div>
-                <div className="flex flex-col items-center">
-                    <div className="text-sm font-medium text-gray-400">User Name</div>
-                    <div className="text-sm md:text-2xl font-semibold text-gray-800">
+                <div className="flex flex-col col-span-2 md:col-auto">
+                    <div className="text-xs font-medium text-gray-400">User Name</div>
+                    <div className="text-sm md:text-lg font-semibold text-gray-800">
                         <time>{appointment.userName}</time>
                     </div>
                 </div>
-                <div className="flex justify-end">
+                <div className="flex justify-end col-span-2 md:col-auto">
                     <button
-                        className="ml-4 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors duration-200 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-                        // onClick={() => navigate(`/room/${appointment._id}`)}
+                        className="w-full md:w-auto px-4 py-2 text-sm text-white font-semibold rounded-md shadow transition-colors duration-200 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
                         onClick={() => invite()}
                     >
                         Call

@@ -91,7 +91,7 @@ const SlotCard = ({ startTime, endTime, date, price, slotId, userId, userName }:
     };
 
     return (
-        <main className="flex flex-col gap-5 md:flex-row justify-between px-5 py-11 bg-white max-md:flex-wrap md:px-11 max-md:py-5 rounded-lg shadow-md border border-gray-200">
+        <main className="flex flex-col gap-5 md:flex-row justify-between mx-3 md:mx-0 px-5 py-11 bg-white max-md:flex-wrap md:px-11 max-md:py-5 rounded-lg shadow-md border border-gray-200">
             <div className="flex flex-col self-start">
                 <div className="flex items-center gap-2 mt-2 text-3xl font-bold tracking-wide leading-6 text-gray-800">
                     <time dateTime={startTime}>{startTime} - {endTime}</time>

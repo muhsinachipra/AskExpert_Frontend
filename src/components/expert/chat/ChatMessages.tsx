@@ -45,12 +45,12 @@ const ChatMessages = ({ message, expertInfo, userData }: ChatMessagesProps) => {
     return (
         <div className={`flex items-start mb-4 ${isSender ? 'justify-end' : ''}`}>
             {!isSender && renderAvatar(avatarSrc, avatarAlt)}
-            <div className={`p-2 rounded-lg max-w-xs ${messageClass}`}>
+            <div className={`p-2 rounded-lg max-w-[75%] sm:max-w-xs ${messageClass}`}>
                 {message.imageName && presignedUrl && (
-                    <img src={presignedUrl.url} onClick={handleMediaClick} alt="Sent image" className="mt-2 max-h-60 object-contain" />
+                    <img src={presignedUrl.url} onClick={handleMediaClick} alt="Sent image" className="mt-2 max-h-40 sm:max-h-60 object-contain" />
                 )}
                 {message.videoName && presignedUrl && (
-                    <video controls className="mt-2 max-h-60 object-contain">
+                    <video controls className="mt-2 max-h-40 sm:max-h-60 object-contain">
                         <source src={presignedUrl.url} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
@@ -61,7 +61,7 @@ const ChatMessages = ({ message, expertInfo, userData }: ChatMessagesProps) => {
                         Your browser does not support the audio element.
                     </audio>
                 )}
-                <p>{message.text}</p>
+                <p className="text-sm sm:text-base">{message.text}</p>
                 <small className={`text-xs ${timeClass}`}>
                     {moment(message.createdAt).fromNow()}
                 </small>

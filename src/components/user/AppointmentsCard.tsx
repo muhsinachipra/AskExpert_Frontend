@@ -132,28 +132,29 @@ const AppointmentsCard = ({ appointment }: { appointment: IAppointment }) => {
     };
 
     return (
-        <div className="p-6 border border-gray-200 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 flex items-center justify-between space-x-6">
-            <div className="flex flex-col items-start">
-                <div className="text-gray-600">{date}</div>
-                <div className="font-bold text-lg">{startTime} - {endTime}</div>
+        <div className="p-4 sm:p-6 border border-gray-200 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="flex flex-col items-start w-full sm:w-auto">
+                <div className="text-gray-600 text-sm">{date}</div>
+                <div className="font-bold text-base sm:text-lg">{startTime} - {endTime}</div>
             </div>
-            <div className="flex flex-col items-start">
-                <div className="text-gray-600">Expert Name</div>
-                <div className="font-bold text-lg">{expertName}</div>
+            <div className="flex flex-col items-start w-full sm:w-auto">
+                <div className="text-gray-600 text-sm">Expert Name</div>
+                <div className="font-bold text-base sm:text-lg">{expertName}</div>
             </div>
-            <div className="flex flex-col items-start">
-                <div className="text-gray-600">Expertise</div>
-                <div className="font-bold text-lg">{expertCategory}</div>
+            <div className="flex flex-col items-start w-full sm:w-auto">
+                <div className="text-gray-600 text-sm">Expertise</div>
+                <div className="font-bold text-base sm:text-lg">{expertCategory}</div>
             </div>
             {appointmentStatus === 'completed' ? (
-                <div className="font-bold text-lg text-green-600">Completed</div>
-            ) : isCancelled ? <div className="font-bold text-lg text-red-600">Cancelled</div>
-                :
-                <>
+                <div className="font-bold text-base sm:text-lg text-green-600 w-full sm:w-auto">Completed</div>
+            ) : isCancelled ? (
+                <div className="font-bold text-base sm:text-lg text-red-600 w-full sm:w-auto">Cancelled</div>
+            ) : (
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
                     <button
-                        className={`w-24 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors duration-200 ${isCancelled
-                            ? 'bg-gray-400 cursor-not-allowed'
-                            : 'bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75'
+                        className={`w-full sm:w-24 px-4 sm:px-6 py-2 sm:py-3 text-white font-semibold text-sm sm:text-base rounded-lg shadow-md transition-colors duration-200 ${isCancelled
+                                ? 'bg-gray-400 cursor-not-allowed'
+                                : 'bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75'
                             }`}
                         onClick={handleCancel}
                         disabled={isCancelled}
@@ -161,18 +162,17 @@ const AppointmentsCard = ({ appointment }: { appointment: IAppointment }) => {
                         {isCancelled ? 'Cancelled' : 'Cancel'}
                     </button>
                     <button
-                        className={`w-24 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors duration-200 ${isButtonEnabled
-                            ? 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75'
-                            : 'bg-gray-400 cursor-not-allowed'
+                        className={`w-full sm:w-24 px-4 sm:px-6 py-2 sm:py-3 text-white font-semibold text-sm sm:text-base rounded-lg shadow-md transition-colors duration-200 ${isButtonEnabled
+                                ? 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75'
+                                : 'bg-gray-400 cursor-not-allowed'
                             }`}
                         disabled={!isButtonEnabled}
-                        // onClick={() => navigate(`/room/${appointment._id}`)}
                         onClick={() => invite()}
                     >
                         Call
                     </button>
-                </>
-            }
+                </div>
+            )}
         </div>
     );
 };

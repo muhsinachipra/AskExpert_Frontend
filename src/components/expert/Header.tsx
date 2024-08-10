@@ -49,8 +49,9 @@ const Header = () => {
             to="/"
             className="flex flex-row space-x-3 items-center justify-center md:hidden"
           >
-            <span className="h-7 w-7 bg-zinc-300 rounded-lg" />
-            <span className="font-bold text-xl flex">Logo</span>
+            {/* <span className="h-7 w-7 bg-zinc-300 rounded-lg" /> */}
+            <img loading="lazy" src="/Ask.svg" alt="AskExperts logo" className="w-8 h-8" />
+            <span className="font-bold text-xl flex">AskExpert</span>
           </Link>
         </div>
 

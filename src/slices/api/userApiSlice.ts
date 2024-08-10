@@ -131,6 +131,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
             providesTags: ['Appointment'],
         }),
 
+        getUserAppointmentsHistory: builder.query<GetAppointmentDataResponse, { page: number; limit: number }>({
+            query: ({ page, limit }) => ({
+                url: `${USER_URL}/getUserAppointmentsHistory?page=${page}&limit=${limit}`,
+                method: 'GET',
+            }),
+            providesTags: ['Appointment'],
+        }),
+
         userGetExpertData: builder.query<GetSingleExpertDataResponse, string>({
             query: (expertId) => ({
                 url: `${USER_URL}/getExpertData/${expertId}`,
@@ -241,4 +249,5 @@ export const {
     useReviewMutation,
     useReportMutation,
     useGetUserWalletDataQuery,
+    useGetUserAppointmentsHistoryQuery
 } = userApiSlice;

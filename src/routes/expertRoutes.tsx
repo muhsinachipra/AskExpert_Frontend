@@ -5,7 +5,6 @@ import Register from '../pages/expert/authentication/Register'
 import Otp from '../pages/expert/authentication/Otp'
 import Login from '../pages/expert/authentication/Login'
 import Landing from '../pages/expert/LandingPage'
-import ExpertProfile from '../pages/expert/ExpertProfile'
 import Appointments from '../pages/expert/Appointments'
 import ExpertPrivateRoute from './privateRoutes/ExpertPrivateRoute'
 import ForgotPassword from '../pages/expert/authentication/ForgotPassword'
@@ -42,7 +41,6 @@ export function ExpertRoutes() {
                     <Route path='wallet' element={<Wallet />} />
                 </Route>
                 <Route path='chat' element={<ChatPage />} />
-                <Route path='profile2' element={<ExpertProfile />} />
             </Route>
         </Routes>
     )
