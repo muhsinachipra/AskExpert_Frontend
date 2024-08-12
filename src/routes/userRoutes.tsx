@@ -35,9 +35,9 @@ export function UserRoutes() {
             <Route path='/forgot' element={<ForgotPassword />} />
             <Route path='/resetpassword/:email/:token' element={<ResetPassword />} />
             <Route path='/' element={<Landing />} />
-            <Route path='/*' element={<NotFound />} />
+            <Route path='/*' element={<NotFound role={'user'} />} />
             <Route path='/server-error' element={<ServerError />} />
-            <Route path="*" element={<UserPrivateRoute />}>
+            <Route element={<UserPrivateRoute />}>
                 <Route path='profile' element={<UserProfile />} />
                 <Route path='home' element={<Home />} />
                 <Route path='experts/:categoryName' element={<SelectExpert />} />

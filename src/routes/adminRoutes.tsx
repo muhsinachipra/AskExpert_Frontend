@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../app/store'
 import Report from '../pages/admin/report/page'
 import ReportDetails from '../pages/admin/report/ReportDetails'
+import NotFound from '../pages/error/NotFound'
 
 
 export function AdminRoutes() {
@@ -27,6 +28,7 @@ export function AdminRoutes() {
         <Routes>
             <Route path='/login' element={adminInfo ? <Navigate to="/admin" /> : <Login />} />
             {/* <Route path='/login' element={<Login />} /> */}
+            <Route path='/*' element={<NotFound role={'admin'} />} />
             <Route element={<AdminPrivateRoute />}>
                 <Route element={<RootLayout />}>
                     <Route index element={<Dashboard />} />

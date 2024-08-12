@@ -18,6 +18,7 @@ import Profile from '../pages/expert/Profile'
 import Wallet from '../pages/expert/Wallet'
 import ChatPage from '../pages/expert/chat/ChatPage'
 import Ratings from '../pages/expert/Ratings'
+import NotFound from '../pages/error/NotFound'
 
 export function ExpertRoutes() {
     const { expertInfo } = useSelector((state: RootState) => state.auth);
@@ -32,6 +33,7 @@ export function ExpertRoutes() {
             <Route path='/forgot' element={<ForgotPassword />} />
             <Route path='/resetpassword/:email/:token' element={<ResetPassword />} />
             <Route path='not-verify' element={<Unverified />} />
+            <Route path='/*' element={<NotFound role={'expert'} />} />
             <Route element={<ExpertPrivateRoute />}>
                 <Route element={<ExpertLayout />}>
                     <Route path='schedule' element={<Schedule />} />
