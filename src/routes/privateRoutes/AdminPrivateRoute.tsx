@@ -3,7 +3,7 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import Spinner from "../../components/Spinner";
+import Loading from "../../components/Loading";
 
 const AdminPrivateRoute = () => {
   const location = useLocation()
@@ -14,7 +14,7 @@ const AdminPrivateRoute = () => {
   }
   if (adminStatus === 'loading' || adminStatus === 'idle') {
     // console.log('adminStatus in loading or idle', adminStatus);
-    return <Spinner />;
+    return <Loading />;
   }
   if (adminStatus === 'succeeded' && adminInfo) {
     // console.log('adminStatus in succeeded', adminStatus);

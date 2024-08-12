@@ -8,11 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AdminRoutes } from "./routes/adminRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./app/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AdminInfo, AsyncThunkConfig, ExpertInfo, fetchAdminData, fetchExpertData, fetchUserData, UserInfo } from "./slices/authSlice";
 import { IAdmin, IExpert, IUser } from "./types/domain";
 import { AsyncThunk } from "@reduxjs/toolkit";
 import { SocketProvider } from "./context/SocketContext";
+import Loading from "./components/Loading";
 
 export default function App() {
 
@@ -38,6 +39,21 @@ export default function App() {
         fetchData("isExpertLoggedIn", expertInfo, fetchExpertData);
         fetchData("isAdminLoggedIn", adminInfo, fetchAdminData);
     }, [dispatch, userInfo, expertInfo, adminInfo])
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate loading time with a timeout (replace with your actual loading logic)
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000); // Adjust the timeout as needed
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <SocketProvider>

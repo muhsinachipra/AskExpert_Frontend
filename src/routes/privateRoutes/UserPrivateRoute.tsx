@@ -3,7 +3,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import Spinner from "../../components/Spinner";
+import Loading from "../../components/Loading";
 
 const UserPrivateRoute = () => {
     const location = useLocation()
@@ -14,7 +14,7 @@ const UserPrivateRoute = () => {
     }
     if (userStatus === 'loading' || userStatus === 'idle') {
         // console.log('userStatus in loading or idle', userStatus);
-        return <Spinner />;
+        return <Loading />;
     }
     if (userStatus === 'succeeded' && userInfo) {
         // console.log('userStatus in succeeded', userStatus);
@@ -27,7 +27,7 @@ const UserPrivateRoute = () => {
     return null; // This ensures that nothing is rendered until status is determined
 
     // if (userStatus === 'loading') {
-    //     return <Spinner />;
+    //     return <Loading />;
     // }
     // if (userStatus === 'succeeded') {
     //     return userInfo ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />;

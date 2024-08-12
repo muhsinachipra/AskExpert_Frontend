@@ -29,7 +29,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import Spinner from "../../components/Spinner";
+import Loading from "../../components/Loading";
 
 const ExpertPrivateRoute = () => {
     const location = useLocation()
@@ -40,7 +40,7 @@ const ExpertPrivateRoute = () => {
     }
     if (expertStatus === 'loading' || expertStatus === 'idle') {
         // console.log('expertStatus in loading or idle', expertStatus);
-        return <Spinner />;
+        return <Loading />;
     }
     if (expertStatus === 'succeeded' && expertInfo) {
         // console.log('expertStatus in succeeded', expertStatus);
@@ -53,7 +53,7 @@ const ExpertPrivateRoute = () => {
     return null; // This ensures that nothing is rendered until status is determined
 
     // if (expertStatus === 'loading') {
-    //     return <Spinner />;
+    //     return <Loading />;
     // }
     // if (expertStatus === 'succeeded') {
     //     return expertInfo ? <Outlet /> : <Navigate to="/expert/login" state={{ from: location }} replace />;
