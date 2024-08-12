@@ -70,7 +70,7 @@ export default function UserHeader() {
     }, [handleClickOutside]);
 
     return (
-        <header className="bg-neutral-200 py-4 flex justify-between items-center w-full relative z-10 px-4 md:px-8">
+        <header className="bg-neutral-200 py-4 flex justify-between items-center w-full relative z-30 px-4 md:px-8">
             <div className="flex items-center">
                 <img loading="lazy" src="/Ask.svg" alt="AskExperts logo" className="w-8 h-8" />
                 <div className="ml-2 text-2xl font-semibold text-black">AskExpert</div>

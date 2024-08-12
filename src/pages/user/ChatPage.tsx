@@ -15,7 +15,7 @@ import ChatInput from "../../components/user/chat/ChatInput";
 import ChatMessages from "../../components/user/chat/ChatMessages";
 import ContactList from "../../components/user/chat/ContactList";
 
-import selectConversationImage from "../../../public/live-chat-vs-messaging-removebg-preview.png";
+import selectConversationImage from "../../assets/live-chat-vs-messaging-removebg-preview.png";
 
 const ChatPage = () => {
     const socket = useSocket();
