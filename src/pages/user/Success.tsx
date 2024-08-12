@@ -15,7 +15,7 @@ function Success() {
                     loop
                     animationData={animationData}
                     play
-                    style={{ width: 300, height: 300 }}
+                    style={{ width: 200, height: 200 }}
                 />
                 Payment Successfull
             </section>

@@ -7,16 +7,17 @@ import withReactContent from "sweetalert2-react-content";
 import { toast } from 'react-toastify';
 import { IAppointment } from "../../types/domain";
 import { formatTimeTo12Hour } from '../../lib/utils';
-// import { useNavigate } from "react-router-dom";
 import useInvalidateAppointments from "../../hooks/useInvalidateAppointments";
-
 import { ZIM } from "zego-zim-web";
 import { CallInvitationEndReason, ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
-import { ZEGO_KEY } from "../../config/config";
 import { useNavigate } from "react-router-dom";
 
 
 const AppointmentsCard = ({ appointment }: { appointment: IAppointment }) => {
+
+    const appID = Number(import.meta.env.VITE_ZEGOCLOUD_APPID);
+    const serverSecret = import.meta.env.VITE_ZEGOCLOUD_SECRET;
+
     const MySwal = withReactContent(Swal);
     const navigate = useNavigate()
     const [updateAppointmentStatus] = useUpdateAppointmentStatusMutation();
@@ -33,13 +34,12 @@ const AppointmentsCard = ({ appointment }: { appointment: IAppointment }) => {
     const expertName = appointment.expertName;
     const userId = appointment.userId || '';
     const userName1 = appointment.userName || '';
-
+    
     const userID = userId;
     const userName = userName1;
-    const appID = 1998573610;
-    const serverSecret = ZEGO_KEY;
     const TOKEN = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, appointmentId, userID, userName);
-
+    
+    // console.log('appID: ', appID, 'serverSecret: ', serverSecret)
     const zp = ZegoUIKitPrebuilt.create(TOKEN);
     zp.addPlugins({ ZIM });
 

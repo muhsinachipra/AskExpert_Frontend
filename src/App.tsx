@@ -1,5 +1,6 @@
 // frontend\src\App.tsx
 
+import Loading from "./components/Loading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserRoutes } from "./routes/userRoutes";
 import { ExpertRoutes } from "./routes/expertRoutes";
@@ -13,10 +14,10 @@ import { AdminInfo, AsyncThunkConfig, ExpertInfo, fetchAdminData, fetchExpertDat
 import { IAdmin, IExpert, IUser } from "./types/domain";
 import { AsyncThunk } from "@reduxjs/toolkit";
 import { SocketProvider } from "./context/SocketContext";
-import Loading from "./components/Loading";
 
 export default function App() {
-
+    
+    const [loading, setLoading] = useState(true);
     const dispatch = useDispatch<AppDispatch>();
     const { userInfo, expertInfo, adminInfo } = useSelector((state: RootState) => state.auth);
 
@@ -40,7 +41,6 @@ export default function App() {
         fetchData("isAdminLoggedIn", adminInfo, fetchAdminData);
     }, [dispatch, userInfo, expertInfo, adminInfo])
 
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Simulate loading time with a timeout (replace with your actual loading logic)

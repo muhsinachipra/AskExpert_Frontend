@@ -3,12 +3,14 @@ import { IAppointment } from "../../types/domain";
 
 import { ZIM } from "zego-zim-web";
 import { CallInvitationEndReason, ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
-import { ZEGO_KEY } from "../../config/config";
 import useInvalidateAppointments from "../../hooks/useInvalidateAppointments";
 import { toast } from "react-toastify";
 import { useExpertUpdateAppointmentStatusMutation } from "../../slices/api/expertApiSlice";
 
 const AppointmentCard = ({ appointment }: { appointment: IAppointment }) => {
+
+    const appID = Number(import.meta.env.VITE_ZEGOCLOUD_APPID);
+    const serverSecret = import.meta.env.VITE_ZEGOCLOUD_SECRET;
 
     const invalidateAppointments = useInvalidateAppointments();
     const [updateAppointmentStatus] = useExpertUpdateAppointmentStatusMutation();
@@ -16,9 +18,8 @@ const AppointmentCard = ({ appointment }: { appointment: IAppointment }) => {
 
     const userID = appointment.expertId || '';
     const userName = appointment.expertName || '';
-    const appID = 1998573610;
-    const serverSecret = ZEGO_KEY;
     const TOKEN = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, appointment._id, userID, userName);
+    // console.log('appID: ', appID, 'serverSecret: ', serverSecret)
 
     const zp = ZegoUIKitPrebuilt.create(TOKEN);
     zp.addPlugins({ ZIM });
