@@ -20,6 +20,8 @@ import { RootState } from '../app/store'
 import ChatPage from '../pages/user/ChatPage'
 import VideoCall from '../components/user/VideoCall'
 import Review from '../pages/user/Review'
+import NotFound from '../pages/error/NotFound'
+import ServerError from '../pages/error/ServerError'
 
 export function UserRoutes() {
 
@@ -33,6 +35,8 @@ export function UserRoutes() {
             <Route path='/forgot' element={<ForgotPassword />} />
             <Route path='/resetpassword/:email/:token' element={<ResetPassword />} />
             <Route path='/' element={<Landing />} />
+            <Route path='/*' element={<NotFound />} />
+            <Route path='/server-error' element={<ServerError />} />
             <Route path="*" element={<UserPrivateRoute />}>
                 <Route path='profile' element={<UserProfile />} />
                 <Route path='home' element={<Home />} />
