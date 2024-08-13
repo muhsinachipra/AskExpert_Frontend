@@ -8,6 +8,8 @@ import { IExpert } from "../../../../types/domain";
 import AdminTable from "../../../../components/admin/Table";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../components/Pagination";
+import { toast } from "react-toastify";
+import { MyError } from "../../../../validation/validationTypes";
 
 const getStatusClassName = (isVerified: boolean): string => {
     return isVerified ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600';
@@ -26,7 +28,7 @@ const VerifyExperts = () => {
 
     const handleButtonClick = async (expertId: string, isVerified: boolean) => {
         try {
-            const res = await updateExpertVerification({ expertId, isVerified: !isVerified });
+            const res = await updateExpertVerification({ expertId, isVerified: !isVerified }).unwrap();
             if (!isVerified) {
                 await sendVerifiedEmail({ expertId });
                 const newres = res.data?.data;
@@ -34,10 +36,11 @@ const VerifyExperts = () => {
             }
         } catch (error) {
             console.error("Failed to update expert verification status", error);
+            toast.error((error as MyError)?.data?.message || (error as MyError)?.error);
         }
     };
 
-    const tableHeaders = ["Name", "Email", "Resume", "Category", "Experience", "Rate", "Verified"];
+    const tableHeaders = ["Name", "Email", "Resume", "Category", "Experience", "Mobile", "Verified"];
 
     const renderRow = (expert: IExpert, handleButtonClick: (expertId: string, isVerified: boolean) => void) => (
         <>
