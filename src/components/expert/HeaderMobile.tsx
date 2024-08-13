@@ -82,7 +82,6 @@ const HeaderMobile = () => {
 };
 
 export default HeaderMobile;
-// const MenuToggle = ({ toggle }: { toggle: any }) => (
 const MenuToggle = ({ toggle }: { toggle: () => void }) => (
   <button
     type='button'

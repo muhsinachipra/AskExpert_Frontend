@@ -96,7 +96,7 @@ const ChatInput = ({ userInfo, currentConversation }: ChatInputProps) => {
                 setSelectedFile(null);
                 return;
             }
-            setError(null); // Clear any previous error
+            setError(null);
             setSelectedFile(file);
             if (file.type.startsWith('image/')) {
                 setFileType('image');

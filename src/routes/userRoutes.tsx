@@ -27,7 +27,6 @@ export function UserRoutes() {
     return (
         <Routes>
             <Route path='/login' element={userInfo ? <Navigate to="/home" /> : <Login />} />
-            {/* <Route path='/login' element={<Login />} /> */}
             <Route path='/register' element={<SignUp />} />
             <Route path='/otp' element={<Otp />} />
             <Route path='/forgot' element={<ForgotPassword />} />

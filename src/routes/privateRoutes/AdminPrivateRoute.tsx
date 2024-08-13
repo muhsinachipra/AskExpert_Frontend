@@ -1,8 +1,8 @@
 // frontend\src\routes\privateRoutes\AdminPrivateRoute.tsx
 
-import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import { useLocation, Navigate, Outlet } from "react-router-dom";
 import Loading from "../../components/Loading";
 
 const AdminPrivateRoute = () => {
@@ -21,8 +21,8 @@ const AdminPrivateRoute = () => {
   if (adminStatus === 'failed' || !adminInfo) {
     return <Navigate to="/admin/login" state={{ from: location }} replace />;
   }
-  return null; // This ensures that nothing is rendered until status is determined
-
+  // return null; // This ensures that nothing is rendered until status is determined
+  return <Loading />;
 }
 
 export default AdminPrivateRoute

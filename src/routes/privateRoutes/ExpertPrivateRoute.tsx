@@ -21,7 +21,8 @@ const ExpertPrivateRoute = () => {
     if (expertStatus === 'failed' || !expertInfo) {
         return <Navigate to="/expert/login" state={{ from: location }} replace />;
     }
-    return null; // This ensures that nothing is rendered until status is determined
+    // return null; // This ensures that nothing is rendered until status is determined
+    return <Loading />;
 }
 
 export default ExpertPrivateRoute;
