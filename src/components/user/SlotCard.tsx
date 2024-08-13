@@ -137,19 +137,7 @@ const SlotCard = ({ startTime, endTime, date, price, slotId, userId, userName }:
                                 </button>
                             </>
                         ) : null}
-                        {/* <h2 className="text-2xl font-semibold mb-4">Choose Payment Method</h2>
-                        <button
-                            onClick={() => handlePaymentMethodSelection('wallet')}
-                            className="block w-full px-4 py-2 mb-2 text-xl font-semibold text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600"
-                        >
-                            Pay with Wallet
-                        </button>
-                        <button
-                            onClick={() => handlePaymentMethodSelection('stripe')}
-                            className="block w-full px-4 py-2 text-xl font-semibold text-center text-white bg-green-500 rounded-lg hover:bg-green-600"
-                        >
-                            Pay with Stripe
-                        </button> */}
+                        
                     </div>
                 </div>
             )}

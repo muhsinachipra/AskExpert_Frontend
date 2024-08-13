@@ -1,6 +1,18 @@
 // frontend\src\types\response.tsx
 
-import { IAdmin, IAppointment, IExpert, IReview, IUser, IReport } from "./domain";
+import { IAdmin, IAppointment, IExpert, IReview, IUser, IReport, IConversation, IMessage } from "./domain";
+
+export interface GetConversationResponse {
+    newConversation: IConversation[];
+}
+
+export interface GetMessageResponse {
+    message: IMessage[];
+}
+
+export interface GetFileUrlResponse {
+    url: string;
+}
 
 export interface GetExpertDataResponse {
     success: boolean;

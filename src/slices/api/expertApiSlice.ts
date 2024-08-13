@@ -65,8 +65,6 @@ export const expertApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        // Schedules.......................
-
         getSchedules: builder.query<GetAppointmentDataResponse, { page: number, limit: number }>({
             query: ({ page, limit }) => ({
                 url: `${EXPERT_URL}/schedules/${page}/${limit}`,

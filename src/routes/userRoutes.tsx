@@ -4,7 +4,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from '../pages/user/authentication/Login'
 import SignUp from '../pages/user/authentication/SignUp'
 import Landing from '../pages/user/LandingPage'
-import MyComponent from '../pages/user/MyComponent'
 import Otp from '../pages/user/authentication/Otp'
 import ForgotPassword from '../pages/user/authentication/ForgotPassword'
 import ResetPassword from '../pages/user/authentication/ResetPassword'
@@ -23,8 +22,8 @@ import NotFound from '../pages/error/NotFound'
 import ServerError from '../pages/error/ServerError'
 
 export function UserRoutes() {
-
     const { userInfo } = useSelector((state: RootState) => state.auth);
+
     return (
         <Routes>
             <Route path='/login' element={userInfo ? <Navigate to="/home" /> : <Login />} />
@@ -46,7 +45,6 @@ export function UserRoutes() {
                 <Route path='chat' element={<ChatPage />} />
                 <Route path='review/:appointmentId' element={<Review />} />
             </Route>
-            <Route path='/test' element={<MyComponent />} />
         </Routes>
     )
-} 
+}

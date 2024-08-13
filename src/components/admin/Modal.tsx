@@ -1,4 +1,5 @@
 // frontend/src/components/Modal.tsx
+
 import { ReactNode, useRef, useEffect } from "react";
 
 interface ModalProps {

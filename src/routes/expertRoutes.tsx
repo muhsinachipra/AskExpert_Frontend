@@ -26,7 +26,6 @@ export function ExpertRoutes() {
     return (
         <Routes>
             <Route path='/login' element={expertInfo ? <Navigate to="/expert/appointments" /> : <Login />} />
-            {/* <Route path='/login' element={<Login />} /> */}
             <Route index element={<Landing />} />
             <Route path='/register' element={<Register />} />
             <Route path='/otp' element={<Otp />} />

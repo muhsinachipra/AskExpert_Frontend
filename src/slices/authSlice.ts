@@ -11,9 +11,7 @@ export const fetchUserData = createAsyncThunk(
     'auth/fetchUserData',
     async (_, { dispatch, rejectWithValue }) => {
         try {
-            // console.log('asyncthunk fetchUserData called.....')
             const { data } = await dispatch(getUserData);
-            // console.log('data in asyncthunk fetchUserData : ', data)
             if (data) {
                 return data?.data;
             } else {
@@ -60,21 +58,13 @@ export const fetchAdminData = createAsyncThunk(
 )
 
 export type AsyncThunkConfig = {
-    /** return type for `thunkApi.getState` */
     state?: unknown
-    /** type for `thunkApi.dispatch` */
     dispatch?: Dispatch
-    /** type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra` */
     extra?: unknown
-    /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
     rejectValue?: unknown
-    /** return type of the `serializeError` option callback */
     serializedErrorType?: unknown
-    /** type to be returned from the `getPendingMeta` option callback & merged into `pendingAction.meta` */
     pendingMeta?: unknown
-    /** type to be passed into the second argument of `fulfillWithValue` to finally be merged into `fulfilledAction.meta` */
     fulfilledMeta?: unknown
-    /** type to be passed into the second argument of `rejectWithValue` to finally be merged into `rejectedAction.meta` */
     rejectedMeta?: unknown
 }
 
@@ -104,7 +94,6 @@ export type ExpertInfo = {
     category?: string;
     experience?: number;
     profilePic?: string;
-    // profilePicUrl?: string;
     resume?: string;
     wallet?: number;
     isVerified?: boolean;

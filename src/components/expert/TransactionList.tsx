@@ -2,8 +2,6 @@
 
 import { IAppointment } from "../../types/domain";
 
-
-
 const TransactionList = ({ walletData }: { walletData: IAppointment[] }) => {
     return (
         <div className="bg-white shadow-md rounded p-4">

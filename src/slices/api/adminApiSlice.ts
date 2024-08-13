@@ -53,8 +53,6 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
-            // transformResponse: (response) => response.data, // 'response' is of type 'unknown'.ts(18046)
-            // transformErrorResponse: (response) => response.error, // Property 'error' does not exist on type 'FetchBaseQueryError'. Property 'error' does not exist on type '{ status: number; data: unknown; }'.ts(2339)
             invalidatesTags: ['Category'],
         }),
 
@@ -87,7 +85,6 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             query: ({ userId }) => ({
                 url: `${ADMIN_URL}/userBlockedStatus/${userId}`,
                 method: 'PATCH',
-                // body: { isBlocked },
             }),
             invalidatesTags: ['User'],
         }),

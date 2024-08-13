@@ -2,10 +2,7 @@
 
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from '../pages/admin/Login'
-// import Layout from '../components/admin/layout/Layout'
 import RootLayout from '../pages/admin/Layout'
-// import Dashboard from '../pages/admin/Dashboard'
-// import ExpertManagement from '../pages/admin/ExpertManagement'
 import AdminPrivateRoute from './privateRoutes/AdminPrivateRoute'
 import Dashboard from '../pages/admin/dashboard/page'
 import AllExperts from '../pages/admin/expert/page'
@@ -19,15 +16,12 @@ import Report from '../pages/admin/report/page'
 import ReportDetails from '../pages/admin/report/ReportDetails'
 import NotFound from '../pages/error/NotFound'
 
-
 export function AdminRoutes() {
-
     const { adminInfo } = useSelector((state: RootState) => state.auth);
 
     return (
         <Routes>
             <Route path='/login' element={adminInfo ? <Navigate to="/admin" /> : <Login />} />
-            {/* <Route path='/login' element={<Login />} /> */}
             <Route path='/*' element={<NotFound role={'admin'} />} />
             <Route element={<AdminPrivateRoute />}>
                 <Route element={<RootLayout />}>

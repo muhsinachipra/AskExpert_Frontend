@@ -37,9 +37,6 @@ const ContactList = ({ conversation, currentUserId, onSelectConversation }: { co
         >
             <div className="relative w-14 h-14 sm:w-12 sm:h-12 bg-gray-300 rounded-full mr-3 flex-shrink-0">
                 <img src={expertData?.profilePic} alt="User Avatar" className="w-full h-full rounded-full object-cover" />
-                {/* {contact.isOnline && (
-                    <span className="absolute bottom-0 right-0 block w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
-                )} */}
             </div>
             <div className="flex-1">
                 <h2 className="text-base sm:text-lg font-semibold select-none">{expertData?.name}</h2>

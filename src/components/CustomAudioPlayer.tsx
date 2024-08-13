@@ -1,3 +1,5 @@
+// frontend\src\components\CustomAudioPlayer.tsx
+
 import { useState, useRef } from 'react';
 import { FaPlay, FaPause } from 'react-icons/fa';
 

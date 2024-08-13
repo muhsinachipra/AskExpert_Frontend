@@ -12,7 +12,6 @@ import { useState } from "react";
 import Spinner from "../../components/Spinner";
 import Pagination from "../../components/Pagination";
 
-
 function Slots() {
 
     const { userInfo } = useSelector((state: RootState) => state.auth);

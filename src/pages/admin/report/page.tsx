@@ -66,8 +66,6 @@ function Report() {
       </>
   );
 
-
-
   return (
       <>
           <span className="font-bold text-4xl">Expert</span>

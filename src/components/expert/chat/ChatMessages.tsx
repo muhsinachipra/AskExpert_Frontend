@@ -62,13 +62,6 @@ const ChatMessages = ({ message, expertInfo, userData }: ChatMessagesProps) => {
                     </video>
                 )}
 
-                {/* {message.audioName && presignedUrl && (
-                    <audio controls className="mt-2">
-                        <source src={presignedUrl.url} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                    </audio>
-                )} */}
-
                 {message.audioName && presignedUrl && (
                     <CustomAudioPlayer audioSrc={presignedUrl.url} />
                 )}

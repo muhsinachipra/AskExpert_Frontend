@@ -1,21 +1,9 @@
 // frontend\src\slices\api\chatApiSlice.ts
 
-import { IConversation, IMessage } from '../../types/domain';
+import { GetConversationResponse, GetFileUrlResponse, GetMessageResponse } from '../../types/response'
 import { apiSlice } from './apiSlice'
 
 const CHAT_URL = "/api/chat"
-
-export interface GetConversationResponse {
-    newConversation: IConversation[];
-}
-
-export interface GetMessageResponse {
-    message: IMessage[];
-}
-
-export interface GetFileUrlResponse {
-    url: string;
-}
 
 export const chatApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -81,7 +69,6 @@ export const chatApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        // uploadFile: builder.mutation<UploadFileResponse, FormData>({
         uploadFile: builder.mutation({
             query: (formData) => ({
                 url: `${CHAT_URL}/uploadFile`,

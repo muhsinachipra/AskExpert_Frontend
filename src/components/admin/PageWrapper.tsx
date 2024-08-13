@@ -1,3 +1,5 @@
+// frontend\src\components\admin\PageWrapper.tsx
+
 import { ReactNode } from 'react';
 
 export default function PageWrapper({ children }: { children: ReactNode }) {

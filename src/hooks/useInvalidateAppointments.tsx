@@ -1,4 +1,4 @@
-// frontend\src\hooks\useInvalidateAppointments.ts
+// frontend\src\hooks\useInvalidateAppointments.tsx
 
 import { useDispatch } from 'react-redux';
 import { apiSlice } from '../slices/api/apiSlice';

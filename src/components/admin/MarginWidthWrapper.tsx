@@ -1,3 +1,5 @@
+// frontend\src\components\admin\MarginWidthWrapper.tsx
+
 import { ReactNode } from 'react';
 
 export default function MarginWidthWrapper({

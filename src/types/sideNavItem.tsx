@@ -1,3 +1,5 @@
+// frontend\src\types\sideNavItem.tsx
+
 export type SideNavItem = {
   title: string;
   path: string;

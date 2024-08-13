@@ -22,12 +22,10 @@ export default function Login() {
     const [googleAuth] = useGoogleAuthMutation();
     const [isLoading, setIsLoading] = useState(false);
 
-
     const initialValues = {
         email: "",
         password: ""
     };
-
 
     const { values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: initialValues,
