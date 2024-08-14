@@ -72,7 +72,7 @@ const UserProfile = () => {
     }
   };
 
-  const handleProfilePicClick = () => {
+  const handleProfilePicClick: () => void = () => {
     fileInputRef.current?.click();
   };
 

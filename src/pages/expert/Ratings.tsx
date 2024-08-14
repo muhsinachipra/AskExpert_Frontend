@@ -20,7 +20,7 @@ function Ratings() {
   const renderRow = (review: IReview) => (
     <tr key={review._id} className="border-b hover:bg-gray-50">
       <td className="p-2">{review.appointmentId ? format(new Date(review.appointmentId.date), 'yyyy-MM-dd') : 'N/A'}</td>
-      <td className="p-2">{review.userId.name}</td>
+      <td className="p-2">{review.userId ? review.userId.name : 'Unknown User'}</td>
       <td className="p-2">{review.rating}</td>
       <td className="p-2">{review.feedback}</td>
     </tr>
@@ -59,7 +59,7 @@ function Ratings() {
           </table>
         </div>
       </div>
-      <div className="mt-4 flex justify-center md:justify-end">
+      <div className="mt-4 flex justify-center md:justify-center">
         <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </div>
     </>
