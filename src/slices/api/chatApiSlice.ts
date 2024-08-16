@@ -3,7 +3,7 @@
 import { GetConversationResponse, GetFileUrlResponse, GetMessageResponse } from '../../types/response'
 import { apiSlice } from './apiSlice'
 
-const CHAT_URL = "/api/chat"
+const CHAT_URL = `${import.meta.env.VITE_BASE_URL}/api/chat`;
 
 export const chatApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -13,7 +13,6 @@ export const chatApiSlice = apiSlice.injectEndpoints({
                 url: `${CHAT_URL}/conversation`,
                 method: "POST",
                 body: data,
-                credentials: "include",
             }),
             invalidatesTags: ['Conversation', 'Message']
         }),
@@ -22,7 +21,6 @@ export const chatApiSlice = apiSlice.injectEndpoints({
             query: (userId) => ({
                 url: `${CHAT_URL}/conversation`,
                 params: { userId },
-                credentials: "include",
             }),
             providesTags: ['Conversation'],
         }),
@@ -31,7 +29,6 @@ export const chatApiSlice = apiSlice.injectEndpoints({
             query: ({ conversationId }) => ({
                 url: `${CHAT_URL}/message`,
                 params: { conversationId },
-                credentials: "include",
             }),
             providesTags: ['Message'],
             keepUnusedDataFor: 0,
@@ -43,7 +40,6 @@ export const chatApiSlice = apiSlice.injectEndpoints({
                 url: `${CHAT_URL}/message`,
                 method: "POST",
                 body: data,
-                credentials: "include",
             }),
             invalidatesTags: ['Message'],
         }),
@@ -55,7 +51,6 @@ export const chatApiSlice = apiSlice.injectEndpoints({
                 url: `${CHAT_URL}/viewMessages`,
                 method: "PATCH",
                 body: data,
-                credentials: "include",
             }),
         }),
 
@@ -65,7 +60,6 @@ export const chatApiSlice = apiSlice.injectEndpoints({
                 url: `${CHAT_URL}/getUnReadMessages`,
                 method: "GET",
                 params: { id },
-                credentials: "include",
             }),
         }),
 
