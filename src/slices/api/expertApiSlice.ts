@@ -4,7 +4,7 @@ import { IAppointment, ICategory } from "../../types/domain";
 import { GetAppointmentDataResponse, GetExpertDataForStateResponse, GetReviewDataResponse, GetSingleUserDataResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
-const EXPERT_URL = `${import.meta.env.VITE_BASE_URL}/api/expert`;
+const EXPERT_URL = `${import.meta.env.VITE_BASE_URL}api/expert`;
 
 
 export const expertApiSlice = apiSlice.injectEndpoints({

@@ -4,7 +4,7 @@ import { ICategory } from "../../types/domain";
 import { GetAdminDataForStateResponse, GetAppointmentDataResponse, GetExpertDataResponse, GetUserDataResponse, GetReportDataResponse, GetDashboardDataResponse, GetExpertsByCategoryDataResponse, GetUserCountDataResponse } from "../../types/response";
 import { apiSlice } from "./apiSlice";
 
-const ADMIN_URL = `${import.meta.env.VITE_BASE_URL}/api/admin`;
+const ADMIN_URL = `${import.meta.env.VITE_BASE_URL}api/admin`;
 
 export const adminApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
