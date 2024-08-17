@@ -14,7 +14,7 @@ function Hero() {
             />
             <motion.img 
                 loading="lazy" 
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ca8395bfb97a1bd951d7fb1f3f2bcdf65a60ed5f3ae590334de4f2d86d78cdc1?apiKey=62cb0e3201dd4b038734137173080a0d&" 
+                src="https://firebasestorage.googleapis.com/v0/b/askexpert-1716207437810.appspot.com/o/user%2FprofilePics%2F0b25bb29-d782-42b7-b053-e99ac314956c-landongggg.jpg?alt=media&token=9a3814b4-9110-4fad-a362-50a1c3553459" 
                 alt="Banner Image" 
                 className="object-cover absolute inset-0 size-full"
                 initial={{ scale: 1.1 }}
