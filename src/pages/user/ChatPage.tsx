@@ -98,7 +98,10 @@ const ChatPage = () => {
                                 <IoIosArrowBack />
                             </button>
                             <img src={expertData?.profilePic} alt="Expert Avatar" className="w-9 h-9 rounded-full" />
-                            <h1 className="text-xl md:text-2xl font-semibold">{expertData?.name || "Expert_Name"}</h1>
+                            {/* <h1 className="text-xl md:text-2xl font-semibold">{expertData?.name || "Expert_Name"}</h1> */}
+                            <h1 className="text-xl md:text-2xl font-semibold">
+                                {expertData?.name || "Expert_Name"} <span className="text-sm text-gray-500">({expertData?.category || "Expertise"})</span>
+                            </h1>
                         </div>
 
                         <div className="flex-grow overflow-y-auto p-3 bg-gray-100" ref={scrollRef}>
