@@ -24,7 +24,7 @@ function SelectExpert() {
     return (
         <>
             <UserHeader />
-            <div className="container h-screen mx-auto mt-10">
+            <div className="container mx-auto mt-10 mb-10">
                 <div className="text-4xl ml-5 md:ml-0 font-bold mb-6">Experts</div>
                
                 <div className="space-y-4">
