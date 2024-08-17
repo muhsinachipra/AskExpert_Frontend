@@ -3,6 +3,7 @@
 import { GetConversationResponse, GetFileUrlResponse, GetMessageResponse } from '../../types/response'
 import { apiSlice } from './apiSlice'
 
+// const CHAT_URL = 'api/chat';
 const CHAT_URL = `${import.meta.env.VITE_BASE_URL}api/chat`;
 
 export const chatApiSlice = apiSlice.injectEndpoints({

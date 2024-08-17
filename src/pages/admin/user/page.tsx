@@ -37,10 +37,17 @@ const AllUsers = () => {
 
 
 
-    const tableHeaders = ["Name", "Email", "Mobile", "Action"];
+    const tableHeaders = ["", "Name", "Email", "Mobile", "Action"];
 
     const renderRow = (user: IUser, handleButtonClick: (userId: string, isBlocked: boolean) => void) => (
         <>
+            <td className="p-2">
+                {user.profilePic ? (
+                    <img src={user.profilePic} alt={user.name} className="w-16 h-16 object-cover rounded" />
+                ) : (
+                    "No Image"
+                )}
+            </td>
             <td className="p-2">{user.name}</td>
             <td className="p-2">{user.email}</td>
             <td className="p-2">{user.mobile}</td>
