@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import LandingImage from "../../../assets/Landing.jpg";
 
 function Hero() {
     return (
@@ -13,8 +14,8 @@ function Hero() {
                 transition={{ duration: 1, ease: "easeOut" }}
             />
             <motion.img 
-                loading="lazy" 
-                src="https://firebasestorage.googleapis.com/v0/b/askexpert-1716207437810.appspot.com/o/user%2FprofilePics%2F0b25bb29-d782-42b7-b053-e99ac314956c-landongggg.jpg?alt=media&token=9a3814b4-9110-4fad-a362-50a1c3553459" 
+                loading="lazy"
+                src={LandingImage}
                 alt="Banner Image" 
                 className="object-cover absolute inset-0 size-full"
                 initial={{ scale: 1.1 }}
