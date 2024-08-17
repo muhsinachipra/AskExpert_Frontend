@@ -42,7 +42,7 @@ const ExpertListCard = ({ name, experience, averageRating, image, expertId }: Ex
         const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
         return (
-            <div className="flex items-center text-yellow-500">
+            <div className="flex justify-center md:justify-start items-center text-yellow-500">
                 {Array.from({ length: fullStars }).map((_, i) => (
                     <Icon key={`full-${i}`} icon={"material-symbols:star"} />
                 ))}
@@ -63,8 +63,8 @@ const ExpertListCard = ({ name, experience, averageRating, image, expertId }: Ex
                 {renderStars()}
             </div>
             <div className="flex flex-col space-y-2 mt-4 sm:mt-0 sm:ml-4">
-                <Link to={`/slots/${expertId}`} className="bg-green-500 text-white px-3 py-2 sm:px-4 sm:py-2 rounded text-center text-sm sm:text-base">Video Call</Link>
-                <button onClick={() => handleChat(expertId)} className="bg-green-500 text-white px-3 py-2 sm:px-4 sm:py-2 rounded text-sm sm:text-base">Chat with Expert</button>
+                <Link to={`/slots/${expertId}`} className="bg-green-500 text-white px-8 py-2 sm:px-4 sm:py-2 rounded text-center text-sm sm:text-base">Video Call</Link>
+                <button onClick={() => handleChat(expertId)} className="bg-green-500 text-white px-8 py-2 sm:px-4 sm:py-2 rounded text-sm sm:text-base">Chat with Expert</button>
             </div>
         </div>
     );
