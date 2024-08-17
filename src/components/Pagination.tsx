@@ -16,7 +16,7 @@ const Pagination = ({ page, totalPages, setPage }: { page: number, totalPages: n
     }
 
     return (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 mb-4">
             {pages}
         </div>
     );
