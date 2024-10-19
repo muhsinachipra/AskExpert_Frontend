@@ -18,7 +18,7 @@ To get started with the AskExpert frontend:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/askexpert-frontend.git
+   git clone https://github.com/muhsinachipra/AskExpert_Frontend.git
    ```
 
 2. **Navigate into the project directory:**
