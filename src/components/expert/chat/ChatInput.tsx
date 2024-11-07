@@ -57,14 +57,11 @@ const ChatInput = ({ expertInfo, currentConversation }: ChatInputProps) => {
         formData.append('file', selectedFile);
         const response = await uploadFile(formData).unwrap();
         if (fileType === 'image') {
-          console.log('image response.fileName: ', response.fileName)
-          message.imageName = response.fileName;
+          message.imageName = response.fileUrl;
         } else if (fileType === 'video') {
-          console.log('video response.fileName: ', response.fileName)
-          message.videoName = response.fileName;
+          message.videoName = response.fileUrl;
         } else if (fileType === 'audio') {
-          console.log('audio response.fileName: ', response.fileName)
-          message.audioName = response.fileName;
+          message.audioName = response.fileUrl;
         }
         setSelectedFile(null);
       }
