@@ -2,18 +2,18 @@
 
 import moment from 'moment';
 import { ExpertInfo } from '../../../slices/authSlice';
-import { IExpert, IMessage } from '../../../types/domain';
+import { IUser, IMessage } from '../../../types/domain';
 import CustomAudioPlayer from '../../CustomAudioPlayer';
 
 interface ChatMessagesProps {
     message: IMessage;
     expertInfo: ExpertInfo | null;
-    expertData: IExpert | undefined;
+    userData: IUser | undefined;
 }
 
-const ChatMessages = ({ message, expertInfo, expertData }: ChatMessagesProps) => {
+const ChatMessages = ({ message, expertInfo, userData }: ChatMessagesProps) => {
     const isSender = message.senderId === expertInfo?._id;
-    const avatarSrc = isSender ? expertInfo?.profilePic : expertData?.profilePic;
+    const avatarSrc = isSender ? expertInfo?.profilePic : userData?.profilePic;
     const avatarAlt = isSender ? 'User Avatar' : 'Expert Avatar';
     const messageClass = isSender ? 'bg-indigo-200 text-black' : 'bg-white text-gray-800';
     const timeClass = isSender ? 'text-gray-600' : 'text-gray-500';
