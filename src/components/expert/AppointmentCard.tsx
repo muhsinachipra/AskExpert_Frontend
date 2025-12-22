@@ -1,3 +1,5 @@
+// AskExpert_Frontend\src\components\expert\AppointmentCard.tsx
+
 import { formatTimeTo12Hour } from "../../lib/utils";
 import { IAppointment } from "../../types/domain";
 
