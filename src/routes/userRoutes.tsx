@@ -34,10 +34,10 @@ export function UserRoutes() {
             <Route path='/' element={<Landing />} />
             <Route path='/*' element={<NotFound role={'user'} />} />
             <Route path='/server-error' element={<ServerError />} />
+            <Route path='/experts/:categoryName' element={<SelectExpert />} />
+            <Route path='/home' element={<Home />} />
             <Route element={<UserPrivateRoute />}>
                 <Route path='profile' element={<UserProfile />} />
-                <Route path='home' element={<Home />} />
-                <Route path='experts/:categoryName' element={<SelectExpert />} />
                 <Route path='slots/:expertId' element={<Slots />} />
                 <Route path='success' element={<Success />} />
                 <Route path='appointments' element={<Appointments />} />
